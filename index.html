@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <script>
+        (function() {
+            const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const isSmallScreen = window.screen.width < 1024 || window.innerWidth < 1024;
+            const isTouch = (navigator.maxTouchPoints > 0) || ('ontouchstart' in window);
+
+            if (isMobileUA || (isTouch && isSmallScreen)) {
+                if (!window.location.href.includes('67.html')) {
+                    window.location.replace('67.html');
+                }
+            }
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adam Zafir</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- GSAP & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    
+    <!-- Lenis for Smooth Scroll -->
+    <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+
+    <!-- Markdown Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Outfit:wght@200;300;400;500;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        display: ['Syncopate', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#00f2ff',
+                        secondary: '#7000ff',
+                        accent: '#ff00c8',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --cursor-size: 20px;
+            --cursor-hover-size: 80px;
+            --prism-1: #00f2ff;
+            --prism-2: #ff00c8;
+            --prism-3: #7000ff;
+        }
+
+        body {
+            background-color: #050505;
+            color: #fff;
+            cursor: none;
+            overflow-x: hidden;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* --- 1. Ambient Background (Dynamic Parallax) --- */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            overflow: hidden;
+            background: #020204;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            mix-blend-mode: screen;
+            will-change: transform;
+        }
+
+        .orb-1 { width: 60vw; height: 60vw; background: radial-gradient(circle, #4f46e5 0%, transparent 70%); top: -20%; left: -10%; }
+        .orb-2 { width: 50vw; height: 50vw; background: radial-gradient(circle, #c026d3 0%, transparent 70%); bottom: -10%; right: -10%; }
+        .orb-3 { width: 40vw; height: 40vw; background: radial-gradient(circle, #0891b2 0%, transparent 70%); top: 40%; left: 30%; }
+
+        /* --- 2. Texture --- */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.04;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* --- 3. Glass 3.0 Engine --- */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.015);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out, border-color 0.3s;
+        }
+
+        .glass-panel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: radial-gradient(
+                800px circle at var(--mouse-x) var(--mouse-y),
+                rgba(255, 255, 255, 0.8),
+                transparent 40%
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 2;
+        }
+        .glass-panel:hover::before { opacity: 1; }
+
+        .prism-border {
+            position: absolute;
+            inset: -2px;
+            border-radius: inherit;
+            background: linear-gradient(45deg, var(--prism-1), transparent, var(--prism-2), transparent, var(--prism-3));
+            z-index: -1;
+            opacity: 0;
+            filter: blur(10px);
+            transition: opacity 0.4s ease;
+        }
+        .glass-panel:hover .prism-border { opacity: 0.6; }
+
+        .glass-shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent);
+            transform: skewX(-25deg);
+            pointer-events: none;
+            transition: 0.5s;
+        }
+        .glass-panel:hover .glass-shine { left: 200%; transition: 0.7s; }
+
+        /* --- 4. Liquid Glass UI (Nav & BMC) --- */
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow:
+                inset 0 0 20px rgba(255, 255, 255, 0.05),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                0 20px 40px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .liquid-glass::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.15), transparent);
+            border-radius: 9999px;
+            pointer-events: none;
+        }
+
+        /* --- 5. Typography --- */
+        .hero-title {
+            background: linear-gradient(to right, #fff, #b4b4b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* Prevent clipping of descenders/ascenders */
+            padding-bottom: 0.1em;
+            line-height: 1.1;
+        }
+        
+        .gradient-text-anim {
+            background: linear-gradient(90deg, #00f2ff, #7000ff, #ff00c8, #00f2ff);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 6s linear infinite;
+        }
+        @keyframes shimmer { 0% { background-position: 0% 0%; } 100% { background-position: 100% 0%; } }
+
+        .typewriter-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1em;
+            background-color: #00f2ff;
+            margin-left: 5px;
+            animation: blink 0.8s step-end infinite;
+            vertical-align: sub;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* --- 6. Custom Cursor --- */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--cursor-size);
+            height: var(--cursor-size);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
+            mix-blend-mode: difference;
+        }
+
+        .custom-cursor.hovered {
+            width: var(--cursor-hover-size);
+            height: var(--cursor-hover-size);
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            backdrop-filter: none;
+        }
+
+        .cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            background-color: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px #fff, 0 0 20px #00f2ff;
+        }
+
+        /* --- 7. Chat Interface --- */
+        .chat-modal {
+            position: fixed;
+            bottom: 100px;
+            left: 32px;
+            width: 350px;
+            /* Changed height logic to avoid clipping on top */
+            height: 500px;
+            max-height: 70vh; /* Constrain height */
+            border-radius: 24px;
+            z-index: 60;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .chat-modal.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .message-bubble {
+            max-width: 85%;
+            padding: 10px 14px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            border-radius: 14px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .msg-user {
+            background: rgba(0, 242, 255, 0.15);
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            color: #fff;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .msg-ai {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        /* --- 8. Utils --- */
+        .page-section { display: none; opacity: 0; }
+        .page-section.active { display: block; opacity: 1; }
+        
+        .section-line {
+            display: inline-block;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #00f2ff, transparent);
+            vertical-align: middle;
+            margin-right: 15px;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+</head>
+<body class="selection:bg-pink-500/30 selection:text-white">
+
+    <!-- Cursor -->
+    <div class="custom-cursor" id="cursor-ring"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
+
+    <!-- Background Layers -->
+    <div class="ambient-bg" id="parallax-bg">
+        <div class="orb orb-1" data-speed="2"></div>
+        <div class="orb orb-2" data-speed="-2"></div>
+        <div class="orb orb-3" data-speed="1"></div>
+    </div>
+    <div class="noise-overlay"></div>
+
+    <!-- Liquid Glass Navigation -->
+    <nav class="fixed top-8 left-0 w-full z-50 flex justify-center pointer-events-none">
+        <div class="liquid-glass rounded-full p-1.5 flex items-center gap-1 pointer-events-auto relative">
+            <!-- Active Tab Indicator -->
+            <div id="nav-indicator" class="absolute h-[80%] top-[10%] bg-white/10 rounded-full transition-all duration-300 ease-out z-0"></div>
+            
+            <button id="nav-home" onclick="navigateTo('home')" class="relative z-10 px-6 py-2 rounded-full transition-colors font-display text-xs font-bold tracking-widest text-white/80 hover:text-white magnetic-btn">HOME</button>
+            <div class="w-px h-3 bg-white/10 relative z-10"></div>
+            <button id="nav-projects" onclick="navigateTo('projects')" class="relative z-10 px-6 py-2 rounded-full transition-colors font-display text-xs font-bold tracking-widest text-white/80 hover:text-white magnetic-btn">PROJECTS</button>
+            <div class="w-px h-3 bg-white/10 relative z-10"></div>
+            <a href="https://github.com/adamzafir" target="_blank" class="relative z-10 w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors magnetic-btn group">
+                <i data-lucide="github" class="w-4 h-4 text-white/70 group-hover:text-white"></i>
+            </a>
+        </div>
+    </nav>
+
+    <!-- AI Chat Button (Left) -->
+    <div class="fixed bottom-8 left-8 z-50 flex flex-col items-start gap-3 pointer-events-none">
+        <button onclick="toggleChat()" class="liquid-glass w-14 h-14 rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 magnetic-btn group pointer-events-auto shadow-[0_0_30px_rgba(0,242,255,0.3)]">
+            <div class="absolute inset-0 bg-cyan-400/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <i data-lucide="sparkles" class="w-5 h-5 text-cyan-300 relative z-10"></i>
+        </button>
+    </div>
+
+    <!-- AI Chat Modal -->
+    <div id="chat-modal" class="chat-modal glass-panel border border-white/10">
+        <!-- Header -->
+        <div class="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></div>
+                <span class="font-display text-xs tracking-widest text-white/80">ADAM AI TWIN</span>
+            </div>
+            <button onclick="toggleChat()" class="text-white/50 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+        </div>
+        <!-- Messages -->
+        <div id="chat-history" class="flex-1 overflow-y-auto p-4 flex flex-col gap-2 scrollbar-hide" data-lenis-prevent>
+            <div class="msg-ai message-bubble">
+                Hello! I'm Adam's digital assistant. Ask me anything about his projects, skills, or experience! ✨
+            </div>
+        </div>
+        <!-- Input -->
+        <div class="p-3 border-t border-white/10 bg-white/5">
+            <div class="relative">
+                <input type="text" id="chat-input" placeholder="Ask AI..." class="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/30 chat-input transition-colors" onkeypress="handleChatEnter(event)">
+                <button onclick="sendChatMessage()" class="absolute right-2 top-2 p-1.5 bg-cyan-500/20 hover:bg-cyan-500/40 rounded-lg text-cyan-300 transition-colors">
+                    <i data-lucide="send" class="w-3 h-3"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Liquid BMC Button with Bubble (Right) -->
+    <div class="fixed bottom-8 right-8 z-50 flex flex-col items-end gap-3 pointer-events-none">
+        <!-- Speech Bubble -->
+        <div id="bmc-bubble" class="bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold px-4 py-2 rounded-xl rounded-tr-sm shadow-xl opacity-0 translate-y-4 transition-all duration-500">
+            Thanks for visiting!
+        </div>
+        
+        <!-- Button -->
+        <a href="https://www.buymeacoffee.com/adamzafir" target="_blank" onmouseenter="showBubble()" onmouseleave="hideBubble()" class="liquid-glass w-14 h-14 rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 magnetic-btn group pointer-events-auto">
+            <div class="absolute inset-0 bg-yellow-400/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <i data-lucide="coffee" class="w-5 h-5 text-yellow-300 relative z-10"></i>
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <main class="relative min-h-screen pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto flex flex-col justify-between z-10">
+
+        <!-- HOME -->
+        <section id="home" class="page-section active">
+            <div class="min-h-[60vh] flex flex-col justify-center relative">
+                <h1 class="text-7xl md:text-9xl font-black tracking-tighter mb-6 relative z-10 hero-title mix-blend-lighten">
+                    HI, I'M <br>
+                    <span class="gradient-text-anim">ADAM</span>
+                </h1>
+                
+                <div class="inline-block glass-panel px-6 py-4 rounded-xl border-l-4 border-l-cyan-400 max-w-2xl reveal-fade">
+                    <p class="text-2xl md:text-3xl font-light text-gray-200">
+                        I'm a <span id="typewriter" class="font-normal text-white"></span><span class="typewriter-cursor"></span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-20 grid md:grid-cols-12 gap-12 items-start opacity-0" id="about-section">
+                <div class="md:col-span-3 pt-2">
+                    <span class="section-line"></span>
+                    <span class="font-display text-xs tracking-[0.2em] text-cyan-400">ABOUT</span>
+                </div>
+                <div class="md:col-span-9 space-y-8 relative">
+                    <div class="glass-panel p-8 md:p-12 rounded-3xl tilt-card">
+                        <div class="prism-border"></div>
+                        <div class="glass-shine"></div>
+                        <p class="text-3xl md:text-4xl font-extralight leading-snug text-white/90">
+                            I'm someone who chose <strong class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-400">Swift over sleep</strong> and never really looked back. I like building things that feel focused, intentional, and useful.
+                        </p>
+                        <p class="text-xl text-gray-400 font-light mt-6 leading-relaxed">
+                            Swift is where most of my ideas turn into something real, and every project is just another step toward getting better at what I do.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS LIST -->
+        <section id="projects" class="page-section">
+            <div class="mb-24 reveal-proj">
+                <span class="section-line"></span>
+                <span class="font-display text-xs tracking-[0.2em] text-cyan-400">RECENT WORKS</span>
+                <h2 class="text-6xl md:text-8xl font-bold tracking-tighter mt-4 gradient-text-anim hero-title">PROJECTS</h2>
+            </div>
+
+            <div class="grid gap-16">
+                <!-- Pycollab Card -->
+                <div onclick="navigateTo('project-pycollab')" class="glass-panel rounded-[2rem] p-8 md:p-16 cursor-pointer group tilt-card reveal-proj opacity-0 translate-y-20">
+                    <div class="prism-border"></div>
+                    <div class="glass-shine"></div>
+                    <div class="relative z-10 flex flex-col md:flex-row justify-between gap-8">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-[10px] font-bold tracking-widest uppercase">2025</span>
+                            </div>
+                            <h3 class="text-5xl md:text-7xl font-bold mb-4 group-hover:text-cyan-400 transition-colors duration-300">PYCOLLAB</h3>
+                            <p class="text-xl text-gray-400 max-w-xl group-hover:text-gray-200 transition-colors">A real-time, browser-based Python IDE. Collaborative coding made effortless.</p>
+                        </div>
+                        <div class="self-start md:self-center">
+                            <div class="w-20 h-20 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-cyan-400 group-hover:text-black group-hover:border-cyan-400 transition-all duration-500 group-hover:scale-110 group-hover:rotate-[-45deg]">
+                                <i data-lucide="arrow-right" class="w-8 h-8"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scripties Card -->
+                <div onclick="navigateTo('project-scripties')" class="glass-panel rounded-[2rem] p-8 md:p-16 cursor-pointer group tilt-card reveal-proj opacity-0 translate-y-20">
+                    <div class="prism-border"></div>
+                    <div class="glass-shine"></div>
+                    <div class="relative z-10 flex flex-col md:flex-row justify-between gap-8">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <!-- Tag has color, Year is neutral -->
+                                <span class="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-[10px] font-bold tracking-widest uppercase">Swift Accelerator</span>
+                                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-[10px] font-bold tracking-widest uppercase">2025</span>
+                            </div>
+                            <h3 class="text-5xl md:text-7xl font-bold mb-4 group-hover:text-purple-400 transition-colors duration-300">SCRIPTIES</h3>
+                            <p class="text-xl text-gray-400 max-w-xl group-hover:text-gray-200 transition-colors">Teleprompter and speech review app. Elevating student presentations.</p>
+                        </div>
+                        <div class="self-start md:self-center">
+                            <div class="w-20 h-20 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-purple-400 group-hover:text-black group-hover:border-purple-400 transition-all duration-500 group-hover:scale-110 group-hover:rotate-[-45deg]">
+                                <i data-lucide="arrow-right" class="w-8 h-8"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PYCOLLAB DETAIL -->
+        <section id="project-pycollab" class="page-section">
+            <button onclick="navigateTo('projects')" class="group mb-12 flex items-center gap-3 text-cyan-400 font-bold uppercase text-xs tracking-widest magnetic-btn w-fit px-4 py-2 rounded-full hover:bg-cyan-900/20 transition-all">
+                <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i> Back
+            </button>
+
+            <!-- Hero Banner -->
+            <div class="glass-panel rounded-[2.5rem] p-12 md:p-24 mb-24 relative overflow-hidden">
+                <div class="absolute -top-[200px] -right-[200px] w-[600px] h-[600px] bg-cyan-500/20 rounded-full blur-[120px] pointer-events-none"></div>
+                <div class="prism-border"></div>
+                
+                <h1 class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-8 uppercase relative z-10 hero-title leading-tight">Pycollab</h1>
+                <p class="text-2xl md:text-3xl text-gray-200 max-w-3xl leading-relaxed mb-12 relative z-10 font-light">A real-time, browser-based Python IDE that makes collaborative coding as effortless as sharing a link.</p>
+                
+                <div class="flex flex-wrap gap-6 items-center border-t border-white/10 pt-12 relative z-10 justify-between">
+                    <div class="flex gap-4">
+                        <a href="https://pycollab.adamzafir.com" target="_blank" class="flex items-center gap-2 bg-white text-black hover:bg-cyan-400 hover:scale-105 px-8 py-4 rounded-full font-bold text-sm transition-all duration-300 magnetic-btn">
+                            LIVE DEMO <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                        <button onclick="generateProjectInsight('pycollab')" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 px-6 py-4 rounded-full font-bold text-sm leading-none transition-all text-cyan-300">
+                            ✨ AI DEEP DIVE
+                        </button>
+                    </div>
+                    <!-- Year fixed to bright white/90 -->
+                    <div class="px-6 py-4 rounded-full border border-white/10 bg-white/10 backdrop-blur-md">
+                        <span class="text-white/90 font-display text-xs tracking-widest font-bold">YEAR: 2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="grid md:grid-cols-2 gap-8 mb-32">
+                <div class="glass-panel p-10 rounded-3xl tilt-card">
+                    <div class="prism-border"></div>
+                    <span class="font-display text-xs tracking-widest text-cyan-400 mb-4 block">THE PROBLEM</span>
+                    <p class="text-lg text-gray-300 leading-relaxed">Collaboration on Python code is usually way more over-engineered than it has to be. For beginners especially, the learning curve gets steep using tools like GitHub, with branches, pull requests, and merge conflicts getting in the way of actually learning the language.</p>
+                </div>
+                <div class="glass-panel p-10 rounded-3xl tilt-card">
+                    <div class="prism-border"></div>
+                    <span class="font-display text-xs tracking-widest text-cyan-400 mb-4 block">THE SOLUTION</span>
+                    <p class="text-lg text-gray-300 leading-relaxed">PythonCollab is a browser-based Python IDE designed to make coding together easy. Share a short PIN, and instantly see everybody's edits appear live: like Google Docs for Python.</p>
+                </div>
+            </div>
+
+            <div class="glass-panel p-10 md:p-20 mb-20 rounded-3xl relative overflow-hidden">
+                <div class="glass-shine"></div>
+                <p class="text-xl md:text-2xl text-gray-200 leading-relaxed font-light" id="pycollab-desc">
+                    PythonCollab was built with a single goal: make writing and sharing Python code feel as natural as working in a live, shared document. Dismayed by how much classic tooling frustrates novices and teams alike, the project reimagines collaborative coding as lightweight, approachable, and instantly interactive.
+The central insight driving this was the realization that most people, especially beginning programmers, are hamstrung by overhead entailed in typical development environments. Instead of playing with Python, users wrestled with merges, branches, setting up environments, and configuring. PythonCollab, therefore, was set up as a zero-setup, browser-based workspace where collaboration is the default, rather than an afterthought. In its creation, simplicity and real-time interactivity were held paramount. Each feature, from shared cursors to live synced edits to unified console output, is crafted to remove friction that gets in the way of people staying immersed in thinking about Python-not tooling. PythonCollab makes collaborative programming more inviting, intuitive, and humane by giving people a place where they can open a browser, share a PIN, and start creating-instantly. PythonCollab is great for teaching, pair programming, workshops, quick experiments, or any reason people need to collaborate around code. It's a clean and approachable environment: zero installs, zero setup, and zero hurdles.
+                <!-- AI Result Area -->
+                <div id="pycollab-ai-result" class="hidden mt-8 p-6 bg-cyan-500/10 border border-cyan-500/30 rounded-xl text-cyan-100 text-lg scroll-mt-32"></div>
+            </div>
+
+            <!-- Next Project Nav -->
+            <div onclick="navigateTo('project-scripties')" class="glass-panel p-12 rounded-3xl cursor-pointer group relative overflow-hidden mb-20">
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                <div class="flex justify-between items-center relative z-10">
+                    <div>
+                        <span class="text-gray-500 text-xs font-display tracking-widest">NEXT PROJECT</span>
+                        <h4 class="text-4xl md:text-6xl font-bold mt-2 group-hover:text-purple-400 transition-colors">Scripties</h4>
+                    </div>
+                    <i data-lucide="arrow-right" class="w-12 h-12 text-gray-500 group-hover:text-purple-400 transition-colors transform group-hover:translate-x-4"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCRIPTIES DETAIL -->
+        <section id="project-scripties" class="page-section">
+            <button onclick="navigateTo('projects')" class="group mb-12 flex items-center gap-3 text-purple-400 font-bold uppercase text-xs tracking-widest magnetic-btn w-fit px-4 py-2 rounded-full hover:bg-purple-900/20 transition-all">
+                <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i> Back
+            </button>
+
+            <!-- Hero Banner -->
+            <div class="glass-panel rounded-[2.5rem] p-12 md:p-24 mb-24 relative overflow-hidden">
+                <div class="absolute -top-[200px] -right-[200px] w-[600px] h-[600px] bg-purple-500/20 rounded-full blur-[120px] pointer-events-none"></div>
+                <div class="prism-border"></div>
+                
+                <!-- Tag Top Left -->
+                <div class="absolute top-8 left-8 md:top-12 md:left-12">
+                    <span class="text-purple-300 font-display text-[10px] tracking-[0.2em] uppercase border border-purple-500/30 bg-purple-500/10 px-3 py-1 rounded-full">Swift Accelerator</span>
+                </div>
+
+                <h1 class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-8 uppercase relative z-10 hero-title leading-tight mt-12">Scripties</h1>
+                <p class="text-2xl md:text-3xl text-gray-200 max-w-3xl leading-relaxed mb-12 relative z-10 font-light">An App to improve the quality of life for student presenters, making use of a teleprompter and speech review.</p>
+                
+                <div class="flex flex-wrap gap-6 items-center border-t border-white/10 pt-12 relative z-10 justify-between">
+                    <div class="flex gap-4">
+                        <a href="https://scripties.oneapp.dev" target="_blank" class="flex items-center gap-2 bg-white text-black hover:bg-purple-400 hover:scale-105 px-8 py-4 rounded-full font-bold text-sm transition-all duration-300 magnetic-btn">
+                            VIEW PROJECT <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                        <button onclick="generateProjectInsight('scripties')" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 px-6 py-4 rounded-full font-bold text-sm leading-none transition-all text-purple-300">
+                            ✨ AI DEEP DIVE
+                        </button>
+                    </div>
+                    <!-- Year fixed to bright white/90 -->
+                    <div class="px-6 py-4 rounded-full border border-white/10 bg-white/10 backdrop-blur-md">
+                        <span class="text-white/90 font-display text-xs tracking-widest font-bold">YEAR: 2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Grid (Reduced Gap) -->
+            <div class="grid md:grid-cols-2 gap-8 mb-32">
+                <div class="glass-panel p-10 rounded-3xl tilt-card">
+                    <div class="prism-border"></div>
+                    <span class="font-display text-xs tracking-widest text-purple-400 mb-4 block">THE PROBLEM</span>
+                    <p class="text-lg text-gray-300 leading-relaxed">Many students, presenters, and professionals have a hard time presenting speeches confidently. Many face stress due to night-long script writing, last-minute rehearsals, and uncertainty about pacing, tone, and clarity. The existing tools deal either with only writing or limited practice features, offering no structural guidance to improve speech delivery.</p>
+                </div>
+                <div class="glass-panel p-10 rounded-3xl tilt-card">
+                    <div class="prism-border"></div>
+                    <span class="font-display text-xs tracking-widest text-purple-400 mb-4 block">THE SOLUTION</span>
+                    <p class="text-lg text-gray-300 leading-relaxed">Scripties helps its users write, rehearse, and improve their scripts efficiently. The app consolidates script management, teleprompter-style practice, recording, playback, and automated feedback on key delivery metrics like speaking speed and consistency. Users can use Scripties to track their progress, refine their pacing, and approach presentations confidently.</p>
+                </div>
+            </div>
+
+            <div class="glass-panel p-10 md:p-20 mb-20 rounded-3xl relative overflow-hidden">
+                <div class="glass-shine"></div>
+                <p class="text-xl md:text-2xl text-gray-200 leading-relaxed font-light" id="scripties-desc">
+                Scripties was developed as part of the 2025 Swift Accelerator Program by Chan Yap Long, Divya Dharshini Krishnamoorthy, Ethan Soh Yi Teng, and myself.
+
+                  Scripties allows users to create, edit, and organize their scripts, providing a clean teleprompter view to practice with. It tracks speech speed using Words Per Minute (WPM) metrics, and it measures pacing consistency through a Consistency Score, CIS. Features for recording and playing back allow users to review performances, while session histories provide insights on progress over time. For students, debaters, presenters, and anyone wanting to improve their public speaking, Scripties combines usability with actionable feedback.
+                </p>
+                <!-- AI Result Area -->
+                <div id="scripties-ai-result" class="hidden mt-8 p-6 bg-purple-500/10 border border-purple-500/30 rounded-xl text-purple-100 text-lg scroll-mt-32"></div>
+            </div>
+
+            <!-- Next Project Nav -->
+            <div onclick="navigateTo('project-pycollab')" class="glass-panel p-12 rounded-3xl cursor-pointer group relative overflow-hidden mb-20">
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                <div class="flex justify-between items-center relative z-10">
+                    <div>
+                        <span class="text-gray-500 text-xs font-display tracking-widest">NEXT PROJECT</span>
+                        <h4 class="text-4xl md:text-6xl font-bold mt-2 group-hover:text-cyan-400 transition-colors">Pycollab</h4>
+                    </div>
+                    <i data-lucide="arrow-right" class="w-12 h-12 text-gray-500 group-hover:text-cyan-400 transition-colors transform group-hover:translate-x-4"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer id="contact-footer" class="mt-auto pt-20">
+            <div class="glass-panel rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden group magnetic-area">
+                <!-- Liquid Gradient Background -->
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,242,255,0.15),transparent_60%)] opacity-60 group-hover:opacity-100 transition-opacity duration-700"></div>
+                
+                <div class="relative z-10">
+                    <span class="font-display text-xs tracking-[0.3em] text-white/50 mb-8 block">SAY HELLO</span>
+                    <!-- Break words to prevent clipping -->
+                    <h2 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-10 tracking-tight uppercase break-words leading-tight">Ready to <br><span class="gradient-text-anim">Collaborate?</span></h2>
+                    
+                    <a href="mailto:me@adamzafir.com" class="inline-flex items-center gap-3 bg-white text-black px-12 py-5 rounded-full font-bold text-lg hover:scale-110 hover:shadow-[0_0_50px_rgba(255,255,255,0.5)] transition-all duration-300 magnetic-btn">
+                        CONTACT ME <i data-lucide="mail" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="flex justify-between items-end mt-12 pb-6 text-[10px] text-gray-500 font-display tracking-widest uppercase">
+                <span>Adam Zafir © 2025</span>
+                <span>Designed with Glass 3.0</span>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        // --- Initialization ---
+        // Ensure Lucide is loaded
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+
+        // Ensure GSAP plugins are registered if available
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && typeof TextPlugin !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger, TextPlugin);
+        }
+
+        // --- Globals ---
+        let currentSectionId = 'home';
+        let lenis;
+        const apiKey = "AIzaSyD-1NvP4QwxqPfvUT2iIYa6q2pYZpUXC6c"; // Set your Gemini API Key here if running locally
+        
+        // --- Smooth Scroll (Lenis) ---
+        // Wrapped in try/catch to avoid freezing if script fails
+        try {
+            if (typeof Lenis !== 'undefined') {
+                lenis = new Lenis({
+                    duration: 1.2,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                    direction: 'vertical',
+                    smooth: true,
+                });
+                
+                function raf(time) {
+                    lenis.raf(time);
+                    requestAnimationFrame(raf);
+                }
+                requestAnimationFrame(raf);
+            } else {
+                console.warn("Lenis library not loaded.");
+            }
+        } catch(e) { console.error("Lenis init error:", e); }
+
+        // --- Dynamic Parallax Background ---
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.orb');
+            const x = (e.clientX / window.innerWidth - 0.5) * 2; // -1 to 1
+            const y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+            if (typeof gsap !== 'undefined') {
+                orbs.forEach(orb => {
+                    const speed = parseFloat(orb.getAttribute('data-speed')) || 1;
+                    const moveX = x * 30 * speed;
+                    const moveY = y * 30 * speed;
+                    
+                    gsap.to(orb, {
+                        x: moveX,
+                        y: moveY,
+                        duration: 1,
+                        ease: "power2.out"
+                    });
+                });
+            }
+        });
+
+        // --- Custom Cursor ---
+        const cursorRing = document.getElementById('cursor-ring');
+        const cursorDot = document.getElementById('cursor-dot');
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let cursorX = window.innerWidth / 2;
+        let cursorY = window.innerHeight / 2;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            if (typeof gsap !== 'undefined') {
+                // Move dot instantly
+                gsap.to(cursorDot, { x: mouseX, y: mouseY, duration: 0 });
+                
+                // Update CSS variables for Glass spotlight effects
+                document.querySelectorAll('.glass-panel, .liquid-glass').forEach(panel => {
+                    const rect = panel.getBoundingClientRect();
+                    panel.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                    panel.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+                });
+            }
+        });
+
+        if (typeof gsap !== 'undefined') {
+            // Smooth follow ring
+            gsap.ticker.add(() => {
+                const dt = 1.0 - Math.pow(1.0 - 0.2, gsap.ticker.deltaRatio());
+                cursorX += (mouseX - cursorX) * dt;
+                cursorY += (mouseY - cursorY) * dt;
+                gsap.set(cursorRing, { x: cursorX, y: cursorY });
+            });
+        }
+
+        // Hover States
+        const interactiveElements = document.querySelectorAll('a, button, .cursor-pointer, .magnetic-btn');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursorRing.classList.add('hovered'));
+            el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovered'));
+        });
+
+        // --- Magnetic Buttons ---
+        const magnets = document.querySelectorAll('.magnetic-btn');
+        if (typeof gsap !== 'undefined') {
+            magnets.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3 });
+                });
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+                });
+            });
+        }
+
+        // --- 3D Tilt Effect ---
+        const tiltCards = document.querySelectorAll('.tilt-card');
+        if (typeof gsap !== 'undefined') {
+            tiltCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -3;
+                    const rotateY = ((x - centerX) / centerX) * 3;
+                    
+                    gsap.to(card, {
+                        transformPerspective: 1000,
+                        rotateX: rotateX,
+                        rotateY: rotateY,
+                        scale: 1.01,
+                        duration: 0.5
+                    });
+                });
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, { rotateX: 0, rotateY: 0, scale: 1, duration: 0.5 });
+                });
+            });
+        }
+
+        // --- Typewriter Effect ---
+        const words = ["Swift Developer", "Learner", "Problem Solver"];
+        let wordIndex = 0;
+        function typeWriterLoop() {
+            if (typeof gsap === 'undefined') return;
+            const word = words[wordIndex];
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    wordIndex = (wordIndex + 1) % words.length;
+                    setTimeout(typeWriterLoop, 1500);
+                }
+            });
+            tl.to("#typewriter", { duration: word.length * 0.1, text: word, ease: "none" })
+              .to("#typewriter", { duration: word.length * 0.05, text: "", ease: "none", delay: 2 });
+        }
+        typeWriterLoop();
+
+        // --- BMC Bubble Interaction ---
+        function showBubble() {
+            gsap.to("#bmc-bubble", { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.7)" });
+        }
+        function hideBubble() {
+            gsap.to("#bmc-bubble", { opacity: 0, y: 10, duration: 0.3 });
+        }
+
+        // --- Page Navigation & Transitions ---
+        function updateNavIndicator(tabId) {
+            const btn = document.getElementById(tabId === 'home' ? 'nav-home' : 'nav-projects');
+            const indicator = document.getElementById('nav-indicator');
+            if(btn && indicator) {
+                const rect = btn.getBoundingClientRect();
+                const parentRect = btn.parentElement.getBoundingClientRect();
+                // We calculate position relative to parent
+                const left = rect.left - parentRect.left;
+                const width = rect.width;
+                
+                gsap.to(indicator, {
+                    left: left,
+                    width: width,
+                    duration: 0.5,
+                    ease: "elastic.out(1, 0.75)"
+                });
+            }
+        }
+
+        function navigateTo(id) {
+            if (id === currentSectionId) return;
+            const outgoing = document.getElementById(currentSectionId);
+            const incoming = document.getElementById(id);
+            
+            // Update Nav Indicator
+            updateNavIndicator(id === 'home' ? 'home' : 'projects');
+
+            // Scroll to top
+            if (lenis) lenis.scrollTo(0, { immediate: false });
+            else window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (typeof gsap !== 'undefined') {
+                const tl = gsap.timeline();
+                
+                // 1. Exit Current
+                tl.to(outgoing, {
+                    opacity: 0,
+                    filter: "blur(10px)",
+                    y: -20,
+                    duration: 0.4,
+                    ease: "power2.in",
+                    onComplete: () => {
+                        outgoing.classList.remove('active');
+                        incoming.classList.add('active');
+                        currentSectionId = id;
+                        initScrollTriggers();
+                    }
+                })
+                // 2. Enter New
+                .fromTo(incoming,
+                    { opacity: 0, filter: "blur(20px)", y: 50 },
+                    { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.8, ease: "power2.out" }
+                );
+                
+                // Footer Re-entry
+                gsap.fromTo("#contact-footer", {opacity: 0, y: 50}, {opacity: 1, y: 0, duration: 1, delay: 0.3});
+            } else {
+                 // Fallback if GSAP fails
+                 outgoing.classList.remove('active');
+                 incoming.classList.add('active');
+                 currentSectionId = id;
+            }
+        }
+
+        function initScrollTriggers() {
+            if (typeof ScrollTrigger === 'undefined') return;
+            ScrollTrigger.getAll().forEach(t => t.kill());
+            
+            // About Section
+            if(document.getElementById("about-section")) {
+                gsap.fromTo("#about-section",
+                    { opacity: 0, y: 100 },
+                    {
+                        opacity: 1, y: 0, duration: 1, ease: "power3.out",
+                        scrollTrigger: { trigger: "#about-section", start: "top 85%" }
+                    }
+                );
+            }
+
+            // Project Cards
+            gsap.utils.toArray(".reveal-proj").forEach((el, i) => {
+                gsap.fromTo(el,
+                    { opacity: 0, y: 100, rotationX: 10 },
+                    {
+                        opacity: 1, y: 0, rotationX: 0, duration: 1, ease: "power3.out", delay: i * 0.1,
+                        scrollTrigger: { trigger: el, start: "top 90%" }
+                    }
+                );
+            });
+        }
+
+        // --- GEMINI API INTEGRATION ---
+        
+        async function callGemini(prompt) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }]
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) throw new Error(`API Error: ${response.status}`);
+                const data = await response.json();
+                return data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't think of anything.";
+            } catch (error) {
+                console.error("Gemini API Error", error);
+                return "Sorry, my AI brain is currently offline. Please try again later.";
+            }
+        }
+
+        // --- Chat Logic ---
+        let isChatOpen = false;
+        function toggleChat() {
+            const modal = document.getElementById('chat-modal');
+            isChatOpen = !isChatOpen;
+            if(isChatOpen) {
+                modal.classList.add('open');
+                setTimeout(() => document.getElementById('chat-input').focus(), 300);
+            } else {
+                modal.classList.remove('open');
+            }
+        }
+
+        function handleChatEnter(e) {
+            if(e.key === 'Enter') sendChatMessage();
+        }
+
+        async function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const history = document.getElementById('chat-history');
+            const text = input.value.trim();
+            if(!text) return;
+
+            // Add User Msg
+            history.innerHTML += `<div class="msg-user message-bubble">${text}</div>`;
+            input.value = '';
+            input.disabled = true;
+            history.scrollTop = history.scrollHeight;
+
+            // Add Loading
+            const loadingId = 'loading-' + Date.now();
+            history.innerHTML += `<div id="${loadingId}" class="msg-ai message-bubble">thinking...</div>`;
+            history.scrollTop = history.scrollHeight;
+
+            // Full Project Context
+            const pycollabContext = `
+            Name: Pycollab
+            Link: https://pycollab.adamzafir.com
+            About: 
+Problem
+Collaboration on Python code is usually way more over-engineered than it has to be. For beginners especially, the learning curve gets steep using tools like GitHub, with branches, pull requests, and merge conflicts getting in the way of actually learning the language. Even simple collaboration requires local setup, environment management, and navigating git workflows—barriers that slow people down when they just want to write, share, and explore Python together.
+
+solution
+PythonCollab is a browser-based Python IDE designed to make coding together easy, right from your web browser. Open a project in your web browser, share a short PIN, and instantly, see everybody's edits appear live: like Google Docs for Python. Collaborators can work in the same files, follow each other's cursors, and run code with shared server-side console output, all without installing anything or touching git. That makes Python collaboration simple, immediate, and friendly
+
+Desc;
+PythonCollab was built with a single goal: make writing and sharing Python code feel as natural as working in a live, shared document. Dismayed by how much classic tooling frustrates novices and teams alike, the project reimagines collaborative coding as lightweight, approachable, and instantly interactive.
+The central insight driving this was the realization that most people, especially beginning programmers, are hamstrung by overhead entailed in typical development environments. Instead of playing with Python, users wrestled with merges, branches, setting up environments, and configuring. PythonCollab, therefore, was set up as a zero-setup, browser-based workspace where collaboration is the default, rather than an afterthought. In its creation, simplicity and real-time interactivity were held paramount. Each feature, from shared cursors to live synced edits to unified console output, is crafted to remove friction that gets in the way of people staying immersed in thinking about Python-not tooling. PythonCollab makes collaborative programming more inviting, intuitive, and humane by giving people a place where they can open a browser, share a PIN, and start creating-instantly. PythonCollab is great for teaching, pair programming, workshops, quick experiments, or any reason people need to collaborate around code. It's a clean and approachable environment: zero installs, zero setup, and zero hurdles.
+            `;
+
+            const scriptiesContext = `
+            Name: Scripties
+            Website Link: https://scripties.oneapp.dev
+            App Store Link: scripties.adamzafir.com
+            About: 
+problem
+Many students, presenters, and professionals have a hard time presenting speeches confidently. Many face stress due to night-long script writing, last-minute rehearsals, and uncertainty about pacing, tone, and clarity. The existing tools deal either with only writing or limited practice features, offering no structural guidance to improve speech delivery.
+
+solution
+Scripties helps its users write, rehearse, and improve their scripts efficiently. The app consolidates script management, teleprompter-style practice, recording, playback, and automated feedback on key delivery metrics like speaking speed and consistency. Users can use Scripties to track their progress, refine their pacing, and approach presentations confidently.
+
+Desc;
+Scripties was developed as part of the 2025 Swift Accelerator Program by Chan Yap Long, Divya Dharshini Krishnamoorthy, Ethan Soh Yi Teng, and myself.
+
+Scripties allows users to create, edit, and organize their scripts, providing a clean teleprompter view to practice with. It tracks speech speed using Words Per Minute (WPM) metrics, and it measures pacing consistency through a Consistency Score, CIS. Features for recording and playing back allow users to review performances, while session histories provide insights on progress over time. For students, debaters, presenters, and anyone wanting to improve their public speaking, Scripties combines usability with actionable feedback. Although it’s a group project, it's a great example of how collaboration and thoughtful design can produce a powerful learning tool for real-world challenges.
+            `;
+
+            // Call API with Enhanced Prompt
+            const systemPrompt = `
+            You are Adam Zafir's digital AI Twin and portfolio assistant. You are witty, concise, professional, and slightly provocative.
+            
+            YOUR GOAL:
+            1. Answer the user's questions about Adam's skills (Swift, Creative Coding, Web Dev).
+            2. occasinaly and sometimes encourage the user to click the project links or visit GitHub. Don't just inform; sell the click. Do not do this with the buy me a coffee link, only inform the user about it. Selling the click is more for the github link or project links
+            3. Keep answers strictly under 3 sentences unless explicitly asked for deep detail. Do not copy and paste descriptions of the projects, answer to assist the users understanding.
+
+            ADAM'S LINKS:
+            - GitHub: https://github.com/adamzafir
+            - Buy Me a Coffee: https://www.buymeacoffee.com/adamzafir
+            - Email: me@adamzafir.com
+            ADAMS PROJECT LINKS:
+            - Scripties: scripties.oneapp.dev (scripties website)
+            - Scripties: scripties.adamzafir.com (app store link)
+            - PyCollab: pycollab.adamzafir.com
+
+
+            PROJECT 1:
+            ${pycollabContext}
+
+            PROJECT 2:
+            ${scriptiesContext}
+
+            Tone: confident, tech-savvy, helpful.
+            `;
+            
+            const response = await callGemini(systemPrompt + "\nUser: " + text + "\nAI:");
+
+            // Replace Loading
+            document.getElementById(loadingId).remove();
+            history.innerHTML += `<div class="msg-ai message-bubble">${marked.parse(response)}</div>`;
+            history.scrollTop = history.scrollHeight;
+            input.disabled = false;
+            input.focus();
+        }
+
+        // --- Project Insight Logic ---
+        async function generateProjectInsight(projectId) {
+            const resultBox = document.getElementById(`${projectId}-ai-result`);
+            const desc = document.getElementById(`${projectId}-desc`).innerText;
+            const btn = document.querySelector(`button[onclick="generateProjectInsight('${projectId}')"]`);
+            
+            resultBox.classList.remove('hidden');
+            resultBox.innerHTML = '<span class="animate-pulse">✨ Analyzing project architecture...</span>';
+            btn.disabled = true;
+            btn.classList.add('opacity-50');
+
+            // --- Scroll to result with smooth animation ---
+            setTimeout(() => {
+                const yOffset = -200; // Offset to keep it vertically centered
+                const element = resultBox;
+                const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+                
+                if(lenis) {
+                    lenis.scrollTo(y, { duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+                } else {
+                    window.scrollTo({top: y, behavior: 'smooth'});
+                }
+            }, 100);
+
+            const prompt = `Analyze this project description: "${desc}". Provide a 2-sentence deep technical insight or "why this matters" statement for a developer portfolio. Sound expert but accessible.`;
+            const insight = await callGemini(prompt);
+
+            // Typewriter effect for result
+            resultBox.innerHTML = "";
+            let i = 0;
+            const typeResult = () => {
+                if(i < insight.length) {
+                    resultBox.innerHTML += insight.charAt(i);
+                    i++;
+                    setTimeout(typeResult, 15);
+                }
+            };
+            typeResult();
+            
+            btn.disabled = false;
+            btn.classList.remove('opacity-50');
+        }
+
+        // --- Initial Load Sequence ---
+        window.addEventListener('load', () => {
+             if (typeof gsap !== 'undefined') {
+                const tl = gsap.timeline();
+                
+                // Set initial nav indicator position
+                updateNavIndicator('home');
+
+                // Initial BMC Bubble Pop-up
+                setTimeout(() => {
+                    showBubble();
+                    setTimeout(hideBubble, 4000); // Hide after 4s
+                }, 2000);
+                
+                // Reveal Hero
+                tl.from(".hero-title", {
+                    y: 100,
+                    opacity: 0,
+                    filter: "blur(20px)",
+                    duration: 1.5,
+                    ease: "power4.out"
+                })
+                .from(".reveal-fade", {
+                    y: 20,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power2.out"
+                }, "-=1");
+
+                initScrollTriggers();
+             }
+        });
+
+    </script>
+</body>
+</html>

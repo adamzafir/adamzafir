@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (function() {
+            const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const isSmallScreen = window.screen.width < 1024 || window.innerWidth < 1024;
+            const isTouch = (navigator.maxTouchPoints > 0) || ('ontouchstart' in window);
+
+            if (isMobileUA || (isTouch && isSmallScreen)) {
+                if (!window.location.href.includes('67.html')) {
+                    window.location.replace('67.html');
+                }
+            }
+        })();
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 | Lost in the Void</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Outfit:wght@200;300;400;500;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        display: ['Syncopate', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#00f2ff',
+                        secondary: '#7000ff',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #fff;
+            overflow: hidden;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* --- Ambient Background --- */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            overflow: hidden;
+            background: #020204;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            mix-blend-mode: screen;
+        }
+
+        .orb-1 { width: 60vw; height: 60vw; background: radial-gradient(circle, #4f46e5 0%, transparent 70%); top: -20%; left: -10%; animation: float 10s infinite alternate; }
+        .orb-2 { width: 50vw; height: 50vw; background: radial-gradient(circle, #c026d3 0%, transparent 70%); bottom: -10%; right: -10%; animation: float 12s infinite alternate-reverse; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(30px, -30px); }
+        }
+
+        /* --- Texture --- */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.05;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* --- Glass Card --- */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.015);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .prism-border {
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: linear-gradient(45deg, #00f2ff, transparent, #ff00c8, transparent, #7000ff);
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(8px);
+        }
+
+        /* --- 404 Glitch Text --- */
+        .glitch-text {
+            font-size: 10rem;
+            line-height: 1;
+            font-weight: 900;
+            position: relative;
+            color: white;
+            letter-spacing: -0.05em;
+        }
+
+        .glitch-text::before, .glitch-text::after {
+            content: '404';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .glitch-text::before {
+            color: #00f2ff;
+            z-index: -1;
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+
+        .glitch-text::after {
+            color: #ff00c8;
+            z-index: -2;
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+            20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+            40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+            60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+            80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
+            100% { clip-path: inset(30% 0 20% 0); transform: translate(1px, -1px); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
+            20% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, 1px); }
+            40% { clip-path: inset(70% 0 10% 0); transform: translate(2px, 2px); }
+            60% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, -2px); }
+            80% { clip-path: inset(50% 0 30% 0); transform: translate(1px, -1px); }
+            100% { clip-path: inset(0% 0 80% 0); transform: translate(-1px, 1px); }
+        }
+
+        /* --- Floating Shards --- */
+        .shard {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="h-screen w-screen flex items-center justify-center relative">
+
+    <!-- Background -->
+    <div class="ambient-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+    <div class="noise-overlay"></div>
+
+    <!-- Floating Glass Shards (Decoration) -->
+    <div class="shard w-24 h-24 rounded-2xl top-[20%] left-[20%] rotate-12" data-speed="2"></div>
+    <div class="shard w-16 h-16 rounded-full top-[70%] right-[25%] -rotate-12" data-speed="-1"></div>
+    <div class="shard w-32 h-32 rounded-3xl bottom-[10%] left-[10%] rotate-45" data-speed="1.5"></div>
+    <div class="shard w-12 h-12 rounded-lg top-[15%] right-[15%] rotate-180" data-speed="-2"></div>
+
+    <!-- Main Card -->
+    <div class="glass-panel p-12 md:p-20 rounded-[3rem] text-center max-w-2xl w-[90%] tilt-card opacity-0 translate-y-10" id="main-card">
+        <div class="prism-border"></div>
+        
+        <h1 class="glitch-text font-display mb-2">404</h1>
+        
+        <div class="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent my-8"></div>
+        
+        <h2 class="text-2xl md:text-4xl font-bold mb-4 tracking-tight">LOST IN THE VOID</h2>
+        <p class="text-gray-400 text-lg mb-10 font-light leading-relaxed">
+            You’re lost. It’s okay. Happens to the best of us.
+        </p>
+
+        <a href="index.html" class="inline-flex items-center gap-3 bg-white text-black px-10 py-4 rounded-full font-bold text-sm tracking-widest hover:scale-110 hover:shadow-[0_0_40px_rgba(0,242,255,0.6)] transition-all duration-300 magnetic-btn group">
+            <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
+             Return Home
+        </a>
+    </div>
+
+    <script>
+        // Init Icons
+        lucide.createIcons();
+
+        // Parallax Shards Mouse Move
+        window.addEventListener('mousemove', (e) => {
+            document.querySelectorAll('.shard').forEach(shard => {
+                const speed = parseFloat(shard.getAttribute('data-speed'));
+                const x = (window.innerWidth - e.clientX * speed) / 100;
+                const y = (window.innerHeight - e.clientY * speed) / 100;
+                gsap.to(shard, { x: x, y: y, duration: 1 });
+            });
+        });
+
+        // Magnetic Button (Movement only, no cursor effects)
+        const btn = document.querySelector('.magnetic-btn');
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3 });
+        });
+        btn.addEventListener('mouseleave', () => {
+            gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+        });
+
+        // 3D Tilt Card
+        const card = document.querySelector('.tilt-card');
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.clientX) / 50;
+            const y = (window.innerHeight / 2 - e.clientY) / 50;
+            
+            gsap.to(card, {
+                rotateY: x,
+                rotateX: -y, // Inverted for natural feel
+                duration: 1,
+                ease: "power2.out"
+            });
+        });
+
+        // Entrance Animation
+        window.addEventListener('load', () => {
+            const tl = gsap.timeline();
+            
+            tl.to("#main-card", {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: "power3.out"
+            })
+            .from(".shard", {
+                opacity: 0,
+                scale: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "back.out(1.7)"
+            }, "-=0.8");
+        });
+
+    </script>
+</body>
+</html>

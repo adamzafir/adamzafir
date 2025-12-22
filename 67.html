@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ERROR 67 | Hardware Insufficient</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- GSAP (Kept for entrance animation only) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Outfit:wght@200;300;400;500;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        display: ['Syncopate', 'sans-serif'],
+                        mono: ['Share Tech Mono', 'monospace'],
+                    },
+                    colors: {
+                        danger: '#ff003c',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #fff;
+            overflow: hidden;
+            font-family: 'Outfit', sans-serif;
+            cursor: default; /* Normal cursor */
+        }
+
+        /* --- Static Ambient Background (No Mouse Movement) --- */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            overflow: hidden;
+            background: #020204;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            mix-blend-mode: screen;
+            /* Simple breathing animation instead of mouse parallax */
+            animation: breathe 8s infinite ease-in-out alternate;
+        }
+
+        .orb-1 { width: 80vw; height: 80vw; background: radial-gradient(circle, #ff003c 0%, transparent 70%); top: -20%; left: -20%; }
+        .orb-2 { width: 60vw; height: 60vw; background: radial-gradient(circle, #7000ff 0%, transparent 70%); bottom: -10%; right: -10%; animation-delay: -4s; }
+
+        @keyframes breathe {
+            0% { transform: scale(1); opacity: 0.4; }
+            100% { transform: scale(1.1); opacity: 0.6; }
+        }
+
+        /* --- Texture --- */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.08;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* --- Glass Card --- */
+        .glass-panel {
+            background: rgba(20, 0, 0, 0.4);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 50, 50, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+
+        .warning-border {
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: linear-gradient(45deg, #ff003c, transparent, #7000ff);
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(5px);
+        }
+
+        /* --- Glitch Text --- */
+        .glitch-text {
+            font-size: clamp(2rem, 8vw, 3.5rem); /* scales between 2rem and 3.5rem depending on screen width */
+            line-height: 1;
+            font-weight: 900;
+            position: relative;
+            color: white;
+            letter-spacing: -0.03em;
+            font-family: 'Syncopate', sans-serif;
+            text-align: center;
+            white-space: normal; /* allow wrapping if needed */
+            word-break: break-word; /* prevents overflow */
+            display: inline-block;
+        }
+
+
+        .glitch-text::before, .glitch-text::after {
+            content: 'ERROR 67'; /* Updated Content */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .glitch-text::before {
+            color: #00f2ff;
+            animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+        }
+
+        .glitch-text::after {
+            color: #ff00c8;
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, 0); }
+            100% { clip-path: inset(10% 0 60% 0); transform: translate(2px, 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(80% 0 5% 0); transform: translate(2px, 0); }
+            100% { clip-path: inset(10% 0 40% 0); transform: translate(-2px, 0); }
+        }
+
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 0, 60, 0.5);
+            position: fixed;
+            z-index: 50;
+            animation: scan 4s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: -10%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 110%; opacity: 0; }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4 selection:bg-red-500/30">
+
+    <div class="scanline"></div>
+
+    <!-- Background Layers -->
+    <div class="ambient-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+    <div class="noise-overlay"></div>
+
+    <!-- Main Content Card -->
+    <div class="glass-panel w-full max-w-md p-8 rounded-2xl text-center relative overflow-hidden" id="main-card">
+        <div class="warning-border"></div>
+        
+        <div class="mb-6 relative">
+            <i data-lucide="alert-triangle" class="w-16 h-16 text-danger mx-auto mb-4 animate-pulse"></i>
+            <h1 class="glitch-text mb-2">ERROR 67</h1>
+            <p class="font-mono text-danger tracking-widest text-sm font-bold">HARDWARE INSUFFICIENT</p>
+        </div>
+
+        <div class="space-y-4 border-t border-white/10 pt-6">
+            <h2 class="text-xl font-bold text-white">Access Denied</h2>
+            
+            <p class="text-gray-400 text-sm leading-relaxed text-justify">
+                The device currently in use fails to meet operational standards.
+                Attempting to access with substandard equipment may result in diminished user experience or data inconsistencies.
+            </p>
+
+            <div class="p-3 bg-red-900/20 border border-red-500/30 rounded-lg mt-4">
+                <p class="text-[10px] font-mono text-red-300 uppercase tracking-wide">
+                    System Lock Engaged.<br>Suitable Environment Required.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. Trap Back Button ---
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+
+        // --- 2. Initialize Icons ---
+        lucide.createIcons();
+
+        // --- 3. Simple Entrance Animation ---
+        window.addEventListener('load', () => {
+            gsap.from("#main-card", {
+                duration: 1.5,
+                y: 50,
+                opacity: 0,
+                ease: "power3.out"
+            });
+            
+            gsap.from(".glitch-text", {
+                duration: 1,
+                scale: 1.5,
+                opacity: 0,
+                delay: 0.5,
+                ease: "elastic.out(1, 0.5)"
+            });
+        });
+    </script>
+</body>
+</html>
