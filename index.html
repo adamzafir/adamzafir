@@ -58,45 +58,44 @@
 
     <style>
         :root {
-            --cursor-size: 20px;
-            --cursor-hover-size: 80px;
+            --cursor-size: 14px;
+            --cursor-hover-size: 48px;
             --prism-1: #00f2ff;
             --prism-2: #ff00c8;
             --prism-3: #7000ff;
+            --home-bg: #0D0628;
+            --home-ink: #F7F6FA;
+            --home-muted: #B7B4C6;
+            --home-accent-cool: #71E0FE;
+            --home-accent-green: #59A96A;
+            --home-accent-warm: #E07A5F;
+            --home-accent-rose: #E05263;
         }
 
         body {
-            background-color: #050505;
-            color: #fff;
+            background-color: #060607;
+            color: #eaeaea;
             cursor: none;
             overflow-x: hidden;
             font-family: 'Outfit', sans-serif;
         }
 
-        /* --- 1. Ambient Background (Dynamic Parallax) --- */
-        .ambient-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -2;
-            overflow: hidden;
-            background: #020204;
+        body.home-theme {
+            background-color: var(--home-bg);
+            color: var(--home-ink);
         }
 
-        .orb {
+        /* --- 1. Hero Ambient --- */
+        .hero-ambient {
             position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.6;
-            mix-blend-mode: screen;
-            will-change: transform;
+            inset: -20% -10% auto -10%;
+            height: 70%;
+            background: radial-gradient(60% 60% at 20% 20%, rgba(113, 224, 254, 0.22), rgba(89, 169, 106, 0.12) 45%, transparent 70%);
+            filter: blur(40px);
+            opacity: 0.75;
+            pointer-events: none;
+            z-index: 0;
         }
-
-        .orb-1 { width: 60vw; height: 60vw; background: radial-gradient(circle, #4f46e5 0%, transparent 70%); top: -20%; left: -10%; }
-        .orb-2 { width: 50vw; height: 50vw; background: radial-gradient(circle, #c026d3 0%, transparent 70%); bottom: -10%; right: -10%; }
-        .orb-3 { width: 40vw; height: 40vw; background: radial-gradient(circle, #0891b2 0%, transparent 70%); top: 40%; left: 30%; }
 
         /* --- 2. Texture --- */
         .noise-overlay {
@@ -106,79 +105,43 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.04;
+            opacity: 0.03;
             pointer-events: none;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* --- 3. Glass 3.0 Engine --- */
+        /* --- 3. Glass --- */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.015);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
             position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.1s ease-out, border-color 0.3s;
+            transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .glass-panel::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 1.5px;
-            background: radial-gradient(
-                800px circle at var(--mouse-x) var(--mouse-y),
-                rgba(255, 255, 255, 0.8),
-                transparent 40%
-            );
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.5s;
-            z-index: 2;
+        .glass-panel:hover {
+            border-color: rgba(255, 255, 255, 0.16);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 12px rgba(0, 242, 255, 0.12);
+            transform: translateY(-2px);
         }
-        .glass-panel:hover::before { opacity: 1; }
 
         .prism-border {
-            position: absolute;
-            inset: -2px;
-            border-radius: inherit;
-            background: linear-gradient(45deg, var(--prism-1), transparent, var(--prism-2), transparent, var(--prism-3));
-            z-index: -1;
-            opacity: 0;
-            filter: blur(10px);
-            transition: opacity 0.4s ease;
+            display: none;
         }
-        .glass-panel:hover .prism-border { opacity: 0.6; }
 
         .glass-shine {
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent);
-            transform: skewX(-25deg);
-            pointer-events: none;
-            transition: 0.5s;
+            display: none;
         }
-        .glass-panel:hover .glass-shine { left: 200%; transition: 0.7s; }
 
         /* --- 4. Liquid Glass UI (Nav & BMC) --- */
         .liquid-glass {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow:
-                inset 0 0 20px rgba(255, 255, 255, 0.05),
-                0 0 0 1px rgba(255, 255, 255, 0.1),
-                0 20px 40px rgba(0,0,0,0.4);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.35);
             position: relative;
             overflow: hidden;
         }
@@ -190,36 +153,31 @@
             left: 0;
             right: 0;
             height: 40%;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.15), transparent);
+            background: linear-gradient(to bottom, rgba(255,255,255,0.08), transparent);
             border-radius: 9999px;
             pointer-events: none;
         }
 
         /* --- 5. Typography --- */
         .hero-title {
-            background: linear-gradient(to right, #fff, #b4b4b4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            /* Prevent clipping of descenders/ascenders */
+            color: #f5f5f5;
             padding-bottom: 0.1em;
-            line-height: 1.1;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
         }
         
         .gradient-text-anim {
-            background: linear-gradient(90deg, #00f2ff, #7000ff, #ff00c8, #00f2ff);
-            background-size: 300% 100%;
+            background: linear-gradient(90deg, rgba(0, 242, 255, 0.9), rgba(112, 0, 255, 0.9), rgba(255, 0, 200, 0.9));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shimmer 6s linear infinite;
         }
-        @keyframes shimmer { 0% { background-position: 0% 0%; } 100% { background-position: 100% 0%; } }
 
         .typewriter-cursor {
             display: inline-block;
-            width: 3px;
+            width: 2px;
             height: 1em;
-            background-color: #00f2ff;
-            margin-left: 5px;
+            background-color: var(--home-accent-cool);
+            margin-left: 4px;
             animation: blink 0.8s step-end infinite;
             vertical-align: sub;
         }
@@ -232,19 +190,19 @@
             left: 0;
             width: var(--cursor-size);
             height: var(--cursor-size);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
             transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
-            mix-blend-mode: difference;
+            mix-blend-mode: normal;
         }
 
         .custom-cursor.hovered {
             width: var(--cursor-hover-size);
             height: var(--cursor-hover-size);
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.08);
             border: none;
             backdrop-filter: none;
         }
@@ -260,7 +218,7 @@
             pointer-events: none;
             z-index: 10000;
             transform: translate(-50%, -50%);
-            box-shadow: 0 0 10px #fff, 0 0 20px #00f2ff;
+            box-shadow: none;
         }
 
         /* --- 7. Chat Interface --- */
@@ -326,8 +284,8 @@
         .section-line {
             display: inline-block;
             width: 40px;
-            height: 2px;
-            background: linear-gradient(90deg, #00f2ff, transparent);
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.12), transparent);
             vertical-align: middle;
             margin-right: 15px;
         }
@@ -336,20 +294,155 @@
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        body.home-theme ::selection {
+            background: rgba(113, 224, 254, 0.3);
+            color: #0D0628;
+        }
+
+        body:not(.home-theme) ::selection {
+            background: rgba(236, 72, 153, 0.3);
+            color: #ffffff;
+        }
+
+        .btn-primary {
+            background: var(--home-accent-cool);
+            color: #0D0628;
+            border-radius: 9999px;
+            padding: 0.9rem 1.8rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 26px rgba(113, 224, 254, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--home-muted);
+            border: 1px solid rgba(89, 169, 106, 0.45);
+            border-radius: 9999px;
+            padding: 0.9rem 1.7rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: transform 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            border-color: rgba(89, 169, 106, 0.8);
+            color: var(--home-ink);
+        }
+
+        .project-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .project-action {
+            width: 44px;
+            height: 44px;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+        }
+
+        .project-card:hover .project-action {
+            transform: translateX(4px);
+            border-color: rgba(113, 224, 254, 0.6);
+            background: rgba(113, 224, 254, 0.1);
+        }
+
+        .project-card-purple:hover .project-action {
+            border-color: rgba(224, 82, 99, 0.6);
+            background: rgba(224, 82, 99, 0.12);
+        }
+
+        body.home-theme .liquid-glass {
+            background: rgba(13, 6, 40, 0.7);
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+        }
+
+        body.home-theme #nav-indicator {
+            background: rgba(113, 224, 254, 0.16);
+        }
+
+        body.home-theme #nav-home,
+        body.home-theme #nav-projects {
+            color: rgba(247, 246, 250, 0.7);
+        }
+
+        body.home-theme #nav-home:hover,
+        body.home-theme #nav-projects:hover {
+            color: var(--home-ink);
+        }
+
+        body.home-theme #home .glass-panel,
+        body.home-theme #contact-footer .glass-panel,
+        body.home-theme #projects .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+        }
+
+        body.home-theme #contact-footer .glass-panel {
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        body.home-theme .home-label {
+            color: rgba(113, 224, 254, 0.9);
+        }
+
+        body.home-theme .gradient-text-anim {
+            background: linear-gradient(90deg, rgba(113, 224, 254, 0.9), rgba(89, 169, 106, 0.9));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        body.home-theme .home-accent-icon {
+            color: var(--home-accent-cool);
+        }
+
+        body.home-theme .home-accent-button {
+            background: rgba(113, 224, 254, 0.18);
+            color: var(--home-accent-cool);
+            border: 1px solid rgba(113, 224, 254, 0.22);
+        }
+
+        body.home-theme .home-accent-button:hover {
+            background: rgba(113, 224, 254, 0.28);
+        }
+
+        .home-tag {
+            border-color: rgba(89, 169, 106, 0.5);
+            color: rgba(89, 169, 106, 0.9);
+            background: rgba(89, 169, 106, 0.08);
+        }
+
+        .home-tag-cool {
+            border-color: rgba(113, 224, 254, 0.5);
+            color: rgba(113, 224, 254, 0.9);
+            background: rgba(113, 224, 254, 0.08);
+        }
     </style>
 </head>
-<body class="selection:bg-pink-500/30 selection:text-white">
+<body class="home-theme">
 
     <!-- Cursor -->
     <div class="custom-cursor" id="cursor-ring"></div>
     <div class="cursor-dot" id="cursor-dot"></div>
 
     <!-- Background Layers -->
-    <div class="ambient-bg" id="parallax-bg">
-        <div class="orb orb-1" data-speed="2"></div>
-        <div class="orb orb-2" data-speed="-2"></div>
-        <div class="orb orb-3" data-speed="1"></div>
-    </div>
     <div class="noise-overlay"></div>
 
     <!-- Liquid Glass Navigation -->
@@ -370,9 +463,9 @@
 
     <!-- AI Chat Button (Left) -->
     <div class="fixed bottom-8 left-8 z-50 flex flex-col items-start gap-3 pointer-events-none">
-        <button onclick="toggleChat()" class="liquid-glass w-14 h-14 rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 magnetic-btn group pointer-events-auto shadow-[0_0_30px_rgba(0,242,255,0.3)]">
+        <button onclick="toggleChat()" class="liquid-glass w-14 h-14 rounded-full flex items-center justify-center hover:scale-105 transition-transform duration-300 magnetic-btn group pointer-events-auto">
             <div class="absolute inset-0 bg-cyan-400/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <i data-lucide="sparkles" class="w-5 h-5 text-cyan-300 relative z-10"></i>
+            <i data-lucide="sparkles" class="w-5 h-5 text-cyan-300 relative z-10 home-accent-icon"></i>
         </button>
     </div>
 
@@ -396,7 +489,7 @@
         <div class="p-3 border-t border-white/10 bg-white/5">
             <div class="relative">
                 <input type="text" id="chat-input" placeholder="Ask AI..." class="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/30 chat-input transition-colors" onkeypress="handleChatEnter(event)">
-                <button onclick="sendChatMessage()" class="absolute right-2 top-2 p-1.5 bg-cyan-500/20 hover:bg-cyan-500/40 rounded-lg text-cyan-300 transition-colors">
+                <button onclick="sendChatMessage()" class="absolute right-2 top-2 p-1.5 bg-cyan-500/20 hover:bg-cyan-500/40 rounded-lg text-cyan-300 transition-colors home-accent-button">
                     <i data-lucide="send" class="w-3 h-3"></i>
                 </button>
             </div>
@@ -411,43 +504,44 @@
         </div>
         
         <!-- Button -->
-        <a href="https://www.buymeacoffee.com/adamzafir" target="_blank" onmouseenter="showBubble()" onmouseleave="hideBubble()" class="liquid-glass w-14 h-14 rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 magnetic-btn group pointer-events-auto">
+        <a href="https://www.buymeacoffee.com/adamzafir" target="_blank" onmouseenter="showBubble()" onmouseleave="hideBubble()" class="liquid-glass w-14 h-14 rounded-full flex items-center justify-center hover:scale-105 transition-transform duration-300 magnetic-btn group pointer-events-auto">
             <div class="absolute inset-0 bg-yellow-400/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity"></div>
             <i data-lucide="coffee" class="w-5 h-5 text-yellow-300 relative z-10"></i>
         </a>
     </div>
 
     <!-- Main Content -->
-    <main class="relative min-h-screen pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto flex flex-col justify-between z-10">
+    <main class="relative min-h-screen pt-28 pb-24 px-6 md:px-10 max-w-[1200px] mx-auto flex flex-col justify-between z-10">
 
         <!-- HOME -->
         <section id="home" class="page-section active">
-            <div class="min-h-[60vh] flex flex-col justify-center relative">
-                <h1 class="text-7xl md:text-9xl font-black tracking-tighter mb-6 relative z-10 hero-title mix-blend-lighten">
-                    HI, I'M <br>
-                    <span class="gradient-text-anim">ADAM</span>
+            <div class="min-h-[60vh] flex flex-col justify-center relative gap-6">
+                <div class="hero-ambient"></div>
+                <h1 class="text-5xl md:text-7xl font-display font-bold hero-title relative z-10">
+                    Hi, I'm <span class="gradient-text-anim">Adam</span>
                 </h1>
-                
-                <div class="inline-block glass-panel px-6 py-4 rounded-xl border-l-4 border-l-cyan-400 max-w-2xl reveal-fade">
-                    <p class="text-2xl md:text-3xl font-light text-gray-200">
-                        I'm a <span id="typewriter" class="font-normal text-white"></span><span class="typewriter-cursor"></span>
-                    </p>
+                <p class="text-lg md:text-xl text-white/70 relative z-10 reveal-fade">
+                    I'm a <span id="typewriter" class="font-medium text-white"></span><span class="typewriter-cursor"></span>
+                </p>
+                <div class="flex flex-wrap items-center gap-4 relative z-10">
+                    <button onclick="navigateTo('projects')" class="btn-primary magnetic-btn">Projects</button>
+                    <a href="#contact-footer" class="btn-secondary magnetic-btn">Contact</a>
                 </div>
             </div>
 
-            <div class="mt-20 grid md:grid-cols-12 gap-12 items-start opacity-0" id="about-section">
-                <div class="md:col-span-3 pt-2">
-                    <span class="section-line"></span>
-                    <span class="font-display text-xs tracking-[0.2em] text-cyan-400">ABOUT</span>
+            <div class="mt-20 grid md:grid-cols-12 gap-10 items-start opacity-0" id="about-section">
+                <div class="md:col-span-4 space-y-6 pt-2">
+                    <div>
+                        <span class="section-line"></span>
+                    <span class="font-display text-xs tracking-[0.2em] home-label">ABOUT</span>
+                    </div>
+                        <p class="text-xl md:text-2xl font-light leading-snug text-white/90">
+                        I'm someone who chose <strong class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#71E0FE] to-[#59A96A]">Swift over sleep</strong> and never really looked back. I like building things that feel focused, intentional, and useful.
+                    </p>
                 </div>
-                <div class="md:col-span-9 space-y-8 relative">
-                    <div class="glass-panel p-8 md:p-12 rounded-3xl tilt-card">
-                        <div class="prism-border"></div>
-                        <div class="glass-shine"></div>
-                        <p class="text-3xl md:text-4xl font-extralight leading-snug text-white/90">
-                            I'm someone who chose <strong class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-400">Swift over sleep</strong> and never really looked back. I like building things that feel focused, intentional, and useful.
-                        </p>
-                        <p class="text-xl text-gray-400 font-light mt-6 leading-relaxed">
+                <div class="md:col-span-8">
+                    <div class="glass-panel p-6 md:p-8 rounded-2xl">
+                        <p class="text-lg text-gray-300 font-light leading-relaxed">
                             Swift is where most of my ideas turn into something real, and every project is just another step toward getting better at what I do.
                         </p>
                     </div>
@@ -457,51 +551,44 @@
 
         <!-- PROJECTS LIST -->
         <section id="projects" class="page-section">
-            <div class="mb-24 reveal-proj">
-                <span class="section-line"></span>
-                <span class="font-display text-xs tracking-[0.2em] text-cyan-400">RECENT WORKS</span>
-                <h2 class="text-6xl md:text-8xl font-bold tracking-tighter mt-4 gradient-text-anim hero-title">PROJECTS</h2>
+            <div class="mb-12 reveal-proj">
+                <div class="flex items-center gap-3">
+                    <span class="section-line"></span>
+                    <span class="font-display text-xs tracking-[0.2em] home-label">RECENT WORKS</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-semibold tracking-tight mt-4 hero-title">Projects</h2>
             </div>
 
-            <div class="grid gap-16">
+            <div class="grid gap-6 lg:grid-cols-2">
                 <!-- Pycollab Card -->
-                <div onclick="navigateTo('project-pycollab')" class="glass-panel rounded-[2rem] p-8 md:p-16 cursor-pointer group tilt-card reveal-proj opacity-0 translate-y-20">
-                    <div class="prism-border"></div>
-                    <div class="glass-shine"></div>
-                    <div class="relative z-10 flex flex-col md:flex-row justify-between gap-8">
+                <div onclick="navigateTo('project-pycollab')" class="glass-panel rounded-2xl p-6 md:p-8 cursor-pointer group reveal-proj opacity-0 translate-y-20 project-card">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                         <div>
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-[10px] font-bold tracking-widest uppercase">2025</span>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-[10px] font-bold tracking-widest uppercase home-tag-cool">2025</span>
                             </div>
-                            <h3 class="text-5xl md:text-7xl font-bold mb-4 group-hover:text-cyan-400 transition-colors duration-300">PYCOLLAB</h3>
-                            <p class="text-xl text-gray-400 max-w-xl group-hover:text-gray-200 transition-colors">A real-time, browser-based Python IDE. Collaborative coding made effortless.</p>
+                            <h3 class="text-2xl md:text-3xl font-semibold tracking-tight mb-2 group-hover:text-[#71E0FE] transition-colors">PYCOLLAB</h3>
+                            <p class="text-sm md:text-base text-gray-400 max-w-xl group-hover:text-gray-200 transition-colors">A real-time, browser-based Python IDE. Collaborative coding made effortless.</p>
                         </div>
-                        <div class="self-start md:self-center">
-                            <div class="w-20 h-20 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-cyan-400 group-hover:text-black group-hover:border-cyan-400 transition-all duration-500 group-hover:scale-110 group-hover:rotate-[-45deg]">
-                                <i data-lucide="arrow-right" class="w-8 h-8"></i>
-                            </div>
+                        <div class="project-action text-white/80">
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
                         </div>
                     </div>
                 </div>
 
                 <!-- Scripties Card -->
-                <div onclick="navigateTo('project-scripties')" class="glass-panel rounded-[2rem] p-8 md:p-16 cursor-pointer group tilt-card reveal-proj opacity-0 translate-y-20">
-                    <div class="prism-border"></div>
-                    <div class="glass-shine"></div>
-                    <div class="relative z-10 flex flex-col md:flex-row justify-between gap-8">
+                <div onclick="navigateTo('project-scripties')" class="glass-panel rounded-2xl p-6 md:p-8 cursor-pointer group reveal-proj opacity-0 translate-y-20 project-card project-card-purple">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                         <div>
-                            <div class="flex items-center gap-3 mb-4">
-                                <!-- Tag has color, Year is neutral -->
-                                <span class="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-[10px] font-bold tracking-widest uppercase">Swift Accelerator</span>
-                                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-[10px] font-bold tracking-widest uppercase">2025</span>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-[10px] font-bold tracking-widest uppercase home-tag">Swift Accelerator</span>
+                                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-[10px] font-bold tracking-widest uppercase home-tag-cool">2025</span>
                             </div>
-                            <h3 class="text-5xl md:text-7xl font-bold mb-4 group-hover:text-purple-400 transition-colors duration-300">SCRIPTIES</h3>
-                            <p class="text-xl text-gray-400 max-w-xl group-hover:text-gray-200 transition-colors">Teleprompter and speech review app. Elevating student presentations.</p>
+                            <h3 class="text-2xl md:text-3xl font-semibold tracking-tight mb-2 group-hover:text-[#E05263] transition-colors">SCRIPTIES</h3>
+                            <p class="text-sm md:text-base text-gray-400 max-w-xl group-hover:text-gray-200 transition-colors">Teleprompter and speech review app. Elevating student presentations.</p>
                         </div>
-                        <div class="self-start md:self-center">
-                            <div class="w-20 h-20 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-purple-400 group-hover:text-black group-hover:border-purple-400 transition-all duration-500 group-hover:scale-110 group-hover:rotate-[-45deg]">
-                                <i data-lucide="arrow-right" class="w-8 h-8"></i>
-                            </div>
+                        <div class="project-action text-white/80">
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
                         </div>
                     </div>
                 </div>
@@ -516,7 +603,6 @@
 
             <!-- Hero Banner -->
             <div class="glass-panel rounded-[2.5rem] p-12 md:p-24 mb-24 relative overflow-hidden">
-                <div class="absolute -top-[200px] -right-[200px] w-[600px] h-[600px] bg-cyan-500/20 rounded-full blur-[120px] pointer-events-none"></div>
                 <div class="prism-border"></div>
                 
                 <h1 class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-8 uppercase relative z-10 hero-title leading-tight">Pycollab</h1>
@@ -540,12 +626,12 @@
 
             <!-- Content Grid -->
             <div class="grid md:grid-cols-2 gap-8 mb-32">
-                <div class="glass-panel p-10 rounded-3xl tilt-card">
+                <div class="glass-panel p-10 rounded-3xl">
                     <div class="prism-border"></div>
                     <span class="font-display text-xs tracking-widest text-cyan-400 mb-4 block">THE PROBLEM</span>
                     <p class="text-lg text-gray-300 leading-relaxed">Collaboration on Python code is usually way more over-engineered than it has to be. For beginners especially, the learning curve gets steep using tools like GitHub, with branches, pull requests, and merge conflicts getting in the way of actually learning the language.</p>
                 </div>
-                <div class="glass-panel p-10 rounded-3xl tilt-card">
+                <div class="glass-panel p-10 rounded-3xl">
                     <div class="prism-border"></div>
                     <span class="font-display text-xs tracking-widest text-cyan-400 mb-4 block">THE SOLUTION</span>
                     <p class="text-lg text-gray-300 leading-relaxed">PythonCollab is a browser-based Python IDE designed to make coding together easy. Share a short PIN, and instantly see everybody's edits appear live: like Google Docs for Python.</p>
@@ -582,7 +668,6 @@ The central insight driving this was the realization that most people, especiall
 
             <!-- Hero Banner -->
             <div class="glass-panel rounded-[2.5rem] p-12 md:p-24 mb-24 relative overflow-hidden">
-                <div class="absolute -top-[200px] -right-[200px] w-[600px] h-[600px] bg-purple-500/20 rounded-full blur-[120px] pointer-events-none"></div>
                 <div class="prism-border"></div>
                 
                 <!-- Tag Top Left -->
@@ -611,12 +696,12 @@ The central insight driving this was the realization that most people, especiall
 
             <!-- Content Grid (Reduced Gap) -->
             <div class="grid md:grid-cols-2 gap-8 mb-32">
-                <div class="glass-panel p-10 rounded-3xl tilt-card">
+                <div class="glass-panel p-10 rounded-3xl">
                     <div class="prism-border"></div>
                     <span class="font-display text-xs tracking-widest text-purple-400 mb-4 block">THE PROBLEM</span>
                     <p class="text-lg text-gray-300 leading-relaxed">Many students, presenters, and professionals have a hard time presenting speeches confidently. Many face stress due to night-long script writing, last-minute rehearsals, and uncertainty about pacing, tone, and clarity. The existing tools deal either with only writing or limited practice features, offering no structural guidance to improve speech delivery.</p>
                 </div>
-                <div class="glass-panel p-10 rounded-3xl tilt-card">
+                <div class="glass-panel p-10 rounded-3xl">
                     <div class="prism-border"></div>
                     <span class="font-display text-xs tracking-widest text-purple-400 mb-4 block">THE SOLUTION</span>
                     <p class="text-lg text-gray-300 leading-relaxed">Scripties helps its users write, rehearse, and improve their scripts efficiently. The app consolidates script management, teleprompter-style practice, recording, playback, and automated feedback on key delivery metrics like speaking speed and consistency. Users can use Scripties to track their progress, refine their pacing, and approach presentations confidently.</p>
@@ -649,21 +734,30 @@ The central insight driving this was the realization that most people, especiall
 
         <!-- FOOTER -->
         <footer id="contact-footer" class="mt-auto pt-20">
-            <div class="glass-panel rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden group magnetic-area">
-                <!-- Liquid Gradient Background -->
-                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,242,255,0.15),transparent_60%)] opacity-60 group-hover:opacity-100 transition-opacity duration-700"></div>
-                
-                <div class="relative z-10">
-                    <span class="font-display text-xs tracking-[0.3em] text-white/50 mb-8 block">SAY HELLO</span>
-                    <!-- Break words to prevent clipping -->
-                    <h2 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-10 tracking-tight uppercase break-words leading-tight">Ready to <br><span class="gradient-text-anim">Collaborate?</span></h2>
-                    
-                    <a href="mailto:me@adamzafir.com" class="inline-flex items-center gap-3 bg-white text-black px-12 py-5 rounded-full font-bold text-lg hover:scale-110 hover:shadow-[0_0_50px_rgba(255,255,255,0.5)] transition-all duration-300 magnetic-btn">
-                        CONTACT ME <i data-lucide="mail" class="w-5 h-5"></i>
-                    </a>
+            <div class="glass-panel rounded-[2.5rem] p-10 md:p-16 relative overflow-hidden">
+                <div class="relative z-10 grid md:grid-cols-12 gap-8 items-center">
+                    <div class="md:col-span-7">
+                        <span class="font-display text-xs tracking-[0.3em] text-white/50 mb-4 block">SAY HELLO</span>
+                        <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-tight">
+                            Ready to <br><span class="gradient-text-anim">Collaborate?</span>
+                        </h2>
+                    </div>
+                    <div class="md:col-span-5 flex flex-col md:items-end gap-5">
+                        <a href="mailto:me@adamzafir.com" class="btn-primary magnetic-btn inline-flex items-center gap-3">
+                            CONTACT ME <i data-lucide="mail" class="w-4 h-4"></i>
+                        </a>
+                        <div class="flex items-center gap-3">
+                            <a href="https://github.com/adamzafir" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:border-white/30 transition-colors">
+                                <i data-lucide="github" class="w-4 h-4"></i>
+                            </a>
+                            <a href="https://www.buymeacoffee.com/adamzafir" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:border-white/30 transition-colors">
+                                <i data-lucide="coffee" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="flex justify-between items-end mt-12 pb-6 text-[10px] text-gray-500 font-display tracking-widest uppercase">
+            <div class="flex justify-between items-end mt-10 pb-6 text-[10px] text-gray-500 font-display tracking-widest uppercase">
                 <span>Adam Zafir © 2025</span>
                 <span>Designed with Glass 3.0</span>
             </div>
@@ -687,6 +781,11 @@ The central insight driving this was the realization that most people, especiall
         let currentSectionId = 'home';
         let lenis;
         const apiKey = "AIzaSyD-1NvP4QwxqPfvUT2iIYa6q2pYZpUXC6c"; // Set your Gemini API Key here if running locally
+
+        function setThemeForSection(sectionId) {
+            const isHomeView = sectionId === 'home' || sectionId === 'projects';
+            document.body.classList.toggle('home-theme', isHomeView);
+        }
         
         // --- Smooth Scroll (Lenis) ---
         // Wrapped in try/catch to avoid freezing if script fails
@@ -868,6 +967,7 @@ The central insight driving this was the realization that most people, especiall
             
             // Update Nav Indicator
             updateNavIndicator(id === 'home' ? 'home' : 'projects');
+            setThemeForSection(id);
 
             // Scroll to top
             if (lenis) lenis.scrollTo(0, { immediate: false });
@@ -1107,6 +1207,7 @@ Scripties allows users to create, edit, and organize their scripts, providing a 
 
         // --- Initial Load Sequence ---
         window.addEventListener('load', () => {
+            setThemeForSection(currentSectionId);
              if (typeof gsap !== 'undefined') {
                 const tl = gsap.timeline();
                 

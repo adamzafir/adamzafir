@@ -34,9 +34,9 @@
                         display: ['Syncopate', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#00f2ff',
-                        secondary: '#7000ff',
-                        accent: '#ff00c8',
+                        primary: '#71E0FE',
+                        secondary: '#59A96A',
+                        accent: '#E05263',
                     }
                 }
             }
@@ -45,8 +45,8 @@
 
     <style>
         body {
-            background-color: #050505;
-            color: #fff;
+            background-color: #0D0628;
+            color: #F7F6FA;
             cursor: default; /* Keep default cursor for simplicity on maintenance */
             overflow: hidden;
             font-family: 'Outfit', sans-serif;
@@ -60,24 +60,9 @@
             width: 100vw;
             height: 100vh;
             z-index: -2;
-            overflow: hidden;
-            background: #020204;
-        }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.6;
-            mix-blend-mode: screen;
-        }
-
-        .orb-1 { width: 60vw; height: 60vw; background: radial-gradient(circle, #4f46e5 0%, transparent 70%); top: -20%; left: -10%; animation: float 10s infinite alternate; }
-        .orb-2 { width: 50vw; height: 50vw; background: radial-gradient(circle, #c026d3 0%, transparent 70%); bottom: -10%; right: -10%; animation: float 12s infinite alternate-reverse; }
-
-        @keyframes float {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(30px, -30px); }
+            background: radial-gradient(60% 60% at 20% 10%, rgba(113, 224, 254, 0.18), rgba(89, 169, 106, 0.12) 45%, transparent 70%);
+            filter: blur(40px);
+            opacity: 0.8;
         }
 
         /* --- Texture --- */
@@ -88,52 +73,24 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.05;
+            opacity: 0.03;
             pointer-events: none;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
         /* --- Glass Engine --- */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.015);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
             position: relative;
-            transform-style: preserve-3d;
         }
 
         .prism-border {
-            position: absolute;
-            inset: -1px;
-            border-radius: inherit;
-            background: linear-gradient(45deg, #00f2ff, transparent, #ff00c8, transparent, #7000ff);
-            z-index: -1;
-            opacity: 0.5;
-            filter: blur(8px);
+            display: none;
         }
-
-        .glass-panel::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 1.5px;
-            background: radial-gradient(
-                800px circle at var(--mouse-x) var(--mouse-y),
-                rgba(255, 255, 255, 0.5),
-                transparent 40%
-            );
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.5s;
-            z-index: 2;
-        }
-        .glass-panel:hover::before { opacity: 1; }
 
         /* --- Progress Bar Animation --- */
         .loading-bar-container {
@@ -151,7 +108,7 @@
             left: 0;
             height: 100%;
             width: 50%;
-            background: linear-gradient(90deg, transparent, #00f2ff, #7000ff, transparent);
+            background: linear-gradient(90deg, transparent, rgba(113, 224, 254, 0.7), rgba(89, 169, 106, 0.5), transparent);
             animation: loading 2s infinite linear;
         }
 
@@ -165,19 +122,16 @@
 <body class="h-screen w-screen flex items-center justify-center relative">
 
     <!-- Background -->
-    <div class="ambient-bg">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-    </div>
+    <div class="ambient-bg"></div>
     <div class="noise-overlay"></div>
 
     <!-- Main Card -->
-    <div class="glass-panel p-12 md:p-16 rounded-[2rem] text-center max-w-lg w-[90%] tilt-card opacity-0 translate-y-10" id="main-card">
+    <div class="glass-panel p-10 md:p-14 rounded-[2rem] text-center max-w-lg w-[90%] opacity-0 translate-y-10" id="main-card">
         <div class="prism-border"></div>
         
         <!-- Icon -->
         <div class="flex justify-center mb-8">
-            <div class="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shadow-[0_0_30px_rgba(0,242,255,0.15)] animate-pulse">
+            <div class="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.4)]">
                 <i data-lucide="wrench" class="w-6 h-6 text-primary"></i>
             </div>
         </div>
@@ -214,8 +168,8 @@
 
         // 3D Tilt Card
         document.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.clientX) / 40;
-            const y = (window.innerHeight / 2 - e.clientY) / 40;
+            const x = (window.innerWidth / 2 - e.clientX) / 70;
+            const y = (window.innerHeight / 2 - e.clientY) / 70;
             
             gsap.to(card, {
                 rotateY: x,

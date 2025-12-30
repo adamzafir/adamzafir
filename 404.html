@@ -50,8 +50,8 @@
 
     <style>
         body {
-            background-color: #050505;
-            color: #fff;
+            background-color: #0D0628;
+            color: #F7F6FA;
             overflow: hidden;
             font-family: 'Outfit', sans-serif;
         }
@@ -64,24 +64,9 @@
             width: 100vw;
             height: 100vh;
             z-index: -2;
-            overflow: hidden;
-            background: #020204;
-        }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.6;
-            mix-blend-mode: screen;
-        }
-
-        .orb-1 { width: 60vw; height: 60vw; background: radial-gradient(circle, #4f46e5 0%, transparent 70%); top: -20%; left: -10%; animation: float 10s infinite alternate; }
-        .orb-2 { width: 50vw; height: 50vw; background: radial-gradient(circle, #c026d3 0%, transparent 70%); bottom: -10%; right: -10%; animation: float 12s infinite alternate-reverse; }
-
-        @keyframes float {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(30px, -30px); }
+            background: radial-gradient(60% 60% at 20% 10%, rgba(113, 224, 254, 0.18), rgba(89, 169, 106, 0.12) 45%, transparent 70%);
+            filter: blur(40px);
+            opacity: 0.8;
         }
 
         /* --- Texture --- */
@@ -92,109 +77,44 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.05;
+            opacity: 0.03;
             pointer-events: none;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
         /* --- Glass Card --- */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.015);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
             position: relative;
-            transform-style: preserve-3d;
         }
 
         .prism-border {
-            position: absolute;
-            inset: -1px;
-            border-radius: inherit;
-            background: linear-gradient(45deg, #00f2ff, transparent, #ff00c8, transparent, #7000ff);
-            z-index: -1;
-            opacity: 0.5;
-            filter: blur(8px);
+            display: none;
         }
 
         /* --- 404 Glitch Text --- */
         .glitch-text {
-            font-size: 10rem;
+            font-size: clamp(5rem, 20vw, 10rem);
             line-height: 1;
             font-weight: 900;
             position: relative;
             color: white;
             letter-spacing: -0.05em;
         }
-
-        .glitch-text::before, .glitch-text::after {
-            content: '404';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.8;
-        }
-
-        .glitch-text::before {
-            color: #00f2ff;
-            z-index: -1;
-            animation: glitch-anim-1 2s infinite linear alternate-reverse;
-        }
-
-        .glitch-text::after {
-            color: #ff00c8;
-            z-index: -2;
-            animation: glitch-anim-2 3s infinite linear alternate-reverse;
-        }
-
-        @keyframes glitch-anim-1 {
-            0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
-            20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
-            40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
-            60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
-            80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
-            100% { clip-path: inset(30% 0 20% 0); transform: translate(1px, -1px); }
-        }
-
-        @keyframes glitch-anim-2 {
-            0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
-            20% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, 1px); }
-            40% { clip-path: inset(70% 0 10% 0); transform: translate(2px, 2px); }
-            60% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, -2px); }
-            80% { clip-path: inset(50% 0 30% 0); transform: translate(1px, -1px); }
-            100% { clip-path: inset(0% 0 80% 0); transform: translate(-1px, 1px); }
-        }
-
-        /* --- Floating Shards --- */
-        .shard {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: -1;
-        }
     </style>
 </head>
 <body class="h-screen w-screen flex items-center justify-center relative">
 
     <!-- Background -->
-    <div class="ambient-bg">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-    </div>
+    <div class="ambient-bg"></div>
     <div class="noise-overlay"></div>
 
-    <!-- Floating Glass Shards (Decoration) -->
-    <div class="shard w-24 h-24 rounded-2xl top-[20%] left-[20%] rotate-12" data-speed="2"></div>
-    <div class="shard w-16 h-16 rounded-full top-[70%] right-[25%] -rotate-12" data-speed="-1"></div>
-    <div class="shard w-32 h-32 rounded-3xl bottom-[10%] left-[10%] rotate-45" data-speed="1.5"></div>
-    <div class="shard w-12 h-12 rounded-lg top-[15%] right-[15%] rotate-180" data-speed="-2"></div>
-
     <!-- Main Card -->
-    <div class="glass-panel p-12 md:p-20 rounded-[3rem] text-center max-w-2xl w-[90%] tilt-card opacity-0 translate-y-10" id="main-card">
+    <div class="glass-panel p-10 md:p-16 rounded-[2.5rem] text-center max-w-2xl w-[90%] opacity-0 translate-y-10" id="main-card">
         <div class="prism-border"></div>
         
         <h1 class="glitch-text font-display mb-2">404</h1>
@@ -206,7 +126,7 @@
             You’re lost. It’s okay. Happens to the best of us.
         </p>
 
-        <a href="index.html" class="inline-flex items-center gap-3 bg-white text-black px-10 py-4 rounded-full font-bold text-sm tracking-widest hover:scale-110 hover:shadow-[0_0_40px_rgba(0,242,255,0.6)] transition-all duration-300 magnetic-btn group">
+        <a href="index.html" class="inline-flex items-center gap-3 bg-white text-black px-10 py-4 rounded-full font-bold text-sm tracking-widest hover:scale-110 hover:shadow-[0_0_40px_rgba(113,224,254,0.45)] transition-all duration-300 magnetic-btn group">
             <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
              Return Home
         </a>
@@ -239,18 +159,20 @@
         });
 
         // 3D Tilt Card
-        const card = document.querySelector('.tilt-card');
-        document.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.clientX) / 50;
-            const y = (window.innerHeight / 2 - e.clientY) / 50;
-            
-            gsap.to(card, {
-                rotateY: x,
-                rotateX: -y, // Inverted for natural feel
-                duration: 1,
-                ease: "power2.out"
+        const card = document.getElementById('main-card');
+        if (card) {
+            document.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.clientX) / 60;
+                const y = (window.innerHeight / 2 - e.clientY) / 60;
+                
+                gsap.to(card, {
+                    rotateY: x,
+                    rotateX: -y,
+                    duration: 1,
+                    ease: "power2.out"
+                });
             });
-        });
+        }
 
         // Entrance Animation
         window.addEventListener('load', () => {
@@ -261,14 +183,7 @@
                 y: 0,
                 duration: 1.2,
                 ease: "power3.out"
-            })
-            .from(".shard", {
-                opacity: 0,
-                scale: 0,
-                duration: 1,
-                stagger: 0.2,
-                ease: "back.out(1.7)"
-            }, "-=0.8");
+            });
         });
 
     </script>
