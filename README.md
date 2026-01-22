@@ -17,7 +17,6 @@
 [![pycollab.com](https://img.shields.io/badge/pycollab.com-000000?style=for-the-badge)](https://pycollab.com)
 [![adamzafir.com](https://img.shields.io/badge/adamzafir.com-000000?style=for-the-badge)](https://adamzafir.com)
 
-<br/><br/>
 
 
 <h2 align="center">My Stack</h2>
@@ -25,7 +24,7 @@
 ![Swift](https://img.shields.io/badge/swift-F54A2A?style=for-the-badge&logo=swift&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
-<br/><br/>
+
 
 
 <h2 align="center">GitHub Stats</h2>
@@ -46,9 +45,7 @@
 
 [![email](https://img.shields.io/badge/Email-me%40adamzafir.com-D14836?logo=gmail&logoColor=white)](mailto:me@adamzafir.com)
 
-<br/><br/>
 
-<!-- MISC -->
 <h2 align="center">Misc</h2>
 
 [![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/adamzafir)
