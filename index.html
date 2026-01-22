@@ -1,1244 +1,832 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
-    <script>
-        (function() {
-            const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            const isSmallScreen = window.screen.width < 1024 || window.innerWidth < 1024;
-            const isTouch = (navigator.maxTouchPoints > 0) || ('ontouchstart' in window);
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>Adam Zafir — Adam Pro</title>
+  <meta name="description" content="Adam Pro by Adam Zafir — premium-grade Swift-powered human. Capabilities, work, and memes." />
 
-            if (isMobileUA || (isTouch && isSmallScreen)) {
-                if (!window.location.href.includes('67.html')) {
-                    window.location.replace('67.html');
-                }
-            }
-        })();
-    </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adam Zafir</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- GSAP & Plugins -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
-    
-    <!-- Lenis for Smooth Scroll -->
-    <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
 
-    <!-- Markdown Parser -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    :root{
+      --bg0:#05040D;
+      --bg1:#07061A;
+      --ink:#F2F1FF;
+      --muted:rgba(242,241,255,.72);
+      --muted2:rgba(242,241,255,.56);
+      --line:rgba(255,255,255,.10);
+      --glass:rgba(255,255,255,.04);
+      --glass2:rgba(255,255,255,.06);
+      --shadow: 0 24px 80px rgba(0,0,0,.60);
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Outfit:wght@200;300;400;500;700;800&display=swap" rel="stylesheet">
+     
+      --a:#8B5CF6;  /* violet */
+      --a2:#60A5FA; /* sky */
+      --a3:#FB7185; /* rose */
+      --a4:#F59E0B; /* ember */
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                        display: ['Syncopate', 'sans-serif'],
-                    },
-                    colors: {
-                        primary: '#00f2ff',
-                        secondary: '#7000ff',
-                        accent: '#ff00c8',
-                    }
-                }
-            }
-        }
-    </script>
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      --serif: "Instrument Serif", ui-serif, Georgia, serif;
 
-    <style>
-        :root {
-            --cursor-size: 14px;
-            --cursor-hover-size: 48px;
-            --prism-1: #00f2ff;
-            --prism-2: #ff00c8;
-            --prism-3: #7000ff;
-            --home-bg: #0D0628;
-            --home-ink: #F7F6FA;
-            --home-muted: #B7B4C6;
-            --home-accent-cool: #71E0FE;
-            --home-accent-green: #59A96A;
-            --home-accent-warm: #E07A5F;
-            --home-accent-rose: #E05263;
-        }
+      --r: 22px;
+      --r2: 14px;
+      --max: 1180px;
 
-        body {
-            background-color: #060607;
-            color: #eaeaea;
-            cursor: none;
-            overflow-x: hidden;
-            font-family: 'Outfit', sans-serif;
-        }
+      --focus: 0 0 0 3px rgba(139,92,246,.32), 0 0 0 1px rgba(255,255,255,.22) inset;
+    }
 
-        body.home-theme {
-            background-color: var(--home-bg);
-            color: var(--home-ink);
-        }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 740px at 50% -8%, rgba(139,92,246,.26), transparent 55%),
+        radial-gradient(980px 620px at 62% 30%, rgba(96,165,250,.14), transparent 60%),
+        radial-gradient(980px 620px at 38% 42%, rgba(251,113,133,.10), transparent 62%),
+        linear-gradient(180deg, var(--bg1), var(--bg0));
+      overflow-x:hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-        /* --- 1. Hero Ambient --- */
-        .hero-ambient {
-            position: absolute;
-            inset: -20% -10% auto -10%;
-            height: 70%;
-            background: radial-gradient(60% 60% at 20% 20%, rgba(113, 224, 254, 0.22), rgba(89, 169, 106, 0.12) 45%, transparent 70%);
-            filter: blur(40px);
-            opacity: 0.75;
-            pointer-events: none;
-            z-index: 0;
-        }
+    /* faint grid */
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 76px 76px;
+      opacity:.10;
+      mask-image: radial-gradient(70% 55% at 50% 24%, #000 52%, transparent 100%);
+    }
 
-        /* --- 2. Texture --- */
-        .noise-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.03;
-            pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
+    /* noise */
+    .noise{
+      position:fixed; inset:0; pointer-events:none;
+      opacity:.06; mix-blend-mode:overlay;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+      z-index:0;
+    }
 
-        /* --- 3. Glass --- */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(18px) saturate(140%);
-            -webkit-backdrop-filter: blur(18px) saturate(140%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
-            position: relative;
-            transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
+    .wrap{position:relative; z-index:1}
+    .container{max-width:var(--max); margin:0 auto; padding: 26px 18px 96px}
 
-        .glass-panel:hover {
-            border-color: rgba(255, 255, 255, 0.16);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 12px rgba(0, 242, 255, 0.12);
-            transform: translateY(-2px);
-        }
+    /* Top pill bar */
+    header{position:sticky; top:14px; z-index:20; display:flex; justify-content:center; padding-bottom: 14px}
+    .bar{
+      width:min(var(--max), calc(100% - 12px));
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding: 10px 12px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(6,6,16,.55);
+      backdrop-filter: blur(14px) saturate(140%);
+      border-radius: 999px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.38);
+    }
+    .brand{display:flex; align-items:center; gap:10px; padding-left:6px; white-space:nowrap}
+    .logo{
+      width: 26px; height: 26px; border-radius: 9px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.85), rgba(255,255,255,.10) 55%),
+                  linear-gradient(135deg, rgba(139,92,246,.55), rgba(96,165,250,.28));
+      box-shadow: 0 0 0 3px rgba(139,92,246,.14), 0 0 26px rgba(139,92,246,.18);
+    }
+    .brand b{font-weight:820; letter-spacing:-.02em}
+    .brand span{font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--muted2)}
 
-        .prism-border {
-            display: none;
-        }
+    nav{display:flex; align-items:center; gap:6px; padding: 6px; border-radius:999px; border:1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.03)}
+    .link{
+      appearance:none; background:transparent; border:0;
+      color: rgba(242,241,255,.70);
+      font-weight:700; font-size:12px;
+      letter-spacing:.18em; text-transform:uppercase;
+      padding: 10px 12px; border-radius: 999px;
+      cursor:pointer;
+      transition: background .18s ease, color .18s ease;
+    }
+    .link:hover{color:var(--ink)}
+    .link[aria-current="page"]{
+      color:var(--ink);
+      background: radial-gradient(120% 120% at 20% 20%, rgba(139,92,246,.26), rgba(255,255,255,.03) 65%);
+      border:1px solid rgba(255,255,255,.10);
+    }
 
-        .glass-shine {
-            display: none;
-        }
+    .actions{display:flex; align-items:center; gap:10px; padding-right:6px}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      color: var(--ink);
+      text-decoration:none;
+      font-weight: 760;
+      font-size: 13px;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      cursor:pointer;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.055); border-color: rgba(255,255,255,.18)}
+    .btn:focus-visible{outline:none; box-shadow: var(--focus)}
+    .btn.primary{
+      border-color: rgba(139,92,246,.42);
+      background: linear-gradient(90deg, rgba(139,92,246,.30), rgba(96,165,250,.18));
+    }
 
-        /* --- 4. Liquid Glass UI (Nav & BMC) --- */
-        .liquid-glass {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 12px 28px rgba(0,0,0,0.35);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .liquid-glass::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 40%;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.08), transparent);
-            border-radius: 9999px;
-            pointer-events: none;
-        }
+    /* Hero */
+    section{scroll-margin-top: 120px}
+    .hero{padding: 56px 0 18px; text-align:center; position:relative}
 
-        /* --- 5. Typography --- */
-        .hero-title {
-            color: #f5f5f5;
-            padding-bottom: 0.1em;
-            line-height: 1.05;
-            letter-spacing: -0.02em;
-        }
-        
-        .gradient-text-anim {
-            background: linear-gradient(90deg, rgba(0, 242, 255, 0.9), rgba(112, 0, 255, 0.9), rgba(255, 0, 200, 0.9));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    /* Reflect-ish arc */
+    .arc{
+      position:absolute;
+      left:50%; top:-26px;
+      transform: translateX(-50%);
+      width:min(980px, 92vw);
+      height: 420px;
+      pointer-events:none;
+      opacity:1;
+    }
+    .arc::before{
+      content:"";
+      position:absolute;
+      left:50%; top: 142px;
+      transform: translateX(-50%);
+      width: min(720px, 90vw);
+      height: 300px;
+      border-radius: 999px;
+      background:
+        radial-gradient(closest-side at 50% 55%, rgba(255,255,255,.10), transparent 62%),
+        radial-gradient(closest-side at 50% 55%, rgba(139,92,246,.58), transparent 64%),
+        radial-gradient(closest-side at 50% 55%, rgba(96,165,250,.28), transparent 72%),
+        radial-gradient(closest-side at 50% 55%, rgba(251,113,133,.14), transparent 78%);
+      mask-image: radial-gradient(closest-side at 50% 62%, transparent 52%, #000 54%);
+      filter: blur(.2px);
+    }
+    .arc::after{
+      content:"";
+      position:absolute;
+      left:50%; top: 140px;
+      transform: translateX(-50%);
+      width:min(840px, 96vw);
+      height: 300px;
+      border-radius: 999px;
+      background: radial-gradient(closest-side at 50% 55%, rgba(139,92,246,.20), transparent 70%);
+      mask-image: radial-gradient(closest-side at 50% 62%, transparent 44%, #000 46%);
+      filter: blur(14px);
+      opacity:.95;
+    }
 
-        .typewriter-cursor {
-            display: inline-block;
-            width: 2px;
-            height: 1em;
-            background-color: var(--home-accent-cool);
-            margin-left: 4px;
-            animation: blink 0.8s step-end infinite;
-            vertical-align: sub;
-        }
-        @keyframes blink { 50% { opacity: 0; } }
+    .badge{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      color: rgba(242,241,255,.72);
+      font-size: 12px;
+      letter-spacing:.18em;
+      text-transform: uppercase;
+      font-weight: 800;
+      backdrop-filter: blur(10px);
+    }
 
-        /* --- 6. Custom Cursor --- */
-        .custom-cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: var(--cursor-size);
-            height: var(--cursor-size);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
-            mix-blend-mode: normal;
-        }
+    .spark{
+      width:10px; height:10px; border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.85), rgba(255,255,255,.12) 65%);
+      box-shadow: 0 0 0 3px rgba(139,92,246,.18), 0 0 26px rgba(139,92,246,.22);
+    }
 
-        .custom-cursor.hovered {
-            width: var(--cursor-hover-size);
-            height: var(--cursor-hover-size);
-            background-color: rgba(255, 255, 255, 0.08);
-            border: none;
-            backdrop-filter: none;
-        }
+    h1{
+      margin: 18px auto 10px;
+      font-size: clamp(44px, 6.4vw, 80px);
+      line-height: 1.02;
+      letter-spacing: -0.055em;
+      font-weight: 900;
+      max-width: 18ch;
+    }
 
-        .cursor-dot {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 6px;
-            height: 6px;
-            background-color: #fff;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-50%, -50%);
-            box-shadow: none;
-        }
+    h1 em{
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 560;
+      color: rgba(242,241,255,.92);
+    }
 
-        /* --- 7. Chat Interface --- */
-        .chat-modal {
-            position: fixed;
-            bottom: 100px;
-            left: 32px;
-            width: 350px;
-            /* Changed height logic to avoid clipping on top */
-            height: 500px;
-            max-height: 70vh; /* Constrain height */
-            border-radius: 24px;
-            z-index: 60;
-            display: flex;
-            flex-direction: column;
-            transform: translateY(20px);
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .chat-modal.open {
-            transform: translateY(0);
-            opacity: 1;
-            pointer-events: auto;
-        }
+    .lead{
+      margin: 0 auto;
+      max-width: 78ch;
+      font-size: 16.5px;
+      line-height: 1.75;
+      color: var(--muted);
+    }
 
-        .chat-input:focus {
-            outline: none;
-            background: rgba(255,255,255,0.1);
-        }
+    .cta{margin-top: 22px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap}
 
-        .message-bubble {
-            max-width: 85%;
-            padding: 10px 14px;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            border-radius: 14px;
-            margin-bottom: 10px;
-            position: relative;
-        }
-        
-        .msg-user {
-            background: rgba(0, 242, 255, 0.15);
-            border: 1px solid rgba(0, 242, 255, 0.3);
-            color: #fff;
-            align-self: flex-end;
-            border-bottom-right-radius: 4px;
-        }
-        
-        .msg-ai {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #e2e8f0;
-            align-self: flex-start;
-            border-bottom-left-radius: 4px;
-        }
+    .mini{
+      margin: 18px auto 0;
+      max-width: 980px;
+      display:flex;
+      justify-content:center;
+      gap: 10px;
+      flex-wrap:wrap;
+      color: rgba(242,241,255,.58);
+      font-size: 12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+    .pill{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      padding: 8px 10px;
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+    }
 
-        /* --- 8. Utils --- */
-        .page-section { display: none; opacity: 0; }
-        .page-section.active { display: block; opacity: 1; }
-        
-        .section-line {
-            display: inline-block;
-            width: 40px;
-            height: 1px;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.12), transparent);
-            vertical-align: middle;
-            margin-right: 15px;
-        }
+    /* Specs strip */
+    .specs{
+      margin: 24px auto 0;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 980px;
+    }
+    .spec{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--r);
+      padding: 14px 14px 12px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.30);
+      text-align:center;
+    }
+    .spec b{display:block; font-size: 15px; letter-spacing:-.01em}
+    .spec span{display:block; margin-top:6px; font-size: 12px; letter-spacing:.18em; text-transform:uppercase; color: var(--muted2)}
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; }
+    /* Section header */
+    .secHead{
+      margin-top: 56px;
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .secHead h2{
+      margin:0;
+      font-size: 16px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color: rgba(242,241,255,.78);
+    }
+    .secHead p{
+      margin:0;
+      font-size: 12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color: rgba(242,241,255,.48);
+    }
 
-        body.home-theme ::selection {
-            background: rgba(113, 224, 254, 0.3);
-            color: #0D0628;
-        }
+    /* Work / capabilities */
+    .showcase{
+      margin-top: 14px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
 
-        body:not(.home-theme) ::selection {
-            background: rgba(236, 72, 153, 0.3);
-            color: #ffffff;
-        }
+    .work{
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .work::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 260px at var(--mx, 30%) var(--my, 30%), rgba(139,92,246,.18), transparent 60%),
+        radial-gradient(780px 260px at 78% 15%, rgba(96,165,250,.12), transparent 62%),
+        radial-gradient(780px 280px at 18% 78%, rgba(251,113,133,.10), transparent 65%);
+      filter: blur(14px);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .work .in{position:relative; z-index:1; padding: 18px}
 
-        .btn-primary {
-            background: var(--home-accent-cool);
-            color: #0D0628;
-            border-radius: 9999px;
-            padding: 0.9rem 1.8rem;
-            font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
-        }
+    .workTop{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+    .workTitle{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      min-width: min(520px, 100%);
+    }
+    .workTitle b{
+      font-size: 22px;
+      letter-spacing:-.03em;
+      font-weight: 900;
+    }
+    .workTitle span{
+      font-size: 13px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color: rgba(242,241,255,.60);
+    }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 26px rgba(113, 224, 254, 0.2);
-        }
+    .workActions{display:flex; gap:10px; align-items:center}
 
-        .btn-secondary {
-            background: transparent;
-            color: var(--home-muted);
-            border: 1px solid rgba(89, 169, 106, 0.45);
-            border-radius: 9999px;
-            padding: 0.9rem 1.7rem;
-            font-weight: 600;
-            font-size: 0.8rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            transition: transform 0.25s ease, border-color 0.25s ease, color 0.25s ease;
-        }
+    .made{
+      font-size: 11px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color: rgba(242,241,255,.66);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      padding: 7px 10px;
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+    }
 
-        .btn-secondary:hover {
-            transform: translateY(-2px);
-            border-color: rgba(89, 169, 106, 0.8);
-            color: var(--home-ink);
-        }
+    .grid2{
+      margin-top: 14px;
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
 
-        .project-card {
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        }
+    .block{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--r);
+      padding: 18px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 34px rgba(0,0,0,.28);
+    }
 
-        .project-action {
-            width: 44px;
-            height: 44px;
-            border-radius: 9999px;
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
-        }
+    .kicker{
+      margin:0 0 10px;
+      font-size: 12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-weight: 850;
+      color: rgba(242,241,255,.74);
+    }
 
-        .project-card:hover .project-action {
-            transform: translateX(4px);
-            border-color: rgba(113, 224, 254, 0.6);
-            background: rgba(113, 224, 254, 0.1);
-        }
+    .para{
+      margin:0;
+      color: rgba(242,241,255,.66);
+      line-height:1.75;
+      font-size: 14px;
+      white-space:pre-wrap;
+    }
 
-        .project-card-purple:hover .project-action {
-            border-color: rgba(224, 82, 99, 0.6);
-            background: rgba(224, 82, 99, 0.12);
-        }
+    .long{
+      margin-top: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--r);
+      padding: 18px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 34px rgba(0,0,0,.28);
+    }
 
-        body.home-theme .liquid-glass {
-            background: rgba(13, 6, 40, 0.7);
-            border-color: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
-        }
+    .long .para{font-size: 14.5px; color: rgba(242,241,255,.70)}
 
-        body.home-theme #nav-indicator {
-            background: rgba(113, 224, 254, 0.16);
-        }
+    /* Pricing (embrace the meme) */
+    .pricing{
+      margin: 14px auto 0;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      max-width: 980px;
+      text-align:left;
+    }
 
-        body.home-theme #nav-home,
-        body.home-theme #nav-projects {
-            color: rgba(247, 246, 250, 0.7);
-        }
+    .tier{
+      position:relative;
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
 
-        body.home-theme #nav-home:hover,
-        body.home-theme #nav-projects:hover {
-            color: var(--home-ink);
-        }
+    .tier::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(700px 260px at var(--mx, 40%) var(--my, 30%), rgba(139,92,246,.18), transparent 60%),
+                  radial-gradient(780px 260px at 70% 15%, rgba(96,165,250,.12), transparent 62%),
+                  radial-gradient(780px 280px at 20% 70%, rgba(251,113,133,.10), transparent 65%);
+      filter: blur(14px);
+      opacity:.9;
+      pointer-events:none;
+    }
 
-        body.home-theme #home .glass-panel,
-        body.home-theme #contact-footer .glass-panel,
-        body.home-theme #projects .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            border-color: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
-        }
+    .tier .in{position:relative; z-index:1; padding: 18px}
 
-        body.home-theme #contact-footer .glass-panel {
-            border-color: rgba(255, 255, 255, 0.12);
-        }
+    .tierTop{display:flex; align-items:baseline; justify-content:space-between; gap:12px}
+    .tierName{font-weight:900; letter-spacing:-.02em; font-size: 18px}
+    .price{font-weight:900; letter-spacing:-.02em; font-size: 18px}
+    .sub{margin-top: 8px; color: rgba(242,241,255,.66); line-height:1.6; font-size: 13.5px}
 
-        body.home-theme .home-label {
-            color: rgba(113, 224, 254, 0.9);
-        }
+    .features{margin: 14px 0 0; padding-left: 18px; color: rgba(242,241,255,.70); line-height: 1.75; font-size: 13.5px}
+    .features li{margin: 6px 0}
 
-        body.home-theme .gradient-text-anim {
-            background: linear-gradient(90deg, rgba(113, 224, 254, 0.9), rgba(89, 169, 106, 0.9));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .tier .pick{margin-top: 14px; display:flex; gap:10px; align-items:center}
+    .pick .btn{width:100%; justify-content:center}
 
-        body.home-theme .home-accent-icon {
-            color: var(--home-accent-cool);
-        }
+    .tier.featured{
+      border-color: rgba(139,92,246,.38);
+      transform: translateY(-2px);
+    }
+    .ribbon{
+      position:absolute;
+      top: 14px;
+      right: 14px;
+      z-index:2;
+      font-size: 11px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-weight: 900;
+      color: rgba(242,241,255,.78);
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      backdrop-filter: blur(10px);
+    }
 
-        body.home-theme .home-accent-button {
-            background: rgba(113, 224, 254, 0.18);
-            color: var(--home-accent-cool);
-            border: 1px solid rgba(113, 224, 254, 0.22);
-        }
+    /* Support */
+    .supportGrid{margin-top: 14px; display:grid; grid-template-columns: 1.2fr .8fr; gap: 14px;}
 
-        body.home-theme .home-accent-button:hover {
-            background: rgba(113, 224, 254, 0.28);
-        }
+    footer{
+      margin-top: 48px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      color: rgba(242,241,255,.52);
+      font-size: 12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
 
-        .home-tag {
-            border-color: rgba(89, 169, 106, 0.5);
-            color: rgba(89, 169, 106, 0.9);
-            background: rgba(89, 169, 106, 0.08);
-        }
+    /* Toast */
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      max-width: min(680px, calc(100% - 22px));
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(6,6,16,.72);
+      backdrop-filter: blur(14px) saturate(140%);
+      box-shadow: 0 16px 50px rgba(0,0,0,.50);
+      color: rgba(242,241,255,.80);
+      display:none;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      z-index: 50;
+    }
+    .toast strong{color: rgba(242,241,255,.92)}
+    .toast .x{border:0; background:transparent; color: rgba(242,241,255,.75); font-weight:900; cursor:pointer; padding: 6px 10px; border-radius: 999px}
+    .toast .x:hover{background: rgba(255,255,255,.06)}
 
-        .home-tag-cool {
-            border-color: rgba(113, 224, 254, 0.5);
-            color: rgba(113, 224, 254, 0.9);
-            background: rgba(113, 224, 254, 0.08);
-        }
-    </style>
+    @media (max-width: 980px){
+      .brand span{display:none}
+      .actions .btn{display:none}
+      .actions .btn.primary{display:inline-flex}
+      .pricing{grid-template-columns: 1fr}
+      .specs{grid-template-columns: 1fr}
+      .supportGrid{grid-template-columns: 1fr}
+      .grid2{grid-template-columns: 1fr}
+      h1{max-width:none}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{transition:none !important; scroll-behavior:auto !important}
+    }
+  </style>
 </head>
-<body class="home-theme">
 
-    <!-- Cursor -->
-    <div class="custom-cursor" id="cursor-ring"></div>
-    <div class="cursor-dot" id="cursor-dot"></div>
+<body>
+  <div class="noise" aria-hidden="true"></div>
 
-    <!-- Background Layers -->
-    <div class="noise-overlay"></div>
-
-    <!-- Liquid Glass Navigation -->
-    <nav class="fixed top-8 left-0 w-full z-50 flex justify-center pointer-events-none">
-        <div class="liquid-glass rounded-full p-1.5 flex items-center gap-1 pointer-events-auto relative">
-            <!-- Active Tab Indicator -->
-            <div id="nav-indicator" class="absolute h-[80%] top-[10%] bg-white/10 rounded-full transition-all duration-300 ease-out z-0"></div>
-            
-            <button id="nav-home" onclick="navigateTo('home')" class="relative z-10 px-6 py-2 rounded-full transition-colors font-display text-xs font-bold tracking-widest text-white/80 hover:text-white magnetic-btn">HOME</button>
-            <div class="w-px h-3 bg-white/10 relative z-10"></div>
-            <button id="nav-projects" onclick="navigateTo('projects')" class="relative z-10 px-6 py-2 rounded-full transition-colors font-display text-xs font-bold tracking-widest text-white/80 hover:text-white magnetic-btn">PROJECTS</button>
-            <div class="w-px h-3 bg-white/10 relative z-10"></div>
-            <a href="https://github.com/adamzafir" target="_blank" class="relative z-10 w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors magnetic-btn group">
-                <i data-lucide="github" class="w-4 h-4 text-white/70 group-hover:text-white"></i>
-            </a>
-        </div>
-    </nav>
-
-    <!-- AI Chat Button (Left) -->
-    <div class="fixed bottom-8 left-8 z-50 flex flex-col items-start gap-3 pointer-events-none">
-        <button onclick="toggleChat()" class="liquid-glass w-14 h-14 rounded-full flex items-center justify-center hover:scale-105 transition-transform duration-300 magnetic-btn group pointer-events-auto">
-            <div class="absolute inset-0 bg-cyan-400/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <i data-lucide="sparkles" class="w-5 h-5 text-cyan-300 relative z-10 home-accent-icon"></i>
-        </button>
-    </div>
-
-    <!-- AI Chat Modal -->
-    <div id="chat-modal" class="chat-modal glass-panel border border-white/10">
-        <!-- Header -->
-        <div class="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
-            <div class="flex items-center gap-2">
-                <div class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></div>
-                <span class="font-display text-xs tracking-widest text-white/80">ADAM AI TWIN</span>
-            </div>
-            <button onclick="toggleChat()" class="text-white/50 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
-        </div>
-        <!-- Messages -->
-        <div id="chat-history" class="flex-1 overflow-y-auto p-4 flex flex-col gap-2 scrollbar-hide" data-lenis-prevent>
-            <div class="msg-ai message-bubble">
-                Hello! I'm Adam's digital assistant. Ask me anything about his projects, skills, or experience! ✨
-            </div>
-        </div>
-        <!-- Input -->
-        <div class="p-3 border-t border-white/10 bg-white/5">
-            <div class="relative">
-                <input type="text" id="chat-input" placeholder="Ask AI..." class="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/30 chat-input transition-colors" onkeypress="handleChatEnter(event)">
-                <button onclick="sendChatMessage()" class="absolute right-2 top-2 p-1.5 bg-cyan-500/20 hover:bg-cyan-500/40 rounded-lg text-cyan-300 transition-colors home-accent-button">
-                    <i data-lucide="send" class="w-3 h-3"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Custom Liquid BMC Button with Bubble (Right) -->
-    <div class="fixed bottom-8 right-8 z-50 flex flex-col items-end gap-3 pointer-events-none">
-        <!-- Speech Bubble -->
-        <div id="bmc-bubble" class="bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold px-4 py-2 rounded-xl rounded-tr-sm shadow-xl opacity-0 translate-y-4 transition-all duration-500">
-            Thanks for visiting!
-        </div>
-        
-        <!-- Button -->
-        <a href="https://www.buymeacoffee.com/adamzafir" target="_blank" onmouseenter="showBubble()" onmouseleave="hideBubble()" class="liquid-glass w-14 h-14 rounded-full flex items-center justify-center hover:scale-105 transition-transform duration-300 magnetic-btn group pointer-events-auto">
-            <div class="absolute inset-0 bg-yellow-400/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <i data-lucide="coffee" class="w-5 h-5 text-yellow-300 relative z-10"></i>
+  <div class="wrap">
+    <header>
+      <div class="bar">
+        <a class="brand" href="#home" title="adamzafir.com" style="text-decoration:none; color:inherit">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <b>adamzafir.com</b>
+          </div>
         </a>
-    </div>
 
-    <!-- Main Content -->
-    <main class="relative min-h-screen pt-28 pb-24 px-6 md:px-10 max-w-[1200px] mx-auto flex flex-col justify-between z-10">
+        <nav aria-label="Primary">
+          <button class="link" data-to="#home" aria-current="page">Overview</button>
+          <button class="link" data-to="#capabilities">Capabilities</button>
+          <button class="link" data-to="#pricing">Pricing</button>
+          <button class="link" data-to="#specs">Specs</button>
+          <button class="link" data-to="#contact">Support</button>
+        </nav>
 
-        <!-- HOME -->
-        <section id="home" class="page-section active">
-            <div class="min-h-[60vh] flex flex-col justify-center relative gap-6">
-                <div class="hero-ambient"></div>
-                <h1 class="text-5xl md:text-7xl font-display font-bold hero-title relative z-10">
-                    Hi, I'm <span class="gradient-text-anim">Adam</span>
-                </h1>
-                <p class="text-lg md:text-xl text-white/70 relative z-10 reveal-fade">
-                    I'm a <span id="typewriter" class="font-medium text-white"></span><span class="typewriter-cursor"></span>
-                </p>
-                <div class="flex flex-wrap items-center gap-4 relative z-10">
-                    <button onclick="navigateTo('projects')" class="btn-primary magnetic-btn">Projects</button>
-                    <a href="#contact-footer" class="btn-secondary magnetic-btn">Contact</a>
+        <div class="actions">
+          <a class="btn" href="https://github.com/adamzafir" target="_blank" rel="noreferrer">Open-source repo ↗</a>
+          <a class="btn primary" href="#pricing">Buy</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section id="home" class="hero">
+        <div class="arc" aria-hidden="true"></div>
+
+        <div class="badge"><span class="spark" aria-hidden="true"></span> Introducing • 2026</div>
+        <h1>Introducing <em>Adam</em> Pro.</h1>
+        <p class="lead">
+          The Swift-powered human optimized for <strong>clarity</strong>, <strong>performance</strong>, and <strong>vibes</strong>.
+          Built for shipping, debugging, and surviving school.
+        </p>
+
+        <div class="cta">
+          <a class="btn primary" href="#capabilities">See capabilities</a>
+          <a class="btn" href="#pricing">Choose your plan</a>
+        </div>
+
+        <div class="mini" aria-label="fine print">
+          <span class="pill">No refunds if your teacher assigns homework.</span>
+        </div>
+
+        <div class="specs">
+          <div class="spec"><b>Swift / SwiftUI</b><span>Primary stack</span></div>
+          <div class="spec"><b>Realtime systems</b><span>Presence • sync • context</span></div>
+          <div class="spec"><b>Premium UX</b><span>Finish & details</span></div>
+        </div>
+      </section>
+
+      <section id="capabilities">
+        <div class="secHead">
+          <h2>Capabilities</h2>
+          <p>The best work Adam Pro has done. Yet.</p>
+        </div>
+
+        <div class="showcase">
+          <!-- PyCollab -->
+          <article class="work" id="work-pycollab">
+            <div class="in">
+              <div class="workTop">
+                <div class="workTitle">
+                  <span>Capability demo • 2025</span>
+                  <b>PyCollab</b>
                 </div>
+                <div class="workActions">
+                  <span class="made">Made with Adam Pro</span>
+                  <a class="btn" href="https://pycollab.com" target="_blank" rel="noreferrer">Visit pycollab.com ↗</a>
+                </div>
+              </div>
+
+              <div class="grid2">
+                <div class="block">
+                  <p class="kicker">THE PROBLEM</p>
+                  <p class="para">Collaboration on Python code is usually way more over-engineered than it has to be. For beginners especially, the learning curve gets steep using tools like GitHub, with branches, pull requests, and merge conflicts getting in the way of actually learning the language.</p>
+                </div>
+                <div class="block">
+                  <p class="kicker">THE SOLUTION</p>
+                  <p class="para">PythonCollab is a browser-based Python IDE designed to make coding together easy. Share a short PIN, and instantly see everybody's edits appear live: like Google Docs for Python.</p>
+                </div>
+              </div>
+
+              <div class="long">
+                <p class="para">PythonCollab was built with a single goal: make writing and sharing Python code feel as natural as working in a live, shared document. Dismayed by how much classic tooling frustrates novices and teams alike, the project reimagines collaborative coding as lightweight, approachable, and instantly interactive. The central insight driving this was the realization that most people, especially beginning programmers, are hamstrung by overhead entailed in typical development environments. Instead of playing with Python, users wrestled with merges, branches, setting up environments, and configuring. PythonCollab, therefore, was set up as a zero-setup, browser-based workspace where collaboration is the default, rather than an afterthought. In its creation, simplicity and real-time interactivity were held paramount. Each feature, from shared cursors to live synced edits to unified console output, is crafted to remove friction that gets in the way of people staying immersed in thinking about Python-not tooling. PythonCollab makes collaborative programming more inviting, intuitive, and humane by giving people a place where they can open a browser, share a PIN, and start creating-instantly. PythonCollab is great for teaching, pair programming, workshops, quick experiments, or any reason people need to collaborate around code. It's a clean and approachable environment: zero installs, zero setup, and zero hurdles.</p>
+              </div>
             </div>
+          </article>
 
-            <div class="mt-20 grid md:grid-cols-12 gap-10 items-start opacity-0" id="about-section">
-                <div class="md:col-span-4 space-y-6 pt-2">
-                    <div>
-                        <span class="section-line"></span>
-                    <span class="font-display text-xs tracking-[0.2em] home-label">ABOUT</span>
-                    </div>
-                        <p class="text-xl md:text-2xl font-light leading-snug text-white/90">
-                        I'm someone who chose <strong class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#71E0FE] to-[#59A96A]">Swift over sleep</strong> and never really looked back. I like building things that feel focused, intentional, and useful.
-                    </p>
+          <!-- Scripties -->
+          <article class="work" id="work-scripties">
+            <div class="in">
+              <div class="workTop">
+                <div class="workTitle">
+                  <span>Capability demo • 2025</span>
+                  <b>Scripties</b>
                 </div>
-                <div class="md:col-span-8">
-                    <div class="glass-panel p-6 md:p-8 rounded-2xl">
-                        <p class="text-lg text-gray-300 font-light leading-relaxed">
-                            Swift is where most of my ideas turn into something real, and every project is just another step toward getting better at what I do.
-                        </p>
-                    </div>
+                <div class="workActions">
+                  <span class="made">Made with Adam Pro</span>
+                  <a class="btn" href="https://scripties-4ug0.onrender.com/" target="_blank" rel="noreferrer">Visit Scripties ↗</a>
                 </div>
+              </div>
+
+              <div class="grid2">
+                <div class="block">
+                  <p class="kicker">THE PROBLEM</p>
+                  <p class="para">Many students, presenters, and professionals have a hard time presenting speeches confidently. Many face stress due to night-long script writing, last-minute rehearsals, and uncertainty about pacing, tone, and clarity. The existing tools deal either with only writing or limited practice features, offering no structural guidance to improve speech delivery.</p>
+                </div>
+                <div class="block">
+                  <p class="kicker">THE SOLUTION</p>
+                  <p class="para">Scripties helps its users write, rehearse, and improve their scripts efficiently. The app consolidates script management, teleprompter-style practice, recording, playback, and automated feedback on key delivery metrics like speaking speed and consistency. Users can use Scripties to track their progress, refine their pacing, and approach presentations confidently.</p>
+                </div>
+              </div>
+
+              <div class="long">
+                <p class="para">Scripties was developed as part of the 2025 Swift Accelerator Program by Chan Yap Long, Divya Dharshini Krishnamoorthy, Ethan Soh Yi Teng, and myself. Scripties allows users to create, edit, and organize their scripts, providing a clean teleprompter view to practice with. It tracks speech speed using Words Per Minute (WPM) metrics, and it measures pacing consistency through a Consistency Score, CIS. Features for recording and playing back allow users to review performances, while session histories provide insights on progress over time. For students, debaters, presenters, and anyone wanting to improve their public speaking, Scripties combines usability with actionable feedback.</p>
+              </div>
             </div>
-        </section>
+          </article>
+        </div>
+      </section>
 
-        <!-- PROJECTS LIST -->
-        <section id="projects" class="page-section">
-            <div class="mb-12 reveal-proj">
-                <div class="flex items-center gap-3">
-                    <span class="section-line"></span>
-                    <span class="font-display text-xs tracking-[0.2em] home-label">RECENT WORKS</span>
-                </div>
-                <h2 class="text-4xl md:text-5xl font-semibold tracking-tight mt-4 hero-title">Projects</h2>
+      <section id="pricing">
+        <div class="secHead">
+          <h2>Pricing</h2>
+          <p>No credit card. Mostly.</p>
+        </div>
+
+        <div class="pricing" id="pricingGrid">
+          <article class="tier" data-plan="adam">
+            <div class="in">
+              <div class="tierTop">
+                <div class="tierName">Adam</div>
+                <div class="price">Free</div>
+              </div>
+              <div class="sub">The base model. Still dangerous.</div>
+              <ul class="features">
+                <li>Unlimited SwiftUI tinkering</li>
+                <li>Standard sarcasm engine</li>
+                <li>Debugging (best effort)</li>
+              </ul>
+              <div class="pick"><button class="btn" data-buy="adam" type="button">Select</button></div>
             </div>
+          </article>
 
-            <div class="grid gap-6 lg:grid-cols-2">
-                <!-- Pycollab Card -->
-                <div onclick="navigateTo('project-pycollab')" class="glass-panel rounded-2xl p-6 md:p-8 cursor-pointer group reveal-proj opacity-0 translate-y-20 project-card">
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-                        <div>
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-[10px] font-bold tracking-widest uppercase home-tag-cool">2025</span>
-                            </div>
-                            <h3 class="text-2xl md:text-3xl font-semibold tracking-tight mb-2 group-hover:text-[#71E0FE] transition-colors">PYCOLLAB</h3>
-                            <p class="text-sm md:text-base text-gray-400 max-w-xl group-hover:text-gray-200 transition-colors">A real-time, browser-based Python IDE. Collaborative coding made effortless.</p>
-                        </div>
-                        <div class="project-action text-white/80">
-                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Scripties Card -->
-                <div onclick="navigateTo('project-scripties')" class="glass-panel rounded-2xl p-6 md:p-8 cursor-pointer group reveal-proj opacity-0 translate-y-20 project-card project-card-purple">
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-                        <div>
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-[10px] font-bold tracking-widest uppercase home-tag">Swift Accelerator</span>
-                                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-[10px] font-bold tracking-widest uppercase home-tag-cool">2025</span>
-                            </div>
-                            <h3 class="text-2xl md:text-3xl font-semibold tracking-tight mb-2 group-hover:text-[#E05263] transition-colors">SCRIPTIES</h3>
-                            <p class="text-sm md:text-base text-gray-400 max-w-xl group-hover:text-gray-200 transition-colors">Teleprompter and speech review app. Elevating student presentations.</p>
-                        </div>
-                        <div class="project-action text-white/80">
-                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                        </div>
-                    </div>
-                </div>
+          <article class="tier featured" data-plan="promax">
+            <div class="ribbon">Most Popular</div>
+            <div class="in">
+              <div class="tierTop">
+                <div class="tierName">Adam Pro</div>
+                <div class="price">$9.99/mo</div>
+              </div>
+              <div class="sub">For power users. Ships faster. Roasts cleaner.</div>
+              <ul class="features">
+                <li>Priority replies (low latency)</li>
+                <li>Advanced UI polish pack</li>
+                <li>Realtime bug triage</li>
+              </ul>
+              <div class="pick"><button class="btn primary" data-buy="promax" type="button">Get Pro</button></div>
             </div>
-        </section>
+          </article>
 
-        <!-- PYCOLLAB DETAIL -->
-        <section id="project-pycollab" class="page-section">
-            <button onclick="navigateTo('projects')" class="group mb-12 flex items-center gap-3 text-cyan-400 font-bold uppercase text-xs tracking-widest magnetic-btn w-fit px-4 py-2 rounded-full hover:bg-cyan-900/20 transition-all">
-                <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i> Back
-            </button>
-
-            <!-- Hero Banner -->
-            <div class="glass-panel rounded-[2.5rem] p-12 md:p-24 mb-24 relative overflow-hidden">
-                <div class="prism-border"></div>
-                
-                <h1 class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-8 uppercase relative z-10 hero-title leading-tight">Pycollab</h1>
-                <p class="text-2xl md:text-3xl text-gray-200 max-w-3xl leading-relaxed mb-12 relative z-10 font-light">A real-time, browser-based Python IDE that makes collaborative coding as effortless as sharing a link.</p>
-                
-                <div class="flex flex-wrap gap-6 items-center border-t border-white/10 pt-12 relative z-10 justify-between">
-                    <div class="flex gap-4">
-                        <a href="https://pycollab.com" target="_blank" class="flex items-center gap-2 bg-white text-black hover:bg-cyan-400 hover:scale-105 px-8 py-4 rounded-full font-bold text-sm transition-all duration-300 magnetic-btn">
-                            LIVE DEMO <i data-lucide="external-link" class="w-4 h-4"></i>
-                        </a>
-                        <button onclick="generateProjectInsight('pycollab')" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 px-6 py-4 rounded-full font-bold text-sm leading-none transition-all text-cyan-300">
-                            ✨ AI DEEP DIVE
-                        </button>
-                    </div>
-                    <!-- Year fixed to bright white/90 -->
-                    <div class="px-6 py-4 rounded-full border border-white/10 bg-white/10 backdrop-blur-md">
-                        <span class="text-white/90 font-display text-xs tracking-widest font-bold">YEAR: 2025</span>
-                    </div>
-                </div>
+          <article class="tier" data-plan="enterprise">
+            <div class="in">
+              <div class="tierTop">
+                <div class="tierName">Adam Enterprise</div>
+                <div class="price">Contact</div>
+              </div>
+              <div class="sub">For teams who want outcomes. And less chaos.</div>
+              <ul class="features">
+                <li>SOC-2 vibes (unverified)</li>
+                <li>On-call emotional support</li>
+                <li>Custom roadmap (cap)</li>
+              </ul>
+              <div class="pick"><a class="btn" href="#contact">Talk to sales</a></div>
             </div>
+          </article>
+        </div>
+      </section>
 
-            <!-- Content Grid -->
-            <div class="grid md:grid-cols-2 gap-8 mb-32">
-                <div class="glass-panel p-10 rounded-3xl">
-                    <div class="prism-border"></div>
-                    <span class="font-display text-xs tracking-widest text-cyan-400 mb-4 block">THE PROBLEM</span>
-                    <p class="text-lg text-gray-300 leading-relaxed">Collaboration on Python code is usually way more over-engineered than it has to be. For beginners especially, the learning curve gets steep using tools like GitHub, with branches, pull requests, and merge conflicts getting in the way of actually learning the language.</p>
-                </div>
-                <div class="glass-panel p-10 rounded-3xl">
-                    <div class="prism-border"></div>
-                    <span class="font-display text-xs tracking-widest text-cyan-400 mb-4 block">THE SOLUTION</span>
-                    <p class="text-lg text-gray-300 leading-relaxed">PythonCollab is a browser-based Python IDE designed to make coding together easy. Share a short PIN, and instantly see everybody's edits appear live: like Google Docs for Python.</p>
-                </div>
-            </div>
+      <section id="specs">
+        <div class="secHead">
+          <h2>Specs</h2>
+          <p>Actual features may vary by sleep.</p>
+        </div>
 
-            <div class="glass-panel p-10 md:p-20 mb-20 rounded-3xl relative overflow-hidden">
-                <div class="glass-shine"></div>
-                <p class="text-xl md:text-2xl text-gray-200 leading-relaxed font-light" id="pycollab-desc">
-                    PythonCollab was built with a single goal: make writing and sharing Python code feel as natural as working in a live, shared document. Dismayed by how much classic tooling frustrates novices and teams alike, the project reimagines collaborative coding as lightweight, approachable, and instantly interactive.
-The central insight driving this was the realization that most people, especially beginning programmers, are hamstrung by overhead entailed in typical development environments. Instead of playing with Python, users wrestled with merges, branches, setting up environments, and configuring. PythonCollab, therefore, was set up as a zero-setup, browser-based workspace where collaboration is the default, rather than an afterthought. In its creation, simplicity and real-time interactivity were held paramount. Each feature, from shared cursors to live synced edits to unified console output, is crafted to remove friction that gets in the way of people staying immersed in thinking about Python-not tooling. PythonCollab makes collaborative programming more inviting, intuitive, and humane by giving people a place where they can open a browser, share a PIN, and start creating-instantly. PythonCollab is great for teaching, pair programming, workshops, quick experiments, or any reason people need to collaborate around code. It's a clean and approachable environment: zero installs, zero setup, and zero hurdles.
-                <!-- AI Result Area -->
-                <div id="pycollab-ai-result" class="hidden mt-8 p-6 bg-cyan-500/10 border border-cyan-500/30 rounded-xl text-cyan-100 text-lg scroll-mt-32"></div>
-            </div>
+        <div class="specs" style="margin-top: 14px">
+          <div class="spec"><b>Battery</b><span>questionable</span></div>
+          <div class="spec"><b>Latency</b><span>fast replies</span></div>
+          <div class="spec"><b>Build Quality</b><span>premium</span></div>
+        </div>
 
-            <!-- Next Project Nav -->
-            <div onclick="navigateTo('project-scripties')" class="glass-panel p-12 rounded-3xl cursor-pointer group relative overflow-hidden mb-20">
-                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                <div class="flex justify-between items-center relative z-10">
-                    <div>
-                        <span class="text-gray-500 text-xs font-display tracking-widest">NEXT PROJECT</span>
-                        <h4 class="text-4xl md:text-6xl font-bold mt-2 group-hover:text-purple-400 transition-colors">Scripties</h4>
-                    </div>
-                    <i data-lucide="arrow-right" class="w-12 h-12 text-gray-500 group-hover:text-purple-400 transition-colors transform group-hover:translate-x-4"></i>
-                </div>
-            </div>
-        </section>
+        <div class="specs" style="margin-top: 12px">
+          <div class="spec"><b>Model</b><span>Adam Zafir</span></div>
+          <div class="spec"><b>Storage</b><span>32GB emotions</span></div>
+          <div class="spec"><b>Accessories</b><span>AdamCare+</span></div>
+        </div>
+      </section>
 
-        <!-- SCRIPTIES DETAIL -->
-        <section id="project-scripties" class="page-section">
-            <button onclick="navigateTo('projects')" class="group mb-12 flex items-center gap-3 text-purple-400 font-bold uppercase text-xs tracking-widest magnetic-btn w-fit px-4 py-2 rounded-full hover:bg-purple-900/20 transition-all">
-                <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i> Back
-            </button>
+      <section id="contact">
+        <div class="secHead">
+          <h2>Support</h2>
+          <p>We respond. Eventually.</p>
+        </div>
 
-            <!-- Hero Banner -->
-            <div class="glass-panel rounded-[2.5rem] p-12 md:p-24 mb-24 relative overflow-hidden">
-                <div class="prism-border"></div>
-                
-                <!-- Tag Top Left -->
-                <div class="absolute top-8 left-8 md:top-12 md:left-12">
-                    <span class="text-purple-300 font-display text-[10px] tracking-[0.2em] uppercase border border-purple-500/30 bg-purple-500/10 px-3 py-1 rounded-full">Swift Accelerator</span>
-                </div>
+        <div class="supportGrid">
+          <div class="block">
+            <p class="kicker">Contact</p>
+            <p class="para">Email: <a class="btn" style="display:inline-flex; padding: 10px 12px" href="mailto:me@adamzafir.com?subject=Adam%20Pro%20Support">me@adamzafir.com</a></p>
+            <p class="para" style="margin-top:10px; color: rgba(242,241,255,.56)">Include: what happened, what you expected, steps to reproduce, and whether you tried turning it off and on again.</p>
+          </div>
 
-                <h1 class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-8 uppercase relative z-10 hero-title leading-tight mt-12">Scripties</h1>
-                <p class="text-2xl md:text-3xl text-gray-200 max-w-3xl leading-relaxed mb-12 relative z-10 font-light">An App to improve the quality of life for student presenters, making use of a teleprompter and speech review.</p>
-                
-                <div class="flex flex-wrap gap-6 items-center border-t border-white/10 pt-12 relative z-10 justify-between">
-                    <div class="flex gap-4">
-                        <a href="https://scripties-4ug0.onrender.com/" target="_blank" class="flex items-center gap-2 bg-white text-black hover:bg-purple-400 hover:scale-105 px-8 py-4 rounded-full font-bold text-sm transition-all duration-300 magnetic-btn">
-                            VIEW PROJECT <i data-lucide="external-link" class="w-4 h-4"></i>
-                        </a>
-                        <button onclick="generateProjectInsight('scripties')" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 px-6 py-4 rounded-full font-bold text-sm leading-none transition-all text-purple-300">
-                            ✨ AI DEEP DIVE
-                        </button>
-                    </div>
-                    <!-- Year fixed to bright white/90 -->
-                    <div class="px-6 py-4 rounded-full border border-white/10 bg-white/10 backdrop-blur-md">
-                        <span class="text-white/90 font-display text-xs tracking-widest font-bold">YEAR: 2025</span>
-                    </div>
-                </div>
-            </div>
+          <div class="block">
+            <p class="kicker">Status</p>
+            <p class="para">Uptime: <a class="btn" style="display:inline-flex; padding: 10px 12px" href="about:blank" target="_blank" rel="noreferrer">View status ↗</a></p>
+            <p class="para" style="margin-top:10px; color: rgba(242,241,255,.56)">If it’s down, Adam is probably in class.</p>
+          </div>
+        </div>
 
-            <!-- Content Grid (Reduced Gap) -->
-            <div class="grid md:grid-cols-2 gap-8 mb-32">
-                <div class="glass-panel p-10 rounded-3xl">
-                    <div class="prism-border"></div>
-                    <span class="font-display text-xs tracking-widest text-purple-400 mb-4 block">THE PROBLEM</span>
-                    <p class="text-lg text-gray-300 leading-relaxed">Many students, presenters, and professionals have a hard time presenting speeches confidently. Many face stress due to night-long script writing, last-minute rehearsals, and uncertainty about pacing, tone, and clarity. The existing tools deal either with only writing or limited practice features, offering no structural guidance to improve speech delivery.</p>
-                </div>
-                <div class="glass-panel p-10 rounded-3xl">
-                    <div class="prism-border"></div>
-                    <span class="font-display text-xs tracking-widest text-purple-400 mb-4 block">THE SOLUTION</span>
-                    <p class="text-lg text-gray-300 leading-relaxed">Scripties helps its users write, rehearse, and improve their scripts efficiently. The app consolidates script management, teleprompter-style practice, recording, playback, and automated feedback on key delivery metrics like speaking speed and consistency. Users can use Scripties to track their progress, refine their pacing, and approach presentations confidently.</p>
-                </div>
-            </div>
-
-            <div class="glass-panel p-10 md:p-20 mb-20 rounded-3xl relative overflow-hidden">
-                <div class="glass-shine"></div>
-                <p class="text-xl md:text-2xl text-gray-200 leading-relaxed font-light" id="scripties-desc">
-                Scripties was developed as part of the 2025 Swift Accelerator Program by Chan Yap Long, Divya Dharshini Krishnamoorthy, Ethan Soh Yi Teng, and myself.
-
-                  Scripties allows users to create, edit, and organize their scripts, providing a clean teleprompter view to practice with. It tracks speech speed using Words Per Minute (WPM) metrics, and it measures pacing consistency through a Consistency Score, CIS. Features for recording and playing back allow users to review performances, while session histories provide insights on progress over time. For students, debaters, presenters, and anyone wanting to improve their public speaking, Scripties combines usability with actionable feedback.
-                </p>
-                <!-- AI Result Area -->
-                <div id="scripties-ai-result" class="hidden mt-8 p-6 bg-purple-500/10 border border-purple-500/30 rounded-xl text-purple-100 text-lg scroll-mt-32"></div>
-            </div>
-
-            <!-- Next Project Nav -->
-            <div onclick="navigateTo('project-pycollab')" class="glass-panel p-12 rounded-3xl cursor-pointer group relative overflow-hidden mb-20">
-                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                <div class="flex justify-between items-center relative z-10">
-                    <div>
-                        <span class="text-gray-500 text-xs font-display tracking-widest">NEXT PROJECT</span>
-                        <h4 class="text-4xl md:text-6xl font-bold mt-2 group-hover:text-cyan-400 transition-colors">Pycollab</h4>
-                    </div>
-                    <i data-lucide="arrow-right" class="w-12 h-12 text-gray-500 group-hover:text-cyan-400 transition-colors transform group-hover:translate-x-4"></i>
-                </div>
-            </div>
-        </section>
-
-        <!-- FOOTER -->
-        <footer id="contact-footer" class="mt-auto pt-20">
-            <div class="glass-panel rounded-[2.5rem] p-10 md:p-16 relative overflow-hidden">
-                <div class="relative z-10 grid md:grid-cols-12 gap-8 items-center">
-                    <div class="md:col-span-7">
-                        <span class="font-display text-xs tracking-[0.3em] text-white/50 mb-4 block">SAY HELLO</span>
-                        <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-tight">
-                            Ready to <br><span class="gradient-text-anim">Collaborate?</span>
-                        </h2>
-                    </div>
-                    <div class="md:col-span-5 flex flex-col md:items-end gap-5">
-                        <a href="mailto:me@adamzafir.com" class="btn-primary magnetic-btn inline-flex items-center gap-3">
-                            CONTACT ME <i data-lucide="mail" class="w-4 h-4"></i>
-                        </a>
-                        <div class="flex items-center gap-3">
-                            <a href="https://github.com/adamzafir" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:border-white/30 transition-colors">
-                                <i data-lucide="github" class="w-4 h-4"></i>
-                            </a>
-                            <a href="https://www.buymeacoffee.com/adamzafir" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:border-white/30 transition-colors">
-                                <i data-lucide="coffee" class="w-4 h-4"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="flex justify-between items-end mt-10 pb-6 text-[10px] text-gray-500 font-display tracking-widest uppercase">
-                <span>Adam Zafir © 2025</span>
-                <span>Designed with Glass 3.0</span>
-            </div>
+        <footer>
+          <span>Adam Pro © <span id="year"></span></span>
+          <span>Not medical advice.</span>
         </footer>
-
+      </section>
     </main>
+  </div>
 
-    <script>
-        // --- Initialization ---
-        // Ensure Lucide is loaded
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        }
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span id="toastText"></span>
+    <button class="x" id="toastClose" aria-label="Close">✕</button>
+  </div>
 
-        // Ensure GSAP plugins are registered if available
-        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && typeof TextPlugin !== 'undefined') {
-            gsap.registerPlugin(ScrollTrigger, TextPlugin);
-        }
+  <script>
+    // Nav smooth scroll + active
+    const navButtons = Array.from(document.querySelectorAll('.link'));
+    const sections = navButtons.map(b => document.querySelector(b.dataset.to)).filter(Boolean);
 
-        // --- Globals ---
-        let currentSectionId = 'home';
-        let lenis;
-        const apiKey = "AIzaSyD-1NvP4QwxqPfvUT2iIYa6q2pYZpUXC6c"; // Set your Gemini API Key here if running locally
+    const setActive = (hash) => {
+      navButtons.forEach(b => b.removeAttribute('aria-current'));
+      const active = navButtons.find(b => b.dataset.to === hash) || navButtons[0];
+      active.setAttribute('aria-current','page');
+    };
 
-        function setThemeForSection(sectionId) {
-            const isHomeView = sectionId === 'home' || sectionId === 'projects';
-            document.body.classList.toggle('home-theme', isHomeView);
-        }
-        
-        // --- Smooth Scroll (Lenis) ---
-        // Wrapped in try/catch to avoid freezing if script fails
-        try {
-            if (typeof Lenis !== 'undefined') {
-                lenis = new Lenis({
-                    duration: 1.2,
-                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                    direction: 'vertical',
-                    smooth: true,
-                });
-                
-                function raf(time) {
-                    lenis.raf(time);
-                    requestAnimationFrame(raf);
-                }
-                requestAnimationFrame(raf);
-            } else {
-                console.warn("Lenis library not loaded.");
-            }
-        } catch(e) { console.error("Lenis init error:", e); }
+    navButtons.forEach(b => {
+      b.addEventListener('click', () => {
+        const s = document.querySelector(b.dataset.to);
+        if(!s) return;
+        s.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
 
-        // --- Dynamic Parallax Background ---
-        document.addEventListener('mousemove', (e) => {
-            const orbs = document.querySelectorAll('.orb');
-            const x = (e.clientX / window.innerWidth - 0.5) * 2; // -1 to 1
-            const y = (e.clientY / window.innerHeight - 0.5) * 2;
+    const io = new IntersectionObserver((entries) => {
+      const v = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if(!v) return;
+      setActive('#' + v.target.id);
+    }, { rootMargin: '-25% 0px -65% 0px', threshold: [0.08, 0.14, 0.22] });
 
-            if (typeof gsap !== 'undefined') {
-                orbs.forEach(orb => {
-                    const speed = parseFloat(orb.getAttribute('data-speed')) || 1;
-                    const moveX = x * 30 * speed;
-                    const moveY = y * 30 * speed;
-                    
-                    gsap.to(orb, {
-                        x: moveX,
-                        y: moveY,
-                        duration: 1,
-                        ease: "power2.out"
-                    });
-                });
-            }
-        });
+    sections.forEach(s => io.observe(s));
+    setActive('#home');
 
-        // --- Custom Cursor ---
-        const cursorRing = document.getElementById('cursor-ring');
-        const cursorDot = document.getElementById('cursor-dot');
-        let mouseX = window.innerWidth / 2;
-        let mouseY = window.innerHeight / 2;
-        let cursorX = window.innerWidth / 2;
-        let cursorY = window.innerHeight / 2;
+    // Glow follows cursor on fancy cards
+    const glowCards = Array.from(document.querySelectorAll('.tier, .work'));
+    window.addEventListener('mousemove', (e) => {
+      glowCards.forEach(card => {
+        const r = card.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width) * 100;
+        const y = ((e.clientY - r.top) / r.height) * 100;
+        card.style.setProperty('--mx', x + '%');
+        card.style.setProperty('--my', y + '%');
+      });
+    }, { passive:true });
 
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            
-            if (typeof gsap !== 'undefined') {
-                // Move dot instantly
-                gsap.to(cursorDot, { x: mouseX, y: mouseY, duration: 0 });
-                
-                // Update CSS variables for Glass spotlight effects
-                document.querySelectorAll('.glass-panel, .liquid-glass').forEach(panel => {
-                    const rect = panel.getBoundingClientRect();
-                    panel.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-                    panel.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-                });
-            }
-        });
+    // Meme purchase toast
+    const toast = document.getElementById('toast');
+    const toastText = document.getElementById('toastText');
+    const close = document.getElementById('toastClose');
 
-        if (typeof gsap !== 'undefined') {
-            // Smooth follow ring
-            gsap.ticker.add(() => {
-                const dt = 1.0 - Math.pow(1.0 - 0.2, gsap.ticker.deltaRatio());
-                cursorX += (mouseX - cursorX) * dt;
-                cursorY += (mouseY - cursorY) * dt;
-                gsap.set(cursorRing, { x: cursorX, y: cursorY });
-            });
-        }
+    const showToast = (msg) => {
+      toastText.innerHTML = msg;
+      toast.style.display = 'flex';
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => toast.style.display = 'none', 3800);
+    };
 
-        // Hover States
-        const interactiveElements = document.querySelectorAll('a, button, .cursor-pointer, .magnetic-btn');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => cursorRing.classList.add('hovered'));
-            el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovered'));
-        });
+    close.addEventListener('click', () => toast.style.display = 'none');
 
-        // --- Magnetic Buttons ---
-        const magnets = document.querySelectorAll('.magnetic-btn');
-        if (typeof gsap !== 'undefined') {
-            magnets.forEach(btn => {
-                btn.addEventListener('mousemove', (e) => {
-                    const rect = btn.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width / 2;
-                    const y = e.clientY - rect.top - rect.height / 2;
-                    gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3 });
-                });
-                btn.addEventListener('mouseleave', () => {
-                    gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
-                });
-            });
-        }
+    document.querySelectorAll('[data-buy]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const plan = btn.getAttribute('data-buy');
+        if(plan === 'adam') showToast("✅ <strong>Adam</strong> selected. Base model activated.");
+        if(plan === 'promax') showToast("💳 <strong>Adam Pro</strong> selected. Please insert coffee to continue.");
+      });
+    });
 
-        // --- 3D Tilt Effect ---
-        const tiltCards = document.querySelectorAll('.tilt-card');
-        if (typeof gsap !== 'undefined') {
-            tiltCards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    const rotateX = ((y - centerY) / centerY) * -3;
-                    const rotateY = ((x - centerX) / centerX) * 3;
-                    
-                    gsap.to(card, {
-                        transformPerspective: 1000,
-                        rotateX: rotateX,
-                        rotateY: rotateY,
-                        scale: 1.01,
-                        duration: 0.5
-                    });
-                });
-                card.addEventListener('mouseleave', () => {
-                    gsap.to(card, { rotateX: 0, rotateY: 0, scale: 1, duration: 0.5 });
-                });
-            });
-        }
-
-        // --- Typewriter Effect ---
-        const words = ["Swift Developer", "Learner", "Problem Solver"];
-        let wordIndex = 0;
-        function typeWriterLoop() {
-            if (typeof gsap === 'undefined') return;
-            const word = words[wordIndex];
-            const tl = gsap.timeline({
-                onComplete: () => {
-                    wordIndex = (wordIndex + 1) % words.length;
-                    setTimeout(typeWriterLoop, 1500);
-                }
-            });
-            tl.to("#typewriter", { duration: word.length * 0.1, text: word, ease: "none" })
-              .to("#typewriter", { duration: word.length * 0.05, text: "", ease: "none", delay: 2 });
-        }
-        typeWriterLoop();
-
-        // --- BMC Bubble Interaction ---
-        function showBubble() {
-            gsap.to("#bmc-bubble", { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.7)" });
-        }
-        function hideBubble() {
-            gsap.to("#bmc-bubble", { opacity: 0, y: 10, duration: 0.3 });
-        }
-
-        // --- Page Navigation & Transitions ---
-        function updateNavIndicator(tabId) {
-            const btn = document.getElementById(tabId === 'home' ? 'nav-home' : 'nav-projects');
-            const indicator = document.getElementById('nav-indicator');
-            if(btn && indicator) {
-                const rect = btn.getBoundingClientRect();
-                const parentRect = btn.parentElement.getBoundingClientRect();
-                // We calculate position relative to parent
-                const left = rect.left - parentRect.left;
-                const width = rect.width;
-                
-                gsap.to(indicator, {
-                    left: left,
-                    width: width,
-                    duration: 0.5,
-                    ease: "elastic.out(1, 0.75)"
-                });
-            }
-        }
-
-        function navigateTo(id) {
-            if (id === currentSectionId) return;
-            const outgoing = document.getElementById(currentSectionId);
-            const incoming = document.getElementById(id);
-            
-            // Update Nav Indicator
-            updateNavIndicator(id === 'home' ? 'home' : 'projects');
-            setThemeForSection(id);
-
-            // Scroll to top
-            if (lenis) lenis.scrollTo(0, { immediate: false });
-            else window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            if (typeof gsap !== 'undefined') {
-                const tl = gsap.timeline();
-                
-                // 1. Exit Current
-                tl.to(outgoing, {
-                    opacity: 0,
-                    filter: "blur(10px)",
-                    y: -20,
-                    duration: 0.4,
-                    ease: "power2.in",
-                    onComplete: () => {
-                        outgoing.classList.remove('active');
-                        incoming.classList.add('active');
-                        currentSectionId = id;
-                        initScrollTriggers();
-                    }
-                })
-                // 2. Enter New
-                .fromTo(incoming,
-                    { opacity: 0, filter: "blur(20px)", y: 50 },
-                    { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.8, ease: "power2.out" }
-                );
-                
-                // Footer Re-entry
-                gsap.fromTo("#contact-footer", {opacity: 0, y: 50}, {opacity: 1, y: 0, duration: 1, delay: 0.3});
-            } else {
-                 // Fallback if GSAP fails
-                 outgoing.classList.remove('active');
-                 incoming.classList.add('active');
-                 currentSectionId = id;
-            }
-        }
-
-        function initScrollTriggers() {
-            if (typeof ScrollTrigger === 'undefined') return;
-            ScrollTrigger.getAll().forEach(t => t.kill());
-            
-            // About Section
-            if(document.getElementById("about-section")) {
-                gsap.fromTo("#about-section",
-                    { opacity: 0, y: 100 },
-                    {
-                        opacity: 1, y: 0, duration: 1, ease: "power3.out",
-                        scrollTrigger: { trigger: "#about-section", start: "top 85%" }
-                    }
-                );
-            }
-
-            // Project Cards
-            gsap.utils.toArray(".reveal-proj").forEach((el, i) => {
-                gsap.fromTo(el,
-                    { opacity: 0, y: 100, rotationX: 10 },
-                    {
-                        opacity: 1, y: 0, rotationX: 0, duration: 1, ease: "power3.out", delay: i * 0.1,
-                        scrollTrigger: { trigger: el, start: "top 90%" }
-                    }
-                );
-            });
-        }
-
-        // --- GEMINI API INTEGRATION ---
-        
-        async function callGemini(prompt) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            const payload = {
-                contents: [{ parts: [{ text: prompt }] }]
-            };
-
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) throw new Error(`API Error: ${response.status}`);
-                const data = await response.json();
-                return data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't think of anything.";
-            } catch (error) {
-                console.error("Gemini API Error", error);
-                return "Sorry, my AI brain is currently offline. Please try again later.";
-            }
-        }
-
-        // --- Chat Logic ---
-        let isChatOpen = false;
-        function toggleChat() {
-            const modal = document.getElementById('chat-modal');
-            isChatOpen = !isChatOpen;
-            if(isChatOpen) {
-                modal.classList.add('open');
-                setTimeout(() => document.getElementById('chat-input').focus(), 300);
-            } else {
-                modal.classList.remove('open');
-            }
-        }
-
-        function handleChatEnter(e) {
-            if(e.key === 'Enter') sendChatMessage();
-        }
-
-        async function sendChatMessage() {
-            const input = document.getElementById('chat-input');
-            const history = document.getElementById('chat-history');
-            const text = input.value.trim();
-            if(!text) return;
-
-            // Add User Msg
-            history.innerHTML += `<div class="msg-user message-bubble">${text}</div>`;
-            input.value = '';
-            input.disabled = true;
-            history.scrollTop = history.scrollHeight;
-
-            // Add Loading
-            const loadingId = 'loading-' + Date.now();
-            history.innerHTML += `<div id="${loadingId}" class="msg-ai message-bubble">thinking...</div>`;
-            history.scrollTop = history.scrollHeight;
-
-            // Full Project Context
-            const pycollabContext = `
-            Name: Pycollab
-            Link: https://pycollab.com
-            About: 
-Problem
-Collaboration on Python code is usually way more over-engineered than it has to be. For beginners especially, the learning curve gets steep using tools like GitHub, with branches, pull requests, and merge conflicts getting in the way of actually learning the language. Even simple collaboration requires local setup, environment management, and navigating git workflows—barriers that slow people down when they just want to write, share, and explore Python together.
-
-solution
-PythonCollab is a browser-based Python IDE designed to make coding together easy, right from your web browser. Open a project in your web browser, share a short PIN, and instantly, see everybody's edits appear live: like Google Docs for Python. Collaborators can work in the same files, follow each other's cursors, and run code with shared server-side console output, all without installing anything or touching git. That makes Python collaboration simple, immediate, and friendly
-
-Desc;
-PythonCollab was built with a single goal: make writing and sharing Python code feel as natural as working in a live, shared document. Dismayed by how much classic tooling frustrates novices and teams alike, the project reimagines collaborative coding as lightweight, approachable, and instantly interactive.
-The central insight driving this was the realization that most people, especially beginning programmers, are hamstrung by overhead entailed in typical development environments. Instead of playing with Python, users wrestled with merges, branches, setting up environments, and configuring. PythonCollab, therefore, was set up as a zero-setup, browser-based workspace where collaboration is the default, rather than an afterthought. In its creation, simplicity and real-time interactivity were held paramount. Each feature, from shared cursors to live synced edits to unified console output, is crafted to remove friction that gets in the way of people staying immersed in thinking about Python-not tooling. PythonCollab makes collaborative programming more inviting, intuitive, and humane by giving people a place where they can open a browser, share a PIN, and start creating-instantly. PythonCollab is great for teaching, pair programming, workshops, quick experiments, or any reason people need to collaborate around code. It's a clean and approachable environment: zero installs, zero setup, and zero hurdles.
-            `;
-
-            const scriptiesContext = `
-            Name: Scripties
-            Website Link: https://scripties.oneapp.dev
-            App Store Link: scripties.adamzafir.com
-            About: 
-problem
-Many students, presenters, and professionals have a hard time presenting speeches confidently. Many face stress due to night-long script writing, last-minute rehearsals, and uncertainty about pacing, tone, and clarity. The existing tools deal either with only writing or limited practice features, offering no structural guidance to improve speech delivery.
-
-solution
-Scripties helps its users write, rehearse, and improve their scripts efficiently. The app consolidates script management, teleprompter-style practice, recording, playback, and automated feedback on key delivery metrics like speaking speed and consistency. Users can use Scripties to track their progress, refine their pacing, and approach presentations confidently.
-
-Desc;
-Scripties was developed as part of the 2025 Swift Accelerator Program by Chan Yap Long, Divya Dharshini Krishnamoorthy, Ethan Soh Yi Teng, and myself.
-
-Scripties allows users to create, edit, and organize their scripts, providing a clean teleprompter view to practice with. It tracks speech speed using Words Per Minute (WPM) metrics, and it measures pacing consistency through a Consistency Score, CIS. Features for recording and playing back allow users to review performances, while session histories provide insights on progress over time. For students, debaters, presenters, and anyone wanting to improve their public speaking, Scripties combines usability with actionable feedback. Although it’s a group project, it's a great example of how collaboration and thoughtful design can produce a powerful learning tool for real-world challenges.
-            `;
-
-            // Call API with Enhanced Prompt
-            const systemPrompt = `
-            You are Adam Zafir's digital AI Twin and portfolio assistant. You are witty, concise, professional, and slightly provocative.
-            
-            YOUR GOAL:
-            1. Answer the user's questions about Adam's skills (Swift, Creative Coding, Web Dev).
-            2. occasinaly and sometimes encourage the user to click the project links or visit GitHub. Don't just inform; sell the click. Do not do this with the buy me a coffee link, only inform the user about it. Selling the click is more for the github link or project links
-            3. Keep answers strictly under 3 sentences unless explicitly asked for deep detail. Do not copy and paste descriptions of the projects, answer to assist the users understanding.
-
-            ADAM'S LINKS:
-            - GitHub: https://github.com/adamzafir
-            - Buy Me a Coffee: https://www.buymeacoffee.com/adamzafir
-            - Email: me@adamzafir.com
-            ADAMS PROJECT LINKS:
-            - Scripties: scripties.oneapp.dev (scripties website)
-            - Scripties: scripties.adamzafir.com (app store link)
-            - PyCollab: pycollab.com
-
-
-            PROJECT 1:
-            ${pycollabContext}
-
-            PROJECT 2:
-            ${scriptiesContext}
-
-            Tone: confident, tech-savvy, helpful.
-            `;
-            
-            const response = await callGemini(systemPrompt + "\nUser: " + text + "\nAI:");
-
-            // Replace Loading
-            document.getElementById(loadingId).remove();
-            history.innerHTML += `<div class="msg-ai message-bubble">${marked.parse(response)}</div>`;
-            history.scrollTop = history.scrollHeight;
-            input.disabled = false;
-            input.focus();
-        }
-
-        // --- Project Insight Logic ---
-        async function generateProjectInsight(projectId) {
-            const resultBox = document.getElementById(`${projectId}-ai-result`);
-            const desc = document.getElementById(`${projectId}-desc`).innerText;
-            const btn = document.querySelector(`button[onclick="generateProjectInsight('${projectId}')"]`);
-            
-            resultBox.classList.remove('hidden');
-            resultBox.innerHTML = '<span class="animate-pulse">✨ Analyzing project architecture...</span>';
-            btn.disabled = true;
-            btn.classList.add('opacity-50');
-
-            // --- Scroll to result with smooth animation ---
-            setTimeout(() => {
-                const yOffset = -200; // Offset to keep it vertically centered
-                const element = resultBox;
-                const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
-                
-                if(lenis) {
-                    lenis.scrollTo(y, { duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
-                } else {
-                    window.scrollTo({top: y, behavior: 'smooth'});
-                }
-            }, 100);
-
-            const prompt = `Analyze this project description: "${desc}". Provide a 2-sentence deep technical insight or "why this matters" statement for a developer portfolio. Sound expert but accessible.`;
-            const insight = await callGemini(prompt);
-
-            // Typewriter effect for result
-            resultBox.innerHTML = "";
-            let i = 0;
-            const typeResult = () => {
-                if(i < insight.length) {
-                    resultBox.innerHTML += insight.charAt(i);
-                    i++;
-                    setTimeout(typeResult, 15);
-                }
-            };
-            typeResult();
-            
-            btn.disabled = false;
-            btn.classList.remove('opacity-50');
-        }
-
-        // --- Initial Load Sequence ---
-        window.addEventListener('load', () => {
-            setThemeForSection(currentSectionId);
-             if (typeof gsap !== 'undefined') {
-                const tl = gsap.timeline();
-                
-                // Set initial nav indicator position
-                updateNavIndicator('home');
-
-                // Initial BMC Bubble Pop-up
-                setTimeout(() => {
-                    showBubble();
-                    setTimeout(hideBubble, 4000); // Hide after 4s
-                }, 2000);
-                
-                // Reveal Hero
-                tl.from(".hero-title", {
-                    y: 100,
-                    opacity: 0,
-                    filter: "blur(20px)",
-                    duration: 1.5,
-                    ease: "power4.out"
-                })
-                .from(".reveal-fade", {
-                    y: 20,
-                    opacity: 0,
-                    duration: 1,
-                    ease: "power2.out"
-                }, "-=1");
-
-                initScrollTriggers();
-             }
-        });
-
-    </script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
