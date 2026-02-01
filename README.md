@@ -14,7 +14,7 @@
 
 <h2 align="center">Links</h2>
 
-[![pycollab.com](https://img.shields.io/badge/pycollab.com-000000?style=for-the-badge)](https://pycollab.com)
+[![zafir.dev](https://img.shields.io/badge/zafir.dev-000000?style=for-the-badge)](https://pycollab.com)
 [![adamzafir.com](https://img.shields.io/badge/adamzafir.com-000000?style=for-the-badge)](https://adamzafir.com)
 
 
