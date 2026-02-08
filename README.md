@@ -18,24 +18,10 @@
 [![adamzafir.com](https://img.shields.io/badge/adamzafir.com-000000?style=for-the-badge)](https://adamzafir.com)
 
 
-
-<h2 align="center">My Stack</h2>
-
-![Swift](https://img.shields.io/badge/swift-F54A2A?style=for-the-badge&logo=swift&logoColor=white)
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-
-
-
-
 <h2 align="center">GitHub Stats</h2>
 
 <p>
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=adamzafir&theme=dark&hide_border=false&count_private=true" />
   <img height="165" src="https://nirzak-streak-stats.vercel.app/?user=adamzafir&theme=dark&hide_border=false" />
-</p>
-
-<p>
-  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=adamzafir&theme=dark&hide_border=false&layout=compact" />
 </p>
 
 <br/>
