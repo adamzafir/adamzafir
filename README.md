@@ -20,11 +20,14 @@
 
 <h2 align="center">GitHub Stats</h2>
 
+<br>
+
+![Stars](https://img.shields.io/github/stars/adamzafir?affiliations=OWNER&style=for-the-badge)
+
 <p>
   <img height="165" src="https://nirzak-streak-stats.vercel.app/?user=adamzafir&theme=dark&hide_border=false" />
 </p>
 
-<br/>
 
 
 <h2 align="center">Contact Me</h2>
