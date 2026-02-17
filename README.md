@@ -11,13 +11,6 @@
 
 <br/>
 
-
-<h2 align="center">Links</h2>
-
-[![adamzafir.com](https://img.shields.io/badge/adamzafir.com-000000?style=for-the-badge)](https://adamzafir.com)
-[![zafir.dev](https://img.shields.io/badge/zafir.dev-000000?style=for-the-badge)](https://zafir.dev)
-[![admz.link](https://img.shields.io/badge/admz.link-000000?style=for-the-badge)](https://admz.link)
-
 <h2 align="center">GitHub Stats</h2>
 
 <br>
