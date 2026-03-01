@@ -3,678 +3,212 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="color-scheme" content="light dark" />
-  <title>Adam Zafir</title>
-  <meta name="description" content="Adam Zafir - founder of PyCollab. Swift developer building polished interfaces and practical products." />
+  <title>Adam Zafir — Software Developer</title>
+  <meta name="description" content="Adam Zafir — founder of PyCollab. Building software that balances speed, clarity, and polish." />
+  <meta name="theme-color" content="#0a0a0a" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bungee:wght@400&family=Azeret+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      color-scheme: light;
-      --bg: #f6f2e7;
-      --bg-a: rgba(47, 184, 178, 0.24);
-      --bg-b: rgba(233, 106, 47, 0.28);
-      --ink: #16120e;
-      --muted: #4f473f;
-      --surface: rgba(255, 253, 246, 0.86);
-      --surface-strong: #fffdf8;
-      --line: rgba(22, 18, 14, 0.2);
-      --orange: #df652f;
-      --chartreuse: #9fc73b;
-      --cyan: #2ea9a2;
-      --tag: #166f68;
-      --link: #125c56;
-      --shadow: 0 20px 42px rgba(22, 18, 14, 0.14);
-      --card-hover-shadow: 0 12px 22px rgba(22, 18, 14, 0.16);
-      --soft-a: rgba(159, 199, 59, 0.15);
-      --soft-d: rgba(46, 169, 162, 0.14);
-      --soft-g: rgba(223, 101, 47, 0.13);
-      --project-bg: #fffcf4;
-      --project-border: rgba(22, 18, 14, 0.3);
-      --h1-shadow: 3px 3px 0 rgba(22, 18, 14, 0.12);
-      --grid-line: rgba(22, 18, 14, 0.035);
-      --chrome-bg: rgba(255, 253, 246, 0.84);
-    }
-
-    :root[data-theme="dark"] {
-      color-scheme: dark;
-      --bg: #0f1312;
-      --bg-a: rgba(99, 219, 210, 0.18);
-      --bg-b: rgba(255, 166, 98, 0.14);
-      --ink: #f2ebdf;
-      --muted: #cbc3b5;
-      --surface: rgba(25, 33, 30, 0.9);
-      --surface-strong: #1a2320;
-      --line: rgba(242, 235, 223, 0.24);
-      --orange: #ffb06f;
-      --chartreuse: #cfe77a;
-      --cyan: #6adfd5;
-      --tag: #9ae9e2;
-      --link: #a9f3eb;
-      --shadow: 0 24px 52px rgba(0, 0, 0, 0.48);
-      --card-hover-shadow: 0 14px 24px rgba(0, 0, 0, 0.4);
-      --soft-a: rgba(207, 231, 122, 0.13);
-      --soft-d: rgba(106, 223, 213, 0.14);
-      --soft-g: rgba(255, 176, 111, 0.13);
-      --project-bg: rgba(14, 19, 17, 0.92);
-      --project-border: rgba(242, 235, 223, 0.34);
-      --h1-shadow: 3px 3px 0 rgba(0, 0, 0, 0.32);
-      --grid-line: rgba(242, 235, 223, 0.04);
-      --chrome-bg: rgba(20, 27, 24, 0.88);
-    }
-
-    * { box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: "Azeret Mono", monospace;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at 10% 14%, var(--bg-a), transparent 35%),
-        radial-gradient(circle at 88% 12%, var(--bg-b), transparent 38%),
-        var(--bg);
-      transition: background-color 240ms ease, color 240ms ease;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
-        linear-gradient(var(--grid-line) 1px, transparent 1px);
-      background-size: 34px 34px;
-      opacity: 0.5;
-      z-index: 0;
-    }
-
-    .site {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      padding-top: 16px;
-    }
-
-    .inner {
-      width: min(1180px, calc(100% - 28px));
-      margin: 0 auto;
-    }
-
-    .chrome {
-      position: fixed;
-      top: 12px;
-      left: 0;
-      right: 0;
-      z-index: 30;
-      pointer-events: none;
-    }
-
-    .chrome-inner {
-      width: min(1180px, calc(100% - 28px));
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-mark {
-      pointer-events: auto;
-      text-decoration: none;
-      color: var(--ink);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 7px 10px;
-      font-size: 0.62rem;
-      letter-spacing: 0.11em;
-      text-transform: uppercase;
-      background: var(--chrome-bg);
-      backdrop-filter: blur(8px);
-      box-shadow: var(--shadow);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .brand-mark::before {
-      content: "◆";
-      color: var(--orange);
-      font-size: 0.66rem;
-      line-height: 1;
-    }
-
-    .theme-fab {
-      pointer-events: auto;
-      width: 42px;
-      height: 42px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: var(--chrome-bg);
-      backdrop-filter: blur(8px);
-      color: var(--ink);
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      position: relative;
-      box-shadow: var(--shadow);
-      transition: transform 160ms ease, border-color 240ms ease, background-color 240ms ease;
-    }
-
-    .theme-fab:hover {
-      transform: translateY(-1px);
-    }
-
-    .theme-fab:focus-visible {
-      outline: 2px solid var(--ink);
-      outline-offset: 2px;
-    }
-
-    .theme-fab::after {
-      content: "Theme";
-      position: absolute;
-      right: calc(100% + 8px);
-      top: 50%;
-      transform: translateY(-50%);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 4px 8px;
-      font-size: 0.56rem;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: var(--ink);
-      background: var(--chrome-bg);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 160ms ease;
-      white-space: nowrap;
-    }
-
-    .theme-fab:hover::after,
-    .theme-fab:focus-visible::after {
-      opacity: 1;
-    }
-
-    .theme-icon {
-      width: 18px;
-      height: 18px;
-      position: relative;
-      display: grid;
-      place-items: center;
-    }
-
-    .theme-icon svg {
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      transition: opacity 260ms ease, transform 300ms cubic-bezier(.2,.7,.2,1);
-    }
-
-    .icon-sun {
-      opacity: 1;
-      transform: rotate(0deg) scale(1);
-    }
-
-    .icon-moon {
-      opacity: 0;
-      transform: rotate(70deg) scale(0.4);
-    }
-
-    :root[data-theme="dark"] .icon-sun {
-      opacity: 0;
-      transform: rotate(-80deg) scale(0.35);
-    }
-
-    :root[data-theme="dark"] .icon-moon {
-      opacity: 1;
-      transform: rotate(0deg) scale(1);
-    }
-
-    .hero {
-      padding: clamp(28px, 5.6vw, 58px) 0 26px;
-      border-bottom: 1px solid var(--line);
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 14px;
-      align-items: end;
-    }
-
-    h1 {
-      margin: 0;
-      font-family: "Bungee", display;
-      font-size: clamp(2.1rem, 7.4vw, 5rem);
-      line-height: 0.92;
-      letter-spacing: 0.01em;
-      max-width: 13ch;
-      text-shadow: var(--h1-shadow);
-    }
-
-    h1 .strike {
-      color: var(--orange);
-      display: inline-block;
-      white-space: nowrap;
-    }
-
-    .lead {
-      margin: 12px 0 0;
-      max-width: 64ch;
-      color: var(--muted);
-      line-height: 1.82;
-      font-size: 0.9rem;
-    }
-
-    .signal {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: var(--surface-strong);
-      padding: 12px;
-      box-shadow: var(--shadow);
-      transform: rotate(-1deg);
-    }
-
-    .signal b {
-      display: block;
-      font-size: 0.68rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--tag);
-      margin-bottom: 6px;
-    }
-
-    .signal p {
-      margin: 0;
-      line-height: 1.7;
-      font-size: 0.84rem;
-      color: var(--muted);
-    }
-
-    .grid {
-      padding: 16px 0 22px;
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 10px;
-    }
-
-    .card {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--surface);
-      padding: 12px;
-      transition: transform 200ms ease, box-shadow 200ms ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px) rotate(-0.3deg);
-      box-shadow: var(--card-hover-shadow);
-    }
-
-    .card .tag {
-      font-size: 0.62rem;
-      text-transform: uppercase;
-      letter-spacing: 0.11em;
-      color: var(--tag);
-      margin-bottom: 8px;
-      display: inline-block;
-    }
-
-    h2 {
-      margin: 0 0 7px;
-      font-family: "Bungee", display;
-      font-size: clamp(1.2rem, 3vw, 2.1rem);
-      line-height: 0.95;
-      letter-spacing: 0.01em;
-    }
-
-    .copy {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.72;
-      font-size: 0.82rem;
-    }
-
-    .symbol-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      text-decoration: none;
-      color: var(--ink);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 4px 9px;
-      background: var(--surface-strong);
-      transition: transform 160ms ease, border-color 220ms ease, color 220ms ease;
-      line-height: 1.25;
-    }
-
-    .symbol-link::before {
-      content: attr(data-symbol);
-      color: var(--orange);
-      font-size: 0.72rem;
-      line-height: 1;
-      transform: translateY(-0.5px);
-    }
-
-    .symbol-link.iconized::before {
-      content: none;
-    }
-
-    .symbol-link:hover {
-      transform: translateY(-1px);
-      border-color: var(--orange);
-      color: var(--orange);
-    }
-
-    .symbol-link:focus-visible {
-      outline: 2px solid var(--ink);
-      outline-offset: 2px;
-    }
-
-    .link-list {
-      list-style: none;
-      margin: 8px 0 0;
-      padding: 0;
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 12px;
-      overflow-x: auto;
-      scrollbar-width: thin;
-    }
-
-    .link-list li {
-      margin: 0;
-      display: inline-flex;
-    }
-
-    .icon-link {
-      width: 2.2rem;
-      height: 2.2rem;
-      display: grid;
-      place-items: center;
-      border-radius: 0.5rem;
-      color: var(--ink);
-      text-decoration: none;
-      transition: transform 140ms ease, color 220ms ease, background-color 220ms ease;
-    }
-
-    .icon-link:hover {
-      transform: translateY(-1px);
-      color: var(--orange);
-      background: rgba(255, 255, 255, 0.06);
-    }
-
-    .icon-link:focus-visible {
-      outline: 2px solid var(--ink);
-      outline-offset: 2px;
-    }
-
-    .icon-link svg {
-      width: 1.34rem;
-      height: 1.34rem;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.9;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      display: block;
-    }
-
-    .a { grid-column: span 7; background: var(--soft-a); }
-    .b { grid-column: span 5; }
-    .c { grid-column: span 4; }
-    .d { grid-column: span 4; background: var(--soft-d); }
-    .e { grid-column: span 4; }
-    .f { grid-column: span 8; }
-    .g { grid-column: span 4; background: var(--soft-g); }
-
-    .project {
-      margin-top: 8px;
-      display: grid;
-      gap: 8px;
-    }
-
-    .project a {
-      text-decoration: none;
-      color: var(--ink);
-      border: 1px dashed var(--project-border);
-      border-radius: 10px;
-      padding: 8px 10px 8px 30px;
-      display: block;
-      font-size: 0.78rem;
-      line-height: 1.5;
-      background: var(--project-bg);
-      position: relative;
-      transition: border-color 220ms ease, color 220ms ease, transform 160ms ease;
-    }
-
-    .project a::before {
-      content: attr(data-symbol);
-      position: absolute;
-      left: 10px;
-      top: 11px;
-      font-size: 0.72rem;
-      line-height: 1;
-      color: var(--orange);
-    }
-
-    .project a:hover {
-      border-color: var(--orange);
-      color: var(--orange);
-      transform: translateY(-1px);
-    }
-
-    .project b {
-      display: block;
-      margin-bottom: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      font-size: 0.62rem;
-      color: var(--orange);
-    }
-
-    .footer {
-      border-top: 1px solid var(--line);
-      padding: 10px 0 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .footer .symbol-link {
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    @media (max-width: 980px) {
-      .hero { grid-template-columns: 1fr; }
-      .a, .b, .c, .d, .e, .f, .g { grid-column: span 12; }
-    }
-
-    @media (max-width: 620px) {
-      .theme-fab::after { display: none; }
-      .site { padding-top: 14px; }
-      h1 { font-size: clamp(1.95rem, 10vw, 3rem); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .card,
-      .theme-fab,
-      .theme-icon svg {
-        transition: none;
-      }
-    }
-  </style>
 </head>
 <body>
-  <main class="site">
-    <div class="chrome" aria-hidden="false">
-      <div class="chrome-inner">
-        <a class="brand-mark" href="https://adamzafir.com" target="_blank" rel="noreferrer">adamzafir.com</a>
-        <button class="theme-fab" id="themeToggle" type="button" aria-label="Theme switcher" aria-pressed="false" title="Theme switcher">
-          <span class="theme-icon" aria-hidden="true">
-            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-              <path d="M12 2V5M12 19V22M2 12H5M19 12H22M4.93 4.93L7.05 7.05M16.95 16.95L19.07 19.07M19.07 4.93L16.95 7.05M7.05 16.95L4.93 19.07" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20.2 14.3A8.5 8.5 0 1 1 9.7 3.8a7.1 7.1 0 1 0 10.5 10.5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-            </svg>
-          </span>
-        </button>
+
+  <!-- Background layers -->
+  <canvas class="bg-canvas" id="bg-canvas"></canvas>
+  <div class="bg-dots" aria-hidden="true"></div>
+  <div class="bg-noise" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow--1" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow--2" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Primary">
+    <div class="nav__inner">
+      <a class="nav__brand" href="#">Adam Zafir</a>
+      <div class="nav__links">
+        <a class="nav__link" href="#about">About</a>
+        <a class="nav__link" href="#work">Work</a>
+        <a class="nav__link nav__link--cta" href="#contact">Get in touch</a>
+      </div>
+      <button class="nav__toggle" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav Overlay -->
+  <div class="nav__overlay" role="dialog" aria-label="Navigation menu">
+    <button class="nav__close" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero__content">
+        <span class="hero__label">Available for collaboration</span>
+        <h1 class="hero__heading">
+          <span class="word"><span class="word-inner">I build</span></span>
+          <span class="word"><span class="word-inner">software</span></span>
+          <span class="word"><span class="word-inner">that feels</span></span>
+          <span class="word"><span class="word-inner accent">intentional.</span></span>
+        </h1>
+        <p class="hero__description">Swift developer and founder of PyCollab. I care deeply about interfaces that are fast, clear, and polished from the first interaction.</p>
       </div>
     </div>
+    <div class="hero__scroll-cue">
+      <span>Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
 
-    <section class="hero inner" id="about">
-      <div>
-        <h1>Hi, I'm<br><span class="strike">Adam Zafir</span></h1>
-        <p class="lead">I build software that balances speed, clarity, and polish. Swift is my go-to language, and I care deeply about interfaces that feel intentional from the first interaction.</p>
+  <!-- About -->
+  <div class="divider container" aria-hidden="true"></div>
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about__grid">
+        <div class="reveal--left">
+          <span class="section-label">About</span>
+          <h2 class="about__heading">Product-minded builder with a bias for practical execution.</h2>
+          <p class="about__text">I build software that balances speed, clarity, and polish. Swift is my go‑to language, and I care about clean architecture, readable code, and UI behavior that feels considered.</p>
+          <p class="about__text">I reduce setup friction, preserve flow, and design systems that keep users focused on outcomes — not fighting their tools.</p>
+        </div>
+        <div class="about__visual reveal--right">
+          <div class="about__card">
+            <div class="about__card-label">Core Identity</div>
+            <p class="about__card-text">Founder of PyCollab. Product-minded builder with a strong bias for practical execution and thoughtful visual systems.</p>
+            <div class="about__stats">
+              <div class="stat">
+                <div class="stat__number">Swift</div>
+                <div class="stat__label">Primary Language</div>
+              </div>
+              <div class="stat">
+                <div class="stat__number">Web</div>
+                <div class="stat__label">Full-stack</div>
+              </div>
+              <div class="stat">
+                <div class="stat__number">UI/UX</div>
+                <div class="stat__label">Design Focus</div>
+              </div>
+              <div class="stat">
+                <div class="stat__number">Ship</div>
+                <div class="stat__label">Fast & Polish</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <aside class="signal">
-        <b>Core identity</b>
-        <p>Founder of PyCollab. Product-minded builder with a strong bias for practical execution and thoughtful visual systems.</p>
-      </aside>
-    </section>
+  <!-- Philosophy -->
+  <section class="philosophy">
+    <div class="container--narrow">
+      <p class="philosophy__statement">
+        <span class="phil-word">Swift</span>
+        <span class="phil-word">is</span>
+        <span class="phil-word">my</span>
+        <span class="phil-word">language.</span>
+        <span class="phil-word">Clarity</span>
+        <span class="phil-word">is</span>
+        <span class="phil-word">my</span>
+        <span class="phil-word">compass.</span>
+        <span class="phil-word">Momentum</span>
+        <span class="phil-word">is</span>
+        <span class="phil-word">the</span>
+        <span class="phil-word">method.</span>
+      </p>
+      <p class="philosophy__sub reveal">Build for focus. Ship for impact.</p>
+    </div>
+  </section>
 
-    <section class="grid inner" id="work">
-      <article class="card a">
-        <span class="tag">Approach</span>
-        <h2>Build for momentum.</h2>
-        <p class="copy">Reduce setup friction, preserve flow, and design systems that keep users focused on outcomes.</p>
-      </article>
+  <!-- Projects -->
+  <div class="divider container" aria-hidden="true"></div>
+  <section class="projects" id="work">
+    <div class="container">
+      <span class="section-label reveal">Selected Work</span>
+      <h2 class="projects__heading reveal">Things I've built.</h2>
 
-      <article class="card b" id="contact">
-        <span class="tag">Contact</span>
-        <h2>Let us collaborate.</h2>
-        <p class="copy">Reach me at <a class="symbol-link" data-symbol="✉" href="mailto:me@adamzafir.com">me@adamzafir.com</a> for collaboration work.</p>
-      </article>
+      <div class="projects__grid">
+        <!-- PyCollab -->
+        <article class="project-card reveal">
+          <div class="project-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h3 class="project-card__name">PyCollab</h3>
+          <p class="project-card__desc">Realtime collaborative Python coding in a zero-setup browser workflow. Code together, instantly.</p>
+          <a class="project-card__link" href="https://pycollab.com" target="_blank" rel="noreferrer">
+            Visit project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </article>
 
-      <article class="card c">
-        <span class="tag">Project</span>
-        <h2>PyCollab</h2>
-        <div class="project"><a data-symbol="◉" href="https://pycollab.com" target="_blank" rel="noreferrer"><b>Visit</b>Realtime collaborative Python coding in a zero-setup browser workflow.</a></div>
-      </article>
+        <!-- Scripties -->
+        <article class="project-card reveal">
+          <div class="project-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <h3 class="project-card__name">Scripties</h3>
+          <p class="project-card__desc">Speech writing and rehearsal with pacing analytics and real-time session feedback.</p>
+          <a class="project-card__link" href="https://scripties-4ug0.onrender.com/" target="_blank" rel="noreferrer">
+            Visit project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </article>
 
-      <article class="card d">
-        <span class="tag">Project</span>
-        <h2>Scripties</h2>
-        <div class="project"><a data-symbol="◆" href="https://scripties-4ug0.onrender.com/" target="_blank" rel="noreferrer"><b>Visit</b>Speech writing and rehearsal with pacing analytics and session feedback.</a></div>
-      </article>
+        <!-- Cats By Adam -->
+        <article class="project-card reveal">
+          <div class="project-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          </div>
+          <h3 class="project-card__name">Cats By Adam</h3>
+          <p class="project-card__desc">A playful side project that keeps the brand human, memorable, and a little unexpected.</p>
+          <a class="project-card__link" href="https://cats.adamzafir.com" target="_blank" rel="noreferrer">
+            Visit project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
 
-      <article class="card e">
-        <span class="tag">Project</span>
-        <h2>Cats By Adam</h2>
-        <div class="project"><a data-symbol="✦" href="https://cats.adamzafir.com" target="_blank" rel="noreferrer"><b>Visit</b>A playful side route that keeps the brand human and memorable.</a></div>
-      </article>
+  <!-- Contact -->
+  <div class="divider container" aria-hidden="true"></div>
+  <section class="contact" id="contact">
+    <div class="container">
+      <span class="section-label reveal" style="justify-content: center;">Get in Touch</span>
+      <h2 class="contact__heading reveal">Let's collaborate.</h2>
+      <p class="contact__sub reveal">Have a project in mind, or just want to say hello? I'd love to hear from you.</p>
+      <a class="contact__cta reveal--scale" href="mailto:me@adamzafir.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        me@adamzafir.com
+      </a>
+      <div class="socials reveal">
+        <a class="social-link" href="https://github.com/adamzafir" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3"/><path d="M15 22v-3.9a3.3 3.3 0 0 0-.9-2.6c3 0 6-1.8 6-6a4.7 4.7 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.7 11.7 0 0 0-6.1 0C6.8 3 5.8 3.3 5.8 3.3a4.3 4.3 0 0 0-.1 3.2 4.7 4.7 0 0 0-1.3 3.2c0 4.1 3 6 6 6a3.3 3.3 0 0 0-.9 2.6V22"/></svg>
+        </a>
+        <a class="social-link" href="https://www.linkedin.com/in/adamzafir" target="_blank" rel="noreferrer" aria-label="LinkedIn" title="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a class="social-link" href="https://zafir.dev" target="_blank" rel="noreferrer" aria-label="Blog" title="Blog — zafir.dev">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 8h8l-8 8h8"/></svg>
+        </a>
+        <a class="social-link" href="https://buymeacoffee.com/adamzafir" target="_blank" rel="noreferrer" aria-label="Buy Me a Coffee" title="Buy Me a Coffee">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h10v6a4 4 0 0 1-4 4h-2a4 4 0 0 1-4-4V8z"/><path d="M16 10h1a3 3 0 0 1 0 6h-1"/><path d="M6 3v2"/><path d="M10 3v2"/><path d="M14 3v2"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
 
-      <article class="card f">
-        <span class="tag">Strengths</span>
-        <h2>Swift Developer.</h2>
-        <p class="copy">I prefer Swift as my go-to for building apps and interfaces. I care about clean architecture, readable code, and polished UI behavior.</p>
-      </article>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>&copy; Adam Zafir</span>
+      <a class="footer__link" href="https://zafir.dev" target="_blank" rel="noreferrer">zafir.dev</a>
+    </div>
+  </footer>
 
-      <article class="card g">
-        <span class="tag">Elsewhere</span>
-        <h2>Links</h2>
-        <ul class="link-list copy">
-          <li>
-            <a class="icon-link" href="https://github.com/adamzafir" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M9 19c-5 1.5-5-2.5-7-3"></path>
-                <path d="M15 22v-3.9a3.3 3.3 0 0 0-.9-2.6c3 0 6-1.8 6-6a4.7 4.7 0 0 0-1.3-3.2a4.3 4.3 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.7 11.7 0 0 0-6.1 0C6.8 3 5.8 3.3 5.8 3.3a4.3 4.3 0 0 0-.1 3.2a4.7 4.7 0 0 0-1.3 3.2c0 4.1 3 6 6 6a3.3 3.3 0 0 0-.9 2.6V22"></path>
-              </svg>
-            </a>
-          </li>
-          <li>
-            <a class="icon-link" href="https://www.linkedin.com/in/adamzafir" target="_blank" rel="noreferrer" aria-label="LinkedIn" title="LinkedIn">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                <rect x="2" y="9" width="4" height="12"></rect>
-                <circle cx="4" cy="4" r="2"></circle>
-              </svg>
-            </a>
-          </li>
-          <li>
-            <a class="icon-link" href="https://zafir.dev" target="_blank" rel="noreferrer" aria-label="Blog (zafir.dev)" title="Blog (zafir.dev)">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="3" y="3" width="18" height="18" rx="4"></rect>
-                <path d="M8 8h8l-8 8h8"></path>
-              </svg>
-            </a>
-          </li>
-          <li>
-            <a class="icon-link" href="https://buymeacoffee.com/adamzafir" target="_blank" rel="noreferrer" aria-label="Buy Me a Coffee" title="Buy Me a Coffee">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M6 8h10v6a4 4 0 0 1-4 4h-2a4 4 0 0 1-4-4V8z"></path>
-                <path d="M16 10h1a3 3 0 0 1 0 6h-1"></path>
-                <path d="M6 3v2"></path>
-                <path d="M10 3v2"></path>
-                <path d="M14 3v2"></path>
-              </svg>
-            </a>
-          </li>
-        </ul>
-      </article>
-    </section>
-
-    <footer class="footer inner">
-      <a class="symbol-link" data-symbol="✦" href="https://zafir.dev" target="_blank" rel="noreferrer">zafir.dev</a>
-      <span>Adam Zafir</span>
-    </footer>
-  </main>
-
-  <script>
-    (function () {
-      const root = document.documentElement;
-      const toggle = document.getElementById('themeToggle');
-      const storageKey = 'adam-site-theme';
-      const media = window.matchMedia('(prefers-color-scheme: dark)');
-
-      function setTheme(theme, persist) {
-        root.setAttribute('data-theme', theme);
-        toggle.setAttribute('aria-pressed', String(theme === 'dark'));
-        if (persist) {
-          localStorage.setItem(storageKey, theme);
-        }
-      }
-
-      const stored = localStorage.getItem(storageKey);
-      if (stored === 'light' || stored === 'dark') {
-        setTheme(stored, false);
-      } else {
-        setTheme(media.matches ? 'dark' : 'light', false);
-      }
-
-      toggle.addEventListener('click', function () {
-        const current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-        setTheme(current === 'dark' ? 'light' : 'dark', true);
-      });
-
-      const onSystemChange = function (event) {
-        if (localStorage.getItem(storageKey)) {
-          return;
-        }
-        setTheme(event.matches ? 'dark' : 'light', false);
-      };
-
-      if (typeof media.addEventListener === 'function') {
-        media.addEventListener('change', onSystemChange);
-      } else if (typeof media.addListener === 'function') {
-        media.addListener(onSystemChange);
-      }
-    })();
-  </script>
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>

@@ -1,404 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="color-scheme" content="light dark" />
   <title>404 | Adam Zafir</title>
   <meta name="description" content="Page not found on adamzafir.com." />
+  <meta name="theme-color" content="#0a0a0a" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bungee:wght@400&family=Azeret+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
   <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     :root {
-      color-scheme: light;
-      --bg: #f6f2e7;
-      --bg-a: rgba(47, 184, 178, 0.24);
-      --bg-b: rgba(233, 106, 47, 0.28);
-      --ink: #16120e;
-      --muted: #4f473f;
-      --surface: rgba(255, 253, 246, 0.88);
-      --surface-strong: #fffdf8;
-      --line: rgba(22, 18, 14, 0.2);
-      --orange: #df652f;
-      --chartreuse: #9fc73b;
-      --cyan: #2ea9a2;
-      --link: #125c56;
-      --grid-line: rgba(22, 18, 14, 0.035);
-      --shadow: 0 20px 42px rgba(22, 18, 14, 0.16);
-      --h1-shadow: 3px 3px 0 rgba(22, 18, 14, 0.12);
-      --chrome-bg: rgba(255, 253, 246, 0.84);
+      --bg: #0a0a0a;
+      --surface: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.15);
+      --text-primary: #f5f5f7;
+      --text-secondary: #a1a1a6;
+      --text-tertiary: #6e6e73;
+      --accent: #64d2ff;
+      --accent-soft: rgba(100, 210, 255, 0.12);
+      --font-body: 'Inter', -apple-system, sans-serif;
+      --font-display: 'Outfit', -apple-system, sans-serif;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    :root[data-theme="dark"] {
-      color-scheme: dark;
-      --bg: #0f1312;
-      --bg-a: rgba(99, 219, 210, 0.18);
-      --bg-b: rgba(255, 166, 98, 0.14);
-      --ink: #f2ebdf;
-      --muted: #cbc3b5;
-      --surface: rgba(25, 33, 30, 0.92);
-      --surface-strong: #1a2320;
-      --line: rgba(242, 235, 223, 0.24);
-      --orange: #ffb06f;
-      --chartreuse: #cfe77a;
-      --cyan: #6adfd5;
-      --link: #a9f3eb;
-      --grid-line: rgba(242, 235, 223, 0.04);
-      --shadow: 0 24px 52px rgba(0, 0, 0, 0.5);
-      --h1-shadow: 3px 3px 0 rgba(0, 0, 0, 0.34);
-      --chrome-bg: rgba(20, 27, 24, 0.88);
+    html {
+      -webkit-font-smoothing: antialiased;
     }
-
-    * { box-sizing: border-box; }
 
     body {
-      margin: 0;
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      background: var(--bg);
       min-height: 100vh;
-      font-family: "Azeret Mono", monospace;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at 10% 14%, var(--bg-a), transparent 35%),
-        radial-gradient(circle at 88% 12%, var(--bg-b), transparent 38%),
-        var(--bg);
-      transition: background-color 240ms ease, color 240ms ease;
-      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
     }
 
+    /* Dot grid */
     body::before {
-      content: "";
+      content: '';
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background-image:
-        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
-        linear-gradient(var(--grid-line) 1px, transparent 1px);
-      background-size: 34px 34px;
-      opacity: 0.5;
+      opacity: 0.12;
+      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+      background-size: 24px 24px;
       z-index: 0;
     }
 
-    .chrome {
+    /* Glow */
+    .glow {
       position: fixed;
-      top: 12px;
-      left: 0;
-      right: 0;
-      z-index: 30;
+      border-radius: 50%;
+      filter: blur(120px);
       pointer-events: none;
+      z-index: 0;
     }
 
-    .chrome-inner {
-      width: min(1180px, calc(100% - 28px));
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
+    .glow--1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(100, 210, 255, 0.06), transparent 70%);
+      top: -15%;
+      right: -10%;
     }
 
-    .brand-mark {
-      pointer-events: auto;
-      text-decoration: none;
-      color: var(--ink);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 7px 10px;
-      font-size: 0.62rem;
-      letter-spacing: 0.11em;
-      text-transform: uppercase;
-      background: var(--chrome-bg);
-      backdrop-filter: blur(8px);
-      box-shadow: var(--shadow);
-    }
-
-    .theme-fab {
-      pointer-events: auto;
-      width: 42px;
-      height: 42px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: var(--chrome-bg);
-      backdrop-filter: blur(8px);
-      color: var(--ink);
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      position: relative;
-      box-shadow: var(--shadow);
-      transition: transform 160ms ease, border-color 240ms ease, background-color 240ms ease;
-    }
-
-    .theme-fab:hover {
-      transform: translateY(-1px);
-    }
-
-    .theme-fab:focus-visible {
-      outline: 2px solid var(--ink);
-      outline-offset: 2px;
-    }
-
-    .theme-fab::after {
-      content: "Theme";
-      position: absolute;
-      right: calc(100% + 8px);
-      top: 50%;
-      transform: translateY(-50%);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 4px 8px;
-      font-size: 0.56rem;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: var(--ink);
-      background: var(--chrome-bg);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 160ms ease;
-      white-space: nowrap;
-    }
-
-    .theme-fab:hover::after,
-    .theme-fab:focus-visible::after {
-      opacity: 1;
-    }
-
-    .theme-icon {
-      width: 18px;
-      height: 18px;
-      position: relative;
-      display: grid;
-      place-items: center;
-    }
-
-    .theme-icon svg {
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      transition: opacity 260ms ease, transform 300ms cubic-bezier(.2,.7,.2,1);
-    }
-
-    .icon-sun {
-      opacity: 1;
-      transform: rotate(0deg) scale(1);
-    }
-
-    .icon-moon {
-      opacity: 0;
-      transform: rotate(70deg) scale(0.4);
-    }
-
-    :root[data-theme="dark"] .icon-sun {
-      opacity: 0;
-      transform: rotate(-80deg) scale(0.35);
-    }
-
-    :root[data-theme="dark"] .icon-moon {
-      opacity: 1;
-      transform: rotate(0deg) scale(1);
-    }
-
-    .wrap {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 84px 14px 24px;
+    .glow--2 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(160, 120, 255, 0.05), transparent 70%);
+      bottom: -10%;
+      left: -10%;
     }
 
     .panel {
-      width: min(980px, 100%);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: var(--surface);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      position: relative;
-      isolation: isolate;
-    }
-
-    .panel::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(120% 120% at 10% 10%, rgba(223, 101, 47, 0.12), transparent 56%),
-        radial-gradient(120% 120% at 90% 88%, rgba(46, 169, 162, 0.14), transparent 52%);
-      z-index: 0;
-    }
-
-    .in {
       position: relative;
       z-index: 1;
-      padding: clamp(20px, 5vw, 40px);
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 16px;
-      align-items: end;
+      max-width: 520px;
+      width: calc(100% - 48px);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: clamp(32px, 6vw, 56px);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: panel-in 1s var(--ease-out-expo) 0.2s forwards;
     }
 
-    .stamp {
-      display: inline-flex;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 0.62rem;
+    @keyframes panel-in {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 500;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      background: var(--surface-strong);
-      margin-bottom: 12px;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-radius: 999px;
+      padding: 6px 14px;
+      margin-bottom: 24px;
     }
 
     h1 {
-      margin: 0;
-      font-family: "Bungee", display;
-      font-size: clamp(2.4rem, 9vw, 6rem);
-      line-height: 0.85;
-      letter-spacing: 0.01em;
-      text-shadow: var(--h1-shadow);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(3rem, 10vw, 5.5rem);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      margin-bottom: 12px;
     }
 
     h1 span {
-      color: var(--orange);
+      color: var(--accent);
     }
 
     .lead {
-      margin: 12px 0 0;
-      max-width: 62ch;
-      color: var(--muted);
-      line-height: 1.82;
-      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      font-weight: 300;
+      margin-bottom: 32px;
     }
 
     .actions {
-      display: grid;
-      gap: 8px;
-      min-width: 220px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
     .btn {
-      text-decoration: none;
-      color: var(--ink);
-      border: 1px solid var(--line);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
       border-radius: 999px;
-      padding: 10px 12px;
-      font-size: 0.66rem;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      text-align: center;
-      background: var(--surface-strong);
-      transition: transform 150ms ease, color 220ms ease, border-color 220ms ease;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: transform 0.3s var(--ease-out-expo), background 0.25s, border-color 0.25s;
     }
 
-    .btn:hover {
-      transform: translateY(-1px);
-      border-color: var(--orange);
-      color: var(--orange);
+    .btn--primary {
+      background: var(--text-primary);
+      color: var(--bg);
     }
 
-    .btn.alt {
+    .btn--primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn--secondary {
       background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
     }
 
-    @media (max-width: 880px) {
-      .in {
-        grid-template-columns: 1fr;
-      }
-
-      .actions {
-        width: 100%;
-      }
-
-      .theme-fab::after {
-        display: none;
-      }
+    .btn--secondary:hover {
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+      transform: translateY(-2px);
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .theme-icon svg,
-      .btn,
-      .theme-fab {
-        transition: none;
+    .brand {
+      position: fixed;
+      top: 20px;
+      left: 24px;
+      z-index: 10;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      opacity: 0;
+      animation: fade-in 0.8s ease 0.5s forwards;
+    }
+
+    @keyframes fade-in {
+      to {
+        opacity: 1;
       }
     }
   </style>
 </head>
+
 <body>
-  <div class="chrome">
-    <div class="chrome-inner">
-      <a class="brand-mark" href="https://adamzafir.com" target="_blank" rel="noreferrer">adamzafir.com</a>
-      <button class="theme-fab" id="themeToggle" type="button" aria-label="Theme switcher" aria-pressed="false" title="Theme switcher">
-        <span class="theme-icon" aria-hidden="true">
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-            <path d="M12 2V5M12 19V22M2 12H5M19 12H22M4.93 4.93L7.05 7.05M16.95 16.95L19.07 19.07M19.07 4.93L16.95 7.05M7.05 16.95L4.93 19.07" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20.2 14.3A8.5 8.5 0 1 1 9.7 3.8a7.1 7.1 0 1 0 10.5 10.5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </button>
+  <div class="glow glow--1" aria-hidden="true"></div>
+  <div class="glow glow--2" aria-hidden="true"></div>
+
+  <a class="brand" href="/">Adam Zafir</a>
+
+  <div class="panel">
+    <span class="badge">404 — Page Not Found</span>
+    <h1><span>That</span> page is missing.</h1>
+    <p class="lead">The link may be outdated or the URL may be incorrect. Head back home or check out the blog.</p>
+    <div class="actions">
+      <a class="btn btn--primary" href="/">Go Home</a>
+      <a class="btn btn--secondary" href="https://zafir.dev" target="_blank" rel="noreferrer">Open Blog</a>
     </div>
   </div>
-
-  <main class="wrap">
-    <section class="panel" role="main" aria-labelledby="not-found-title">
-      <div class="in">
-        <div>
-          <span class="stamp">404 · Page Not Found</span>
-          <h1 id="not-found-title"><span>That</span> page is missing.</h1>
-          <p class="lead">The link may be outdated or the URL may be incorrect. You can head back home or jump to the blog.</p>
-        </div>
-
-        <div class="actions">
-          <a class="btn" href="/">Go Home</a>
-          <a class="btn alt" href="https://zafir.dev" target="_blank" rel="noreferrer">Open Blog</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script>
-    (function () {
-      const root = document.documentElement;
-      const toggle = document.getElementById('themeToggle');
-      const storageKey = 'adam-site-theme';
-      const media = window.matchMedia('(prefers-color-scheme: dark)');
-
-      function setTheme(theme, persist) {
-        root.setAttribute('data-theme', theme);
-        toggle.setAttribute('aria-pressed', String(theme === 'dark'));
-        if (persist) {
-          localStorage.setItem(storageKey, theme);
-        }
-      }
-
-      const stored = localStorage.getItem(storageKey);
-      if (stored === 'light' || stored === 'dark') {
-        setTheme(stored, false);
-      } else {
-        setTheme(media.matches ? 'dark' : 'light', false);
-      }
-
-      toggle.addEventListener('click', function () {
-        const current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-        setTheme(current === 'dark' ? 'light' : 'dark', true);
-      });
-
-      const onSystemChange = function (event) {
-        if (localStorage.getItem(storageKey)) {
-          return;
-        }
-        setTheme(event.matches ? 'dark' : 'light', false);
-      };
-
-      if (typeof media.addEventListener === 'function') {
-        media.addEventListener('change', onSystemChange);
-      } else if (typeof media.addListener === 'function') {
-        media.addListener(onSystemChange);
-      }
-    })();
-  </script>
 </body>
+
 </html>
