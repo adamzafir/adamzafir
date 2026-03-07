@@ -3,211 +3,200 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Adam Zafir — Software Developer</title>
-  <meta name="description" content="Adam Zafir — founder of PyCollab. Building software that balances speed, clarity, and polish." />
-  <meta name="theme-color" content="#0a0a0a" />
+  <title>Adam Zafir | Software Developer</title>
+  <meta
+    name="description"
+    content="Adam Zafir builds practical software with a focus on clear interfaces, fast execution, and products that feel cared for."
+  />
+  <meta name="theme-color" content="#efe9dc" />
+  <script>
+    (() => {
+      const storageKey = 'adamzafir-theme';
+      const storedTheme = localStorage.getItem(storageKey);
+      const theme = storedTheme === 'light' || storedTheme === 'dark'
+        ? storedTheme
+        : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme;
+    })();
+  </script>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 </head>
 <body>
-
-  <!-- Background layers -->
-  <canvas class="bg-canvas" id="bg-canvas"></canvas>
-  <div class="bg-dots" aria-hidden="true"></div>
-  <div class="bg-noise" aria-hidden="true"></div>
-  <div class="bg-glow bg-glow--1" aria-hidden="true"></div>
-  <div class="bg-glow bg-glow--2" aria-hidden="true"></div>
-
-  <!-- Navigation -->
-  <nav class="nav" role="navigation" aria-label="Primary">
-    <div class="nav__inner">
-      <a class="nav__brand" href="#">Adam Zafir</a>
-      <div class="nav__links">
-        <a class="nav__link" href="#about">About</a>
-        <a class="nav__link" href="#work">Work</a>
-        <a class="nav__link nav__link--cta" href="#contact">Get in touch</a>
-      </div>
-      <button class="nav__toggle" aria-label="Open menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
-    </div>
-  </nav>
-
-  <!-- Mobile Nav Overlay -->
-  <div class="nav__overlay" role="dialog" aria-label="Navigation menu">
-    <button class="nav__close" aria-label="Close menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-    <a href="#about">About</a>
-    <a href="#work">Work</a>
-    <a href="#contact">Contact</a>
-  </div>
-
-  <!-- Hero -->
-  <section class="hero" id="hero">
-    <div class="container">
-      <div class="hero__content">
-        <span class="hero__label">Available for collaboration</span>
-        <h1 class="hero__heading">
-          <span class="word"><span class="word-inner">I build</span></span>
-          <span class="word"><span class="word-inner">software</span></span>
-          <span class="word"><span class="word-inner">that feels</span></span>
-          <span class="word"><span class="word-inner accent">intentional.</span></span>
-        </h1>
-        <p class="hero__description">Swift developer and founder of PyCollab. I care deeply about interfaces that are fast, clear, and polished from the first interaction.</p>
-      </div>
-    </div>
-    <div class="hero__scroll-cue">
-      <span>Scroll</span>
-      <div class="hero__scroll-line"></div>
-    </div>
-  </section>
-
-  <!-- About -->
-  <div class="divider container" aria-hidden="true"></div>
-  <section class="about" id="about">
-    <div class="container">
-      <div class="about__grid">
-        <div class="reveal--left">
-          <span class="section-label">About</span>
-          <h2 class="about__heading">Product-minded builder with a bias for practical execution.</h2>
-          <p class="about__text">I build software that balances speed, clarity, and polish. Swift is my go‑to language, and I care about clean architecture, readable code, and UI behavior that feels considered.</p>
-          <p class="about__text">I reduce setup friction, preserve flow, and design systems that keep users focused on outcomes — not fighting their tools.</p>
+  <div class="page-shell">
+    <header class="site-header" data-site-header>
+      <div class="container site-header__inner">
+        <a class="site-header__brand" href="#top">Adam Zafir</a>
+        <div class="site-header__controls">
+          <nav class="site-nav" id="site-navigation" aria-label="Primary" data-site-nav>
+            <a href="#work">Work</a>
+            <a href="#contact">Contact</a>
+          </nav>
+          <button
+            class="theme-toggle"
+            type="button"
+            aria-label="Switch to dark mode"
+            aria-pressed="false"
+            data-theme-toggle
+          >
+            <span class="theme-toggle__icon" aria-hidden="true">
+              <svg class="theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                <circle cx="12" cy="12" r="4.2"></circle>
+                <path d="M12 2.8v2.2"></path>
+                <path d="M12 19v2.2"></path>
+                <path d="M21.2 12h-2.2"></path>
+                <path d="M5 12H2.8"></path>
+                <path d="m18.5 5.5-1.6 1.6"></path>
+                <path d="m7.1 16.9-1.6 1.6"></path>
+                <path d="m18.5 18.5-1.6-1.6"></path>
+                <path d="m7.1 7.1-1.6-1.6"></path>
+              </svg>
+              <svg class="theme-toggle__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.2 14.4A8.5 8.5 0 1 1 9.6 3.8a7 7 0 0 0 10.6 10.6Z"></path>
+              </svg>
+            </span>
+          </button>
+          <button
+            class="site-header__toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="site-navigation"
+            aria-label="Open navigation"
+            data-nav-toggle
+          >
+            Menu
+          </button>
         </div>
-        <div class="about__visual reveal--right">
-          <div class="about__card">
-            <div class="about__card-label">Core Identity</div>
-            <p class="about__card-text">Founder of PyCollab. Product-minded builder with a strong bias for practical execution and thoughtful visual systems.</p>
-            <div class="about__stats">
-              <div class="stat">
-                <div class="stat__number">Swift</div>
-                <div class="stat__label">Primary Language</div>
-              </div>
-              <div class="stat">
-                <div class="stat__number">Web</div>
-                <div class="stat__label">Full-stack</div>
-              </div>
-              <div class="stat">
-                <div class="stat__number">UI/UX</div>
-                <div class="stat__label">Design Focus</div>
-              </div>
-              <div class="stat">
-                <div class="stat__number">Ship</div>
-                <div class="stat__label">Fast & Polish</div>
-              </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="intro section">
+        <div class="container intro__grid">
+          <div class="intro__copy" data-animate>
+            <p class="eyebrow">Software developer</p>
+            <h1>I'm Adam Zafir.</h1>
+            <p class="intro__lede">
+              Software developer and founder of PyCollab. I build web and Swift products
+              with clear structure and thoughtful interfaces.
+            </p>
+            <div class="intro__actions">
+              <a class="button button--primary" href="mailto:me@adamzafir.com">Email me</a>
+              <a class="button" href="https://github.com/adamzafir" target="_blank" rel="noreferrer">GitHub</a>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <!-- Philosophy -->
-  <section class="philosophy">
-    <div class="container--narrow">
-      <p class="philosophy__statement">
-        <span class="phil-word">Swift</span>
-        <span class="phil-word">is</span>
-        <span class="phil-word">my</span>
-        <span class="phil-word">language.</span>
-        <span class="phil-word">Clarity</span>
-        <span class="phil-word">is</span>
-        <span class="phil-word">my</span>
-        <span class="phil-word">compass.</span>
-        <span class="phil-word">Momentum</span>
-        <span class="phil-word">is</span>
-        <span class="phil-word">the</span>
-        <span class="phil-word">method.</span>
-      </p>
-      <p class="philosophy__sub reveal">Build for focus. Ship for impact.</p>
-    </div>
-  </section>
+      <section class="section strip">
+        <div class="container strip__grid" data-animate>
+          <p>Build fast, but leave the rough edges behind.</p>
+          <p>Design decisions should support the product, not distract from it.</p>
+          <p>Good software earns trust through clarity and restraint.</p>
+        </div>
+      </section>
 
-  <!-- Projects -->
-  <div class="divider container" aria-hidden="true"></div>
-  <section class="projects" id="work">
-    <div class="container">
-      <span class="section-label reveal">Selected Work</span>
-      <h2 class="projects__heading reveal">Things I've built.</h2>
-
-      <div class="projects__grid">
-        <!-- PyCollab -->
-        <article class="project-card reveal">
-          <div class="project-card__icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      <section class="section projects" id="work">
+        <div class="container">
+          <div class="section-heading" data-animate>
+            <p class="eyebrow">Selected work</p>
+            <h2>Projects with a clear job to do.</h2>
           </div>
-          <h3 class="project-card__name">PyCollab</h3>
-          <p class="project-card__desc">Realtime collaborative Python coding in a zero-setup browser workflow. Code together, instantly.</p>
-          <a class="project-card__link" href="https://pycollab.com" target="_blank" rel="noreferrer">
-            Visit project
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-        </article>
 
-        <!-- Scripties -->
-        <article class="project-card reveal">
-          <div class="project-card__icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          <div class="project-list">
+            <article class="project" data-animate>
+              <div class="project__meta">
+                <span>PyCollab</span>
+                <span>Collaboration tool</span>
+              </div>
+              <div class="project__body">
+                <h3>Realtime collaborative Python in the browser.</h3>
+                <p>
+                  A zero-setup coding environment built for shared momentum. Open a tab,
+                  start writing, and collaborate without setup overhead.
+                </p>
+              </div>
+              <a class="project__link" href="https://pycollab.com" target="_blank" rel="noreferrer">
+                Open project
+              </a>
+            </article>
+
+            <article class="project" data-animate>
+              <div class="project__meta">
+                <span>Scripties</span>
+                <span>Product + UI</span>
+              </div>
+              <div class="project__body">
+                <h3>Speech writing and rehearsal with pacing feedback.</h3>
+                <p>
+                  <span class="mobile-hidden">
+                    A speaking tool focused on structure, delivery, and keeping rehearsal sessions
+                    measurable instead of vague.
+                  </span>
+                  Built as part of the Swift Accelerator Programme 2025 alongside Chan Yap Long,
+                  Divya Dharshini Krishnamoorthy, and Ethan Soh Yi Teng.
+                </p>
+              </div>
+              <a
+                class="project__link"
+                href="https://scripties-4ug0.onrender.com/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open project
+              </a>
+            </article>
+
+            <article class="project" data-animate>
+              <div class="project__meta">
+                <span>Cats By Adam</span>
+                <span>Side project</span>
+              </div>
+              <div class="project__body">
+                <h3>A lighter project that keeps the personal work human.</h3>
+                <p>
+                  Not everything needs to be serious to be useful. This project is a reminder
+                  that personality still matters in a portfolio.
+                </p>
+              </div>
+              <a class="project__link" href="https://cats.adamzafir.com" target="_blank" rel="noreferrer">
+                Open project
+              </a>
+            </article>
           </div>
-          <h3 class="project-card__name">Scripties</h3>
-          <p class="project-card__desc">Speech writing and rehearsal with pacing analytics and real-time session feedback.</p>
-          <a class="project-card__link" href="https://scripties-4ug0.onrender.com/" target="_blank" rel="noreferrer">
-            Visit project
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-        </article>
+        </div>
+      </section>
 
-        <!-- Cats By Adam -->
-        <article class="project-card reveal">
-          <div class="project-card__icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      <section class="section contact" id="contact">
+        <div class="container contact__inner" data-animate>
+          <div>
+            <p class="eyebrow">Contact</p>
+            <h2>If the product matters, the details usually matter too.</h2>
           </div>
-          <h3 class="project-card__name">Cats By Adam</h3>
-          <p class="project-card__desc">A playful side project that keeps the brand human, memorable, and a little unexpected.</p>
-          <a class="project-card__link" href="https://cats.adamzafir.com" target="_blank" rel="noreferrer">
-            Visit project
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-        </article>
-      </div>
-    </div>
-  </section>
 
-  <!-- Contact -->
-  <div class="divider container" aria-hidden="true"></div>
-  <section class="contact" id="contact">
-    <div class="container">
-      <span class="section-label reveal" style="justify-content: center;">Get in Touch</span>
-      <h2 class="contact__heading reveal">Let's collaborate.</h2>
-      <p class="contact__sub reveal">Have a project in mind, or just want to say hello? I'd love to hear from you.</p>
-      <a class="contact__cta reveal--scale" href="mailto:me@adamzafir.com">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        me@adamzafir.com
-      </a>
-      <div class="socials reveal">
-        <a class="social-link" href="https://github.com/adamzafir" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3"/><path d="M15 22v-3.9a3.3 3.3 0 0 0-.9-2.6c3 0 6-1.8 6-6a4.7 4.7 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.7 11.7 0 0 0-6.1 0C6.8 3 5.8 3.3 5.8 3.3a4.3 4.3 0 0 0-.1 3.2 4.7 4.7 0 0 0-1.3 3.2c0 4.1 3 6 6 6a3.3 3.3 0 0 0-.9 2.6V22"/></svg>
-        </a>
-        <a class="social-link" href="https://www.linkedin.com/in/adamzafir" target="_blank" rel="noreferrer" aria-label="LinkedIn" title="LinkedIn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-        </a>
-        <a class="social-link" href="https://zafir.dev" target="_blank" rel="noreferrer" aria-label="Blog" title="Blog — zafir.dev">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 8h8l-8 8h8"/></svg>
-        </a>
-        <a class="social-link" href="https://buymeacoffee.com/adamzafir" target="_blank" rel="noreferrer" aria-label="Buy Me a Coffee" title="Buy Me a Coffee">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h10v6a4 4 0 0 1-4 4h-2a4 4 0 0 1-4-4V8z"/><path d="M16 10h1a3 3 0 0 1 0 6h-1"/><path d="M6 3v2"/><path d="M10 3v2"/><path d="M14 3v2"/></svg>
-        </a>
-      </div>
-    </div>
-  </section>
+          <div class="contact__actions">
+            <a class="contact__email" href="mailto:me@adamzafir.com">me@adamzafir.com</a>
+            <div class="contact__links">
+              <a href="https://github.com/adamzafir" target="_blank" rel="noreferrer">github</a>
+              <a href="https://www.linkedin.com/in/adamzafir" target="_blank" rel="noreferrer">linkedin</a>
+              <a href="https://zafir.dev" target="_blank" rel="noreferrer">zafir.dev</a>
+              <a href="https://buymeacoffee.com/adamzafir" target="_blank" rel="noreferrer">buy me a coffee</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container footer__inner">
-      <span>&copy; Adam Zafir</span>
-      <a class="footer__link" href="https://zafir.dev" target="_blank" rel="noreferrer">zafir.dev</a>
-    </div>
-  </footer>
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <span>Adam Zafir</span>
+        <span data-current-year></span>
+      </div>
+    </footer>
+  </div>
 
   <script type="module" src="/src/main.js"></script>
 </body>
