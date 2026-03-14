@@ -13,6 +13,7 @@
 
 <h2 align="center">GitHub Stats</h2>
 
+[![GitHub Commits Badge](https://ghcommits.com/api/badge/adamzafir.svg)](https://ghcommits.com)
 <br>
 
 ![Stars](https://img.shields.io/github/stars/adamzafir?affiliations=OWNER&style=for-the-badge)
