@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam Zafir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: auto; }
+body {
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+  font-family: 'JetBrains Mono', monospace;
+  cursor: default;
+}
+canvas#scene {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 0;
+}
+#scroll-container {
+  position: relative;
+  z-index: 1;
+  height: 600vh;
+  pointer-events: none;
+}
+.overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* Hero */
+#hero {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 12vh;
+  pointer-events: none;
+}
+#hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  letter-spacing: 0.35em;
+  color: #fff;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+#hero .subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: clamp(0.7rem, 1.2vw, 0.95rem);
+  letter-spacing: 0.25em;
+  color: #ff9500;
+  text-transform: uppercase;
+}
+
+/* Content panels */
+.panel {
+  position: fixed;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  border: 1px solid rgba(255, 149, 0, 0.3);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 1.8rem 2.2rem;
+  max-width: 420px;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.panel h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 1.35rem;
+  color: #ff9500;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.05em;
+}
+.panel p, .panel a {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 0.78rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.85);
+}
+.panel a {
+  color: #ff9500;
+  text-decoration: none;
+  pointer-events: auto;
+  border-bottom: 1px solid rgba(255,149,0,0.3);
+  transition: border-color 0.3s;
+}
+.panel a:hover { border-color: #ff9500; }
+.panel.quote {
+  border-color: rgba(255, 149, 0, 0.15);
+  max-width: 480px;
+}
+.panel.quote p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: rgba(255, 200, 100, 0.9);
+  line-height: 1.6;
+}
+
+/* Contact section */
+#contact-panel {
+  max-width: 500px;
+  text-align: center;
+}
+#contact-panel .email {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.3rem, 2.5vw, 2rem);
+  color: #ff9500;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+#contact-panel .links {
+  display: flex;
+  gap: 1.8rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#contact-panel .links a {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Bio panel */
+#bio-panel p {
+  font-size: 0.82rem;
+  line-height: 1.8;
+}
+
+/* Finale */
+#finale {
+  position: fixed;
+  bottom: 8vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+  text-align: center;
+}
+#finale .copy {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 0.85rem;
+  color: rgba(255, 149, 0, 0.5);
+  letter-spacing: 0.2em;
+}
+
+/* Panels positioning */
+.panel.left { left: 5vw; top: 50%; transform: translateY(-50%) translateX(-20px); }
+.panel.left.visible { transform: translateY(-50%) translateX(0); }
+.panel.right { right: 5vw; top: 50%; transform: translateY(-50%) translateX(20px); }
+.panel.right.visible { transform: translateY(-50%) translateX(0); }
+.panel.center { left: 50%; top: 50%; transform: translate(-50%, -50%) translateY(20px); }
+.panel.center.visible { transform: translate(-50%, -50%) translateY(0); }
+
+@media (max-width: 768px) {
+  .panel { max-width: 85vw; padding: 1.2rem 1.4rem; }
+  .panel.left, .panel.right {
+    left: 50%; right: auto;
+    transform: translate(-50%, -50%) translateY(20px);
+  }
+  .panel.left.visible, .panel.right.visible {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  #contact-panel .links { gap: 1rem; }
+}
+</style>
+  <script type="module" crossorigin src="/assets/reference3-Dkovt_4Y.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
+</head>
+<body>
+
+<canvas id="scene"></canvas>
+
+<div id="scroll-container"></div>
+
+<div id="hero">
+  <h1>Adam Zafir</h1>
+  <div class="subtitle">Software Developer</div>
+</div>
+
+<!-- Philosophy quotes -->
+<div class="panel quote left" id="quote1">
+  <p>"Build fast, but leave the rough edges behind."</p>
+</div>
+<div class="panel quote right" id="quote2">
+  <p>"Design decisions should support the product, not distract from it."</p>
+</div>
+<div class="panel quote left" id="quote3">
+  <p>"Good software earns trust through clarity and restraint."</p>
+</div>
+
+<!-- Bio -->
+<div class="panel right" id="bio-panel">
+  <h3>About</h3>
+  <p>Software developer and founder of PyCollab. I build web and Swift products with clear structure and thoughtful interfaces.</p>
+</div>
+
+<!-- Projects -->
+<div class="panel left" id="project1">
+  <h3>PyCollab</h3>
+  <p>Realtime collaborative Python in the browser. A zero-setup coding environment built for shared momentum.</p>
+  <p style="margin-top:0.8rem"><a href="https://pycollab.com" target="_blank">pycollab.com</a></p>
+</div>
+<div class="panel right" id="project2">
+  <h3>Scripties</h3>
+  <p>Speech writing and rehearsal with pacing feedback. Built as part of Swift Accelerator Programme 2025.</p>
+  <p style="margin-top:0.8rem"><a href="https://scripties-4ug0.onrender.com/" target="_blank">scripties</a></p>
+</div>
+<div class="panel left" id="project3">
+  <h3>Cats By Adam</h3>
+  <p>A lighter project that keeps the personal work human.</p>
+  <p style="margin-top:0.8rem"><a href="https://cats.adamzafir.com" target="_blank">cats.adamzafir.com</a></p>
+</div>
+
+<!-- Contact -->
+<div class="panel center" id="contact-panel">
+  <h3>Contact</h3>
+  <a href="mailto:me@adamzafir.com" class="email">me@adamzafir.com</a>
+  <div class="links">
+    <a href="https://github.com/adamzafir" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/adamzafir" target="_blank">LinkedIn</a>
+    <a href="https://zafir.dev" target="_blank">Blog</a>
+    <a href="https://buymeacoffee.com/adamzafir" target="_blank">Buy Me a Coffee</a>
+  </div>
+</div>
+
+<!-- Finale -->
+<div id="finale">
+  <div class="copy">&copy; 2026 Adam Zafir</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+
+</body>
+</html>

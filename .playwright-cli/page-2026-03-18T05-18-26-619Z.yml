@@ -1,0 +1,101 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - generic [ref=e5]: Version 5 / Hybrid Candidate
+    - generic [ref=e6]: Calm Atmosphere / Editorial Order / Premium Finish
+  - generic [ref=e8]:
+    - generic [ref=e9]: Software Developer / Founder of PyCollab
+    - heading "Adam Zafir" [level=1] [ref=e10]:
+      - generic [ref=e11]: Adam
+      - generic [ref=e12]: Zafir
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - paragraph [ref=e15]: "This version leans into the most timeless parts of your work: the atmosphere and restraint of `/3`, the depth and glow of `/1`, and the stronger information architecture of `/2`."
+        - generic [ref=e16]:
+          - link "Get In Touch" [ref=e17] [cursor=pointer]:
+            - /url: mailto:me@adamzafir.com
+          - link "View PyCollab" [ref=e18] [cursor=pointer]:
+            - /url: https://pycollab.com
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - generic [ref=e21]: Build Style
+          - strong [ref=e22]: Clear + deliberate
+        - generic [ref=e23]:
+          - generic [ref=e24]: Core Focus
+          - strong [ref=e25]: Web and Swift
+        - generic [ref=e26]:
+          - generic [ref=e27]: Signal
+          - strong [ref=e28]: Calm confidence
+  - generic [ref=e29]:
+    - generic [ref=e30]:
+      - generic [ref=e31]:
+        - generic [ref=e32]: Chapter 01
+        - strong [ref=e33]: Principles
+      - generic [ref=e34]:
+        - heading "The quieter site, without losing conviction." [level=2] [ref=e35]
+        - paragraph [ref=e36]: "The copy blocks are handled more like a curated editorial spread than a sequence of floating panels. That keeps the elegance of `/3`, but gives each principle more weight and easier scanning."
+        - generic [ref=e37]:
+          - article [ref=e38]:
+            - text: Execution
+            - paragraph [ref=e39]: Build fast, but leave the rough edges behind.
+          - article [ref=e40]:
+            - text: Judgement
+            - paragraph [ref=e41]: Design decisions should support the product, not distract from it.
+          - article [ref=e42]:
+            - text: Trust
+            - paragraph [ref=e43]: Good software earns trust through clarity and restraint.
+    - generic [ref=e44]:
+      - generic [ref=e45]:
+        - generic [ref=e46]: Chapter 02
+        - strong [ref=e47]: Selected Work
+      - generic [ref=e48]:
+        - heading "Projects presented with more order and less noise." [level=2] [ref=e49]
+        - paragraph [ref=e50]: "`/2` had the strongest section rhythm. Here that structure becomes cleaner, letting the projects read like considered work rather than loud interruptions."
+        - generic [ref=e51]:
+          - article [ref=e52]:
+            - generic [ref=e53]:
+              - strong [ref=e54]: PyCollab
+              - paragraph [ref=e55]: Realtime collaborative Python in the browser. A zero-setup coding environment built for shared momentum.
+            - link "pycollab.com" [ref=e56] [cursor=pointer]:
+              - /url: https://pycollab.com
+          - article [ref=e57]:
+            - generic [ref=e58]:
+              - strong [ref=e59]: Scripties
+              - paragraph [ref=e60]: Speech writing and rehearsal with pacing feedback. Built as part of Swift Accelerator Programme 2025.
+            - link "Open Scripties" [ref=e61] [cursor=pointer]:
+              - /url: https://scripties-4ug0.onrender.com/
+          - article [ref=e62]:
+            - generic [ref=e63]:
+              - strong [ref=e64]: Cats By Adam
+              - paragraph [ref=e65]: A lighter project that keeps the personal work human and stops the page from feeling overly corporate.
+            - link "Visit The Site" [ref=e66] [cursor=pointer]:
+              - /url: https://cats.adamzafir.com
+    - generic [ref=e67]:
+      - generic [ref=e68]:
+        - generic [ref=e69]: Chapter 03
+        - strong [ref=e70]: Contact
+      - generic [ref=e71]:
+        - heading "A premium finish that still feels approachable." [level=2] [ref=e72]
+        - paragraph [ref=e73]: "The final section is intentionally simple: a clear email, then the supporting links. It borrows `/3`’s calm and `/2`’s decisiveness, without turning the ending into a wall of buttons."
+        - generic [ref=e74]:
+          - generic [ref=e75]:
+            - paragraph [ref=e76]: Best way to reach me
+            - link "me@adamzafir.com" [ref=e77] [cursor=pointer]:
+              - /url: mailto:me@adamzafir.com
+          - generic [ref=e78]:
+            - link "GitHub Code / Experiments" [ref=e79] [cursor=pointer]:
+              - /url: https://github.com/adamzafir
+              - strong [ref=e80]: GitHub
+              - generic [ref=e81]: Code / Experiments
+            - link "LinkedIn Professional Profile" [ref=e82] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/adamzafir
+              - strong [ref=e83]: LinkedIn
+              - generic [ref=e84]: Professional Profile
+            - link "Blog Writing / Notes" [ref=e85] [cursor=pointer]:
+              - /url: https://zafir.dev
+              - strong [ref=e86]: Blog
+              - generic [ref=e87]: Writing / Notes
+            - link "Buy Me a Coffee Support" [ref=e88] [cursor=pointer]:
+              - /url: https://buymeacoffee.com/adamzafir
+              - strong [ref=e89]: Buy Me a Coffee
+              - generic [ref=e90]: Support
+  - generic [ref=e91]: Adam Zafir / Version 5 / 2026

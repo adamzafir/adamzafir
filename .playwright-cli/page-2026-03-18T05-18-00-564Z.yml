@@ -1,0 +1,139 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]: Immersive Atmosphere
+    - generic [ref=e5]: Editorial Typography
+    - generic [ref=e6]: Clear Product Thinking
+    - generic [ref=e7]: Software Developer
+    - generic [ref=e8]: Founder of PyCollab
+    - generic [ref=e9]: Immersive Atmosphere
+    - generic [ref=e10]: Editorial Typography
+    - generic [ref=e11]: Clear Product Thinking
+    - generic [ref=e12]: Software Developer
+    - generic [ref=e13]: Founder of PyCollab
+  - generic [ref=e14]:
+    - generic [ref=e15]:
+      - generic [ref=e16]:
+        - text: AZ
+        - generic [ref=e17]: Signal / Cosmos / Structure
+      - generic [ref=e18]: Version 4 / Hybrid Candidate
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]: Software Developer
+        - heading "Adam Zafir" [level=1] [ref=e22]:
+          - generic [ref=e23]: Adam
+          - emphasis [ref=e24]: Zafir
+        - paragraph [ref=e25]: "A hybrid of your strongest directions: the cinematic pull of `/1`, the graphic punch of `/2`, and the quieter confidence of `/3`. This version is meant to feel immediate, memorable, and still serious about the work."
+        - generic [ref=e26]:
+          - link "Start A Conversation" [ref=e27] [cursor=pointer]:
+            - /url: mailto:me@adamzafir.com
+          - link "View PyCollab" [ref=e28] [cursor=pointer]:
+            - /url: https://pycollab.com
+      - complementary [ref=e29]:
+        - generic [ref=e30]:
+          - generic [ref=e31]: Profile Snapshot
+          - generic [ref=e32]: "2026"
+        - generic [ref=e33]:
+          - generic [ref=e34]:
+            - strong [ref=e35]: Web + Swift
+            - generic [ref=e36]: Product-led development with a strong interface point of view.
+          - generic [ref=e37]:
+            - strong [ref=e38]: PyCollab
+            - generic [ref=e39]: Realtime collaborative Python in the browser, built for shared momentum.
+          - generic [ref=e40]:
+            - strong [ref=e41]: Build Fast
+            - generic [ref=e42]: High standards without romanticising unnecessary complexity.
+          - generic [ref=e43]:
+            - strong [ref=e44]: Design Matters
+            - generic [ref=e45]: Interfaces should create trust before they create novelty.
+    - generic [ref=e46]:
+      - generic [ref=e47]:
+        - generic [ref=e48]:
+          - generic [ref=e49]: Philosophy
+          - heading "Strong opinions, clearly held." [level=2] [ref=e50]
+        - paragraph [ref=e51]: "The quotes stay, but the presentation is more deliberate: less decorative than `/2`, less hidden than `/1`, and more assertive than `/3`."
+      - generic [ref=e52]:
+        - article [ref=e53]:
+          - text: "01"
+          - generic [ref=e54]: Execution
+          - paragraph [ref=e55]: Build fast, but leave the rough edges behind.
+        - article [ref=e56]:
+          - text: "02"
+          - generic [ref=e57]: Judgement
+          - paragraph [ref=e58]: Design decisions should support the product, not distract from it.
+        - article [ref=e59]:
+          - text: "03"
+          - generic [ref=e60]: Trust
+          - paragraph [ref=e61]: Good software earns trust through clarity and restraint.
+    - generic [ref=e62]:
+      - generic [ref=e63]:
+        - generic [ref=e64]:
+          - generic [ref=e65]: Selected Work
+          - heading "Three projects, three different edges." [level=2] [ref=e66]
+        - paragraph [ref=e67]: "The projects are framed with `/2`’s structure and scale, but they sit inside `/1`-style depth and `/3`-style control rather than turning into pure posters."
+      - generic [ref=e68]:
+        - article [ref=e69]:
+          - generic [ref=e70]:
+            - generic [ref=e71]: Project 01
+            - strong [ref=e72]: PyCollab
+          - generic [ref=e73]:
+            - generic [ref=e74]:
+              - generic [ref=e75]: Realtime
+              - generic [ref=e76]: Browser-Based
+              - generic [ref=e77]: Collaborative
+            - paragraph [ref=e78]: Realtime collaborative Python in the browser. A zero-setup coding environment built for shared momentum and fast technical iteration.
+            - link "pycollab.com" [ref=e79] [cursor=pointer]:
+              - /url: https://pycollab.com
+        - article [ref=e80]:
+          - generic [ref=e81]:
+            - generic [ref=e82]: Project 02
+            - strong [ref=e83]: Scripties
+          - generic [ref=e84]:
+            - generic [ref=e85]:
+              - generic [ref=e86]: Swift
+              - generic [ref=e87]: Speech Tools
+              - generic [ref=e88]: Product Polish
+            - paragraph [ref=e89]: Speech writing and rehearsal with pacing feedback. Built as part of Swift Accelerator Programme 2025, with attention to clarity under pressure.
+            - link "Open Scripties" [ref=e90] [cursor=pointer]:
+              - /url: https://scripties-4ug0.onrender.com/
+        - article [ref=e91]:
+          - generic [ref=e92]:
+            - generic [ref=e93]: Project 03
+            - strong [ref=e94]: Cats By Adam
+          - generic [ref=e95]:
+            - generic [ref=e96]:
+              - generic [ref=e97]: Playful
+              - generic [ref=e98]: Personal
+              - generic [ref=e99]: Human
+            - paragraph [ref=e100]: A lighter project that keeps the work personal. Useful as a reminder that identity online should not read like a product brochure from top to bottom.
+            - link "Visit The Site" [ref=e101] [cursor=pointer]:
+              - /url: https://cats.adamzafir.com
+    - generic [ref=e102]:
+      - generic [ref=e103]:
+        - generic [ref=e104]:
+          - generic [ref=e105]: Contact
+          - heading "Useful, direct, and easy to act on." [level=2] [ref=e106]
+        - paragraph [ref=e107]: "This keeps the approachability of `/3`, but with more presence and a stronger finish."
+      - generic [ref=e108]:
+        - generic [ref=e109]:
+          - generic [ref=e110]: Best Entry Point
+          - link "me@adamzafir.com" [ref=e111] [cursor=pointer]:
+            - /url: mailto:me@adamzafir.com
+          - paragraph [ref=e112]: Reach out for web products, Swift work, or projects that need both technical structure and interface taste. The page is expressive, but the offer remains simple.
+        - generic [ref=e113]:
+          - link "GitHub Code / Experiments" [ref=e114] [cursor=pointer]:
+            - /url: https://github.com/adamzafir
+            - strong [ref=e115]: GitHub
+            - generic [ref=e116]: Code / Experiments
+          - link "LinkedIn Professional Profile" [ref=e117] [cursor=pointer]:
+            - /url: https://www.linkedin.com/in/adamzafir
+            - strong [ref=e118]: LinkedIn
+            - generic [ref=e119]: Professional Profile
+          - link "Blog Writing / Notes" [ref=e120] [cursor=pointer]:
+            - /url: https://zafir.dev
+            - strong [ref=e121]: Blog
+            - generic [ref=e122]: Writing / Notes
+          - link "Buy Me a Coffee Support" [ref=e123] [cursor=pointer]:
+            - /url: https://buymeacoffee.com/adamzafir
+            - strong [ref=e124]: Buy Me a Coffee
+            - generic [ref=e125]: Support
+    - generic [ref=e126]: Adam Zafir / Version 4 / 2026

@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADAM ZAFIR — Brutalist Glitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ===================== RESET & BASE ===================== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: auto;
+  cursor: crosshair;
+  overflow-x: hidden;
+}
+
+body {
+  background: #f5f5f5;
+  color: #000;
+  font-family: 'IBM Plex Mono', monospace;
+  overflow-x: hidden;
+  position: relative;
+}
+
+::selection {
+  background: #ff00ff;
+  color: #000;
+}
+
+a {
+  color: #ff0033;
+  text-decoration: none;
+  border-bottom: 3px solid #ff0033;
+  transition: none;
+}
+a:hover {
+  background: #ff0033;
+  color: #fff;
+}
+
+/* ===================== MARQUEE TICKER ===================== */
+.marquee-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  background: #000;
+  color: #f5f5f5;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  overflow: hidden;
+  height: 28px;
+  line-height: 28px;
+  border-bottom: 3px solid #ff0033;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 20s linear infinite;
+}
+
+.marquee-track span {
+  white-space: nowrap;
+  padding-right: 2em;
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ===================== VERTICAL SIDE TEXT ===================== */
+.side-text {
+  position: fixed;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: #000;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* ===================== FIXED MONOGRAM ===================== */
+.monogram {
+  position: fixed;
+  top: 40px;
+  left: 16px;
+  font-family: 'Unbounded', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  z-index: 9998;
+  color: #000;
+  mix-blend-mode: difference;
+  pointer-events: none;
+}
+
+.monogram::before {
+  content: 'AZ';
+  position: absolute;
+  left: -1px;
+  color: #00ffff;
+  clip-path: inset(0 0 65% 0);
+  opacity: 0;
+}
+
+.monogram::after {
+  content: 'AZ';
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  color: #ff00ff;
+  clip-path: inset(65% 0 0 0);
+  opacity: 0;
+}
+
+.monogram.glitch-mono::before,
+.monogram.glitch-mono::after {
+  opacity: 1;
+}
+
+/* ===================== GEOMETRIC NOISE BLOCKS ===================== */
+.geo-block {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===================== GLITCH NAME EFFECT ===================== */
+.glitch-name {
+  position: relative;
+  display: inline-block;
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  color: #000;
+}
+
+.glitch-name::before,
+.glitch-name::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.glitch-name::before {
+  color: #00ffff;
+  left: 2px;
+  text-shadow: -2px 0 #00ffff;
+}
+
+.glitch-name::after {
+  color: #ff00ff;
+  left: -2px;
+  text-shadow: 2px 0 #ff00ff;
+}
+
+.glitch-name.glitching::before {
+  opacity: 0.8;
+  animation: glitch-clip-1 0.3s steps(4, end) forwards;
+}
+
+.glitch-name.glitching::after {
+  opacity: 0.8;
+  animation: glitch-clip-2 0.3s steps(4, end) forwards;
+}
+
+@keyframes glitch-clip-1 {
+  0%   { clip-path: inset(20% 0 60% 0); transform: translate(-3px, 1px); }
+  25%  { clip-path: inset(55% 0 10% 0); transform: translate(2px, -1px); }
+  50%  { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 2px); }
+  75%  { clip-path: inset(40% 0 30% 0); transform: translate(3px, 0px); }
+  100% { clip-path: inset(80% 0 5% 0); transform: translate(0px, -2px); }
+}
+
+@keyframes glitch-clip-2 {
+  0%   { clip-path: inset(60% 0 5% 0); transform: translate(2px, -1px); }
+  25%  { clip-path: inset(5% 0 70% 0); transform: translate(-3px, 2px); }
+  50%  { clip-path: inset(30% 0 40% 0); transform: translate(1px, -2px); }
+  75%  { clip-path: inset(70% 0 10% 0); transform: translate(-2px, 1px); }
+  100% { clip-path: inset(15% 0 55% 0); transform: translate(3px, 0px); }
+}
+
+/* ===================== HERO SECTION ===================== */
+.hero {
+  min-height: 100vh;
+  padding: 120px 5vw 80px 5vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-name {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-size: clamp(8rem, 20vw, 16rem);
+  line-height: 0.85;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(0.6rem, 1.2vw, 1rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1em;
+  margin-top: 2rem;
+  color: #000;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-rule {
+  width: 100%;
+  height: 6px;
+  background: #000;
+  margin: 2.5rem 0;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-bio {
+  font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+  line-height: 1.7;
+  max-width: 520px;
+  position: relative;
+  z-index: 2;
+  border-left: 6px solid #000;
+  padding-left: 1.5rem;
+}
+
+/* ===================== PHILOSOPHY SECTION ===================== */
+.philosophy {
+  padding: 120px 5vw;
+  position: relative;
+  min-height: 100vh;
+}
+
+.philosophy-label {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 4rem);
+  text-transform: uppercase;
+  margin-bottom: 4rem;
+  border-bottom: 6px solid #000;
+  display: inline-block;
+  padding-bottom: 0.3em;
+}
+
+.quote-strip {
+  background: #fff;
+  border: 5px solid #000;
+  padding: 2.5rem 3rem;
+  position: relative;
+  margin-bottom: 1.5rem;
+  max-width: 700px;
+  overflow: hidden;
+  transform-origin: center;
+}
+
+.quote-strip:nth-child(1) { transform: rotate(-1deg); margin-left: 2vw; }
+.quote-strip:nth-child(2) { transform: rotate(2deg); margin-left: 12vw; }
+.quote-strip:nth-child(3) { transform: rotate(-0.5deg); margin-left: 5vw; }
+
+.quote-num {
+  position: absolute;
+  top: -0.2em;
+  right: 0.2em;
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(5rem, 12vw, 8rem);
+  font-weight: 900;
+  color: rgba(0,0,0,0.05);
+  line-height: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.quote-text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(0.85rem, 1.3vw, 1.05rem);
+  line-height: 1.7;
+  position: relative;
+  z-index: 1;
+  font-weight: 500;
+}
+
+.quote-text::before {
+  content: '\201C';
+  font-family: 'Unbounded', sans-serif;
+  font-size: 2em;
+  position: absolute;
+  left: -0.6em;
+  top: -0.2em;
+  color: #ff0033;
+  font-weight: 900;
+}
+
+/* ===================== PROJECTS SECTION ===================== */
+.projects {
+  position: relative;
+}
+
+.project-block {
+  padding: 80px 5vw;
+  position: relative;
+  overflow: hidden;
+  border-top: 6px solid #000;
+}
+
+.project-block:nth-child(odd) {
+  background: #f5f5f5;
+  color: #000;
+}
+
+.project-block:nth-child(even) {
+  background: #000;
+  color: #f5f5f5;
+}
+
+.project-block:nth-child(even) a {
+  color: #ff0033;
+  border-bottom-color: #ff0033;
+}
+.project-block:nth-child(even) a:hover {
+  background: #ff0033;
+  color: #fff;
+}
+
+.project-name {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-size: clamp(3rem, 15vw, 12rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  position: relative;
+  z-index: 2;
+}
+
+.project-desc {
+  font-size: clamp(0.85rem, 1.2vw, 1rem);
+  line-height: 1.7;
+  max-width: 480px;
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.project-link {
+  display: inline-block;
+  margin-top: 1.2rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border: 4px solid #ff0033;
+  padding: 0.6em 1.2em;
+  border-bottom: 4px solid #ff0033;
+  position: relative;
+  z-index: 2;
+}
+.project-link:hover {
+  background: #ff0033;
+  color: #fff;
+}
+
+.glitch-divider {
+  height: 8px;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+
+.glitch-divider::before,
+.glitch-divider::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-divider::before { background: #00ffff; transform: translateX(-100%); }
+.glitch-divider::after  { background: #ff00ff; transform: translateX(100%); }
+
+.glitch-divider.flash::before { animation: glitch-flash-l 0.2s steps(3) forwards; }
+.glitch-divider.flash::after  { animation: glitch-flash-r 0.2s steps(3) forwards; }
+
+@keyframes glitch-flash-l {
+  0%   { transform: translateX(-100%); }
+  33%  { transform: translateX(0); }
+  66%  { transform: translateX(50%); }
+  100% { transform: translateX(-100%); }
+}
+
+@keyframes glitch-flash-r {
+  0%   { transform: translateX(100%); }
+  33%  { transform: translateX(0); }
+  66%  { transform: translateX(-50%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ===================== CONTACT SECTION ===================== */
+.contact {
+  padding: 120px 5vw;
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.contact-label {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 4rem);
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  border-bottom: 6px solid #000;
+  display: inline-block;
+  padding-bottom: 0.3em;
+}
+
+.contact-email {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 8vw, 7rem);
+  text-transform: uppercase;
+  word-break: break-all;
+  line-height: 1;
+  color: #000;
+  border-bottom: none;
+  display: block;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 2;
+}
+
+.contact-email:hover {
+  background: none;
+  color: #ff0033;
+}
+
+.social-scatter {
+  position: relative;
+  width: 100%;
+  min-height: 350px;
+}
+
+.social-link {
+  position: absolute;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 4px solid #000;
+  padding: 0.6em 1.2em;
+  background: #f5f5f5;
+  white-space: nowrap;
+  border-bottom: 4px solid #000;
+  z-index: 2;
+  transition: transform 0.05s;
+}
+
+.social-link:hover {
+  background: #000;
+  color: #f5f5f5;
+  transform: skewX(-5deg) scale(1.05) !important;
+}
+
+.social-link:nth-child(1) { top: 0; left: 5%; font-size: 1.3rem; transform: rotate(-2deg); }
+.social-link:nth-child(2) { top: 20%; left: 55%; font-size: 0.9rem; transform: rotate(3deg); }
+.social-link:nth-child(3) { top: 55%; left: 15%; font-size: 1.1rem; transform: rotate(1.5deg); }
+.social-link:nth-child(4) { top: 40%; left: 65%; font-size: 1rem; transform: rotate(-3deg); }
+
+/* ===================== FOOTER DESTRUCTION ===================== */
+.footer-end {
+  padding: 80px 5vw 40px 5vw;
+  background: #000;
+  color: #f5f5f5;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-top: 8px solid #ff0033;
+}
+
+.footer-end-text {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-size: clamp(5rem, 20vw, 14rem);
+  text-transform: uppercase;
+  line-height: 1;
+  position: relative;
+}
+
+.footer-end-text::before {
+  content: 'END.';
+  position: absolute;
+  top: 0;
+  left: 2px;
+  color: #00ffff;
+  clip-path: inset(0 0 50% 0);
+  opacity: 0.6;
+}
+
+.footer-end-text::after {
+  content: 'END.';
+  position: absolute;
+  top: 0;
+  left: -2px;
+  color: #ff00ff;
+  clip-path: inset(50% 0 0 0);
+  opacity: 0.6;
+}
+
+.footer-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-top: 2rem;
+  opacity: 0.4;
+}
+
+/* ===================== GLITCH BURST OVERLAY ===================== */
+.glitch-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 99999;
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+
+.glitch-overlay.burst {
+  animation: burst-flash 0.2s steps(4) forwards;
+}
+
+@keyframes burst-flash {
+  0%   { opacity: 1; background: #00ffff; clip-path: inset(10% 0 70% 0); }
+  25%  { opacity: 0.8; background: #ff00ff; clip-path: inset(50% 0 20% 0); }
+  50%  { opacity: 1; background: #ffff00; clip-path: inset(20% 0 50% 0); }
+  75%  { opacity: 0.6; background: #ff0033; clip-path: inset(70% 0 5% 0); }
+  100% { opacity: 0; background: transparent; }
+}
+
+/* ===================== DECORATIVE ===================== */
+.deco-line {
+  position: absolute;
+  background: #000;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.deco-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #000;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.deco-square {
+  position: absolute;
+  border: 3px solid #000;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===================== BLACK SECTION CURSOR ===================== */
+.invert-cursor { cursor: crosshair; }
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 768px) {
+  .hero-name { font-size: clamp(4rem, 18vw, 8rem); }
+  .hero-title { letter-spacing: 0.4em; }
+  .project-name { font-size: clamp(2.5rem, 14vw, 6rem); }
+  .contact-email { font-size: clamp(1.5rem, 7vw, 4rem); }
+  .social-link:nth-child(1) { top: 0; left: 2%; font-size: 1rem; }
+  .social-link:nth-child(2) { top: 25%; left: 40%; font-size: 0.8rem; }
+  .social-link:nth-child(3) { top: 55%; left: 5%; font-size: 0.9rem; }
+  .social-link:nth-child(4) { top: 75%; left: 35%; font-size: 0.85rem; }
+  .quote-strip { padding: 1.5rem 2rem; margin-left: 0 !important; }
+  .side-text { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- GLITCH OVERLAY -->
+<div class="glitch-overlay" id="glitchOverlay"></div>
+
+<!-- MARQUEE TICKER -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>ADAM ZAFIR &mdash; SOFTWARE DEVELOPER &mdash; ADAM ZAFIR &mdash; SOFTWARE DEVELOPER &mdash; ADAM ZAFIR &mdash; SOFTWARE DEVELOPER &mdash; ADAM ZAFIR &mdash; SOFTWARE DEVELOPER &mdash; </span>
+    <span>ADAM ZAFIR &mdash; SOFTWARE DEVELOPER &mdash; ADAM ZAFIR &mdash; SOFTWARE DEVELOPER &mdash; ADAM ZAFIR &mdash; SOFTWARE DEVELOPER &mdash; ADAM ZAFIR &mdash; SOFTWARE DEVELOPER &mdash; </span>
+  </div>
+</div>
+
+<!-- SIDE TEXT -->
+<div class="side-text">EST. 2026</div>
+
+<!-- MONOGRAM -->
+<div class="monogram" id="monogram">AZ</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+  <!-- Geometric noise -->
+  <div class="geo-block" style="width:120px;height:120px;background:#000;top:15%;right:8%;opacity:0.07;"></div>
+  <div class="geo-block" style="width:60px;height:200px;background:#00ffff;top:60%;right:20%;opacity:0.12;"></div>
+  <div class="geo-block" style="width:180px;height:40px;background:#ff00ff;top:80%;left:10%;opacity:0.08;"></div>
+  <div class="geo-block" style="width:40px;height:40px;background:#ffff00;top:25%;left:45%;opacity:0.15;"></div>
+  <div class="geo-block" style="width:90px;height:90px;background:#000;bottom:10%;right:35%;opacity:0.04;"></div>
+
+  <!-- Decorative elements -->
+  <div class="deco-line" style="width:2px;height:200px;top:10%;right:30%;"></div>
+  <div class="deco-line" style="width:150px;height:2px;bottom:25%;left:60%;"></div>
+  <div class="deco-dot" style="top:35%;right:15%;"></div>
+  <div class="deco-dot" style="top:70%;left:40%;"></div>
+  <div class="deco-dot" style="top:20%;left:25%;"></div>
+  <div class="deco-square" style="width:30px;height:30px;top:50%;right:10%;"></div>
+
+  <div class="hero-name">
+    <div class="glitch-name" data-text="ADAM" id="glitchAdam">ADAM</div>
+    <div class="glitch-name" data-text="ZAFIR" id="glitchZafir">ZAFIR</div>
+  </div>
+  <div class="hero-title">SOFTWARE DEVELOPER</div>
+  <div class="hero-rule"></div>
+  <p class="hero-bio">Software developer and founder of PyCollab. I build web and Swift products with clear structure and thoughtful interfaces.</p>
+</section>
+
+<!-- ===================== PHILOSOPHY ===================== -->
+<section class="philosophy" id="philosophy">
+  <div class="geo-block" style="width:70px;height:300px;background:#ff0033;top:5%;right:5%;opacity:0.06;"></div>
+  <div class="geo-block" style="width:200px;height:50px;background:#000;bottom:15%;left:30%;opacity:0.04;"></div>
+  <div class="deco-line" style="width:2px;height:100%;top:0;right:18%;opacity:0.08;"></div>
+  <div class="deco-square" style="width:50px;height:50px;bottom:20%;right:25%;"></div>
+
+  <div class="philosophy-label">Philosophy</div>
+
+  <div class="quote-strip" data-direction="left">
+    <span class="quote-num">01</span>
+    <p class="quote-text">Build fast, but leave the rough edges behind.</p>
+  </div>
+
+  <div class="quote-strip" data-direction="right">
+    <span class="quote-num">02</span>
+    <p class="quote-text">Design decisions should support the product, not distract from it.</p>
+  </div>
+
+  <div class="quote-strip" data-direction="left">
+    <span class="quote-num">03</span>
+    <p class="quote-text">Good software earns trust through clarity and restraint.</p>
+  </div>
+</section>
+
+<!-- ===================== PROJECTS ===================== -->
+<section class="projects" id="projects">
+
+  <div class="glitch-divider" data-glitch-div></div>
+
+  <div class="project-block">
+    <div class="geo-block" style="width:100px;height:100px;background:#00ffff;top:10%;right:5%;opacity:0.1;"></div>
+    <div class="deco-line" style="width:2px;height:60%;top:20%;right:22%;opacity:0.1;"></div>
+    <div class="project-name">PyCollab</div>
+    <p class="project-desc">Realtime collaborative Python in the browser. A zero-setup coding environment built for shared momentum.</p>
+    <a href="https://pycollab.com" target="_blank" rel="noopener" class="project-link">Open project &rarr;</a>
+  </div>
+
+  <div class="glitch-divider" data-glitch-div></div>
+
+  <div class="project-block">
+    <div class="geo-block" style="width:80px;height:180px;background:#ff00ff;bottom:10%;left:8%;opacity:0.08;"></div>
+    <div class="deco-dot" style="top:20%;right:30%;"></div>
+    <div class="deco-dot" style="bottom:30%;right:15%;"></div>
+    <div class="project-name">Scripties</div>
+    <p class="project-desc">Speech writing and rehearsal with pacing feedback. Built as part of Swift Accelerator Programme 2025.</p>
+    <a href="https://scripties-4ug0.onrender.com/" target="_blank" rel="noopener" class="project-link">Open project &rarr;</a>
+  </div>
+
+  <div class="glitch-divider" data-glitch-div></div>
+
+  <div class="project-block">
+    <div class="geo-block" style="width:150px;height:60px;background:#ffff00;top:15%;right:12%;opacity:0.12;"></div>
+    <div class="deco-square" style="width:40px;height:40px;bottom:15%;left:20%;"></div>
+    <div class="project-name">Cats By Adam</div>
+    <p class="project-desc">A lighter project that keeps the personal work human.</p>
+    <a href="https://cats.adamzafir.com" target="_blank" rel="noopener" class="project-link">Open project &rarr;</a>
+  </div>
+
+  <div class="glitch-divider" data-glitch-div></div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section class="contact" id="contact">
+  <div class="geo-block" style="width:100px;height:100px;background:#000;top:10%;right:10%;opacity:0.05;"></div>
+  <div class="geo-block" style="width:60px;height:200px;background:#ff0033;bottom:5%;left:50%;opacity:0.06;"></div>
+  <div class="deco-line" style="width:300px;height:2px;top:55%;right:0;opacity:0.1;"></div>
+
+  <div class="contact-label">Contact</div>
+  <a href="mailto:me@adamzafir.com" class="contact-email">me@adamzafir.com</a>
+
+  <div class="social-scatter">
+    <a href="https://github.com/adamzafir" target="_blank" rel="noopener" class="social-link">GitHub</a>
+    <a href="https://www.linkedin.com/in/adamzafir" target="_blank" rel="noopener" class="social-link">LinkedIn</a>
+    <a href="https://zafir.dev" target="_blank" rel="noopener" class="social-link">Blog</a>
+    <a href="https://buymeacoffee.com/adamzafir" target="_blank" rel="noopener" class="social-link">Buy Me a Coffee</a>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer-end" id="footer">
+  <div class="footer-end-text">END.</div>
+  <div class="footer-sub">Adam Zafir &mdash; 2026</div>
+</footer>
+
+<!-- GSAP -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+
+<script>
+(function() {
+  'use strict';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ===================== PERIODIC GLITCH ON NAME =====================
+  const glitchEls = [document.getElementById('glitchAdam'), document.getElementById('glitchZafir')];
+
+  function triggerGlitch() {
+    glitchEls.forEach(function(el) {
+      el.classList.add('glitching');
+    });
+    setTimeout(function() {
+      glitchEls.forEach(function(el) {
+        el.classList.remove('glitching');
+      });
+    }, 300);
+  }
+
+  function scheduleGlitch() {
+    var delay = 3000 + Math.random() * 2000;
+    setTimeout(function() {
+      triggerGlitch();
+      scheduleGlitch();
+    }, delay);
+  }
+  scheduleGlitch();
+
+  // ===================== MONOGRAM GLITCH ON SCROLL =====================
+  var mono = document.getElementById('monogram');
+  var lastScroll = 0;
+  var monoTimeout;
+
+  window.addEventListener('scroll', function() {
+    var diff = Math.abs(window.scrollY - lastScroll);
+    lastScroll = window.scrollY;
+    if (diff > 30) {
+      mono.classList.add('glitch-mono');
+      clearTimeout(monoTimeout);
+      monoTimeout = setTimeout(function() {
+        mono.classList.remove('glitch-mono');
+      }, 200);
+    }
+  }, { passive: true });
+
+  // ===================== HERO ANIMATIONS =====================
+  gsap.from('.hero-name .glitch-name', {
+    y: 80,
+    opacity: 0,
+    rotation: -2,
+    stagger: 0.15,
+    duration: 1,
+    ease: 'power4.out',
+    delay: 0.3
+  });
+
+  gsap.from('.hero-title', {
+    y: 30,
+    opacity: 0,
+    duration: 0.8,
+    ease: 'power3.out',
+    delay: 0.7
+  });
+
+  gsap.from('.hero-rule', {
+    scaleX: 0,
+    transformOrigin: 'left center',
+    duration: 0.8,
+    ease: 'power3.inOut',
+    delay: 0.9
+  });
+
+  gsap.from('.hero-bio', {
+    y: 30,
+    opacity: 0,
+    duration: 0.8,
+    ease: 'power3.out',
+    delay: 1.1
+  });
+
+  // ===================== PHILOSOPHY ANIMATIONS =====================
+  gsap.from('.philosophy-label', {
+    scrollTrigger: {
+      trigger: '.philosophy-label',
+      start: 'top 85%',
+    },
+    x: -60,
+    opacity: 0,
+    rotation: -1,
+    duration: 0.8,
+    ease: 'power3.out'
+  });
+
+  document.querySelectorAll('.quote-strip').forEach(function(strip, i) {
+    var dir = strip.dataset.direction;
+    gsap.from(strip, {
+      scrollTrigger: {
+        trigger: strip,
+        start: 'top 85%',
+      },
+      x: dir === 'left' ? -200 : 200,
+      opacity: 0,
+      rotation: dir === 'left' ? -4 : 4,
+      duration: 0.9,
+      delay: i * 0.15,
+      ease: 'power3.out'
+    });
+  });
+
+  // ===================== PROJECT ANIMATIONS =====================
+  document.querySelectorAll('.project-block').forEach(function(block) {
+    gsap.from(block.querySelector('.project-name'), {
+      scrollTrigger: {
+        trigger: block,
+        start: 'top 80%',
+      },
+      x: -80,
+      opacity: 0,
+      rotation: -1.5,
+      duration: 0.9,
+      ease: 'back.out(1.4)'
+    });
+
+    gsap.from(block.querySelector('.project-desc'), {
+      scrollTrigger: {
+        trigger: block,
+        start: 'top 75%',
+      },
+      y: 40,
+      opacity: 0,
+      duration: 0.7,
+      delay: 0.2,
+      ease: 'power3.out'
+    });
+
+    gsap.from(block.querySelector('.project-link'), {
+      scrollTrigger: {
+        trigger: block,
+        start: 'top 70%',
+      },
+      y: 20,
+      opacity: 0,
+      duration: 0.6,
+      delay: 0.35,
+      ease: 'power3.out'
+    });
+  });
+
+  // ===================== GLITCH DIVIDER FLASH =====================
+  document.querySelectorAll('[data-glitch-div]').forEach(function(divider) {
+    ScrollTrigger.create({
+      trigger: divider,
+      start: 'top 80%',
+      onEnter: function() {
+        divider.classList.add('flash');
+        triggerGlitchBurst();
+        setTimeout(function() { divider.classList.remove('flash'); }, 250);
+      },
+      once: true
+    });
+  });
+
+  // ===================== GLITCH BURST OVERLAY =====================
+  var overlay = document.getElementById('glitchOverlay');
+
+  function triggerGlitchBurst() {
+    overlay.classList.remove('burst');
+    void overlay.offsetWidth;
+    overlay.classList.add('burst');
+    setTimeout(function() {
+      overlay.classList.remove('burst');
+    }, 250);
+  }
+
+  // Glitch bursts at scroll thresholds
+  var burstPoints = [0.2, 0.4, 0.6, 0.8];
+  var burstFired = {};
+
+  window.addEventListener('scroll', function() {
+    var progress = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    burstPoints.forEach(function(pt) {
+      if (!burstFired[pt] && progress >= pt) {
+        burstFired[pt] = true;
+        triggerGlitchBurst();
+      }
+    });
+  }, { passive: true });
+
+  // ===================== CONTACT ANIMATIONS =====================
+  gsap.from('.contact-label', {
+    scrollTrigger: {
+      trigger: '.contact',
+      start: 'top 80%',
+    },
+    x: -50,
+    opacity: 0,
+    duration: 0.7,
+    ease: 'power3.out'
+  });
+
+  gsap.from('.contact-email', {
+    scrollTrigger: {
+      trigger: '.contact-email',
+      start: 'top 85%',
+    },
+    y: 60,
+    opacity: 0,
+    duration: 1,
+    ease: 'power3.out'
+  });
+
+  document.querySelectorAll('.social-link').forEach(function(link, i) {
+    gsap.from(link, {
+      scrollTrigger: {
+        trigger: '.social-scatter',
+        start: 'top 80%',
+      },
+      y: 60 + Math.random() * 40,
+      x: (Math.random() - 0.5) * 100,
+      opacity: 0,
+      rotation: (Math.random() - 0.5) * 10,
+      duration: 0.8,
+      delay: 0.1 + i * 0.12,
+      ease: 'back.out(1.7)'
+    });
+  });
+
+  // ===================== FOOTER DESTRUCTION =====================
+  ScrollTrigger.create({
+    trigger: '#footer',
+    start: 'top 90%',
+    onEnter: function() {
+      // Pick random elements from the page to distort
+      var targets = document.querySelectorAll('.quote-strip, .project-name, .hero-title, .philosophy-label, .contact-label, .deco-square');
+      targets.forEach(function(el) {
+        gsap.to(el, {
+          skewX: function() { return (Math.random() - 0.5) * 20; },
+          skewY: function() { return (Math.random() - 0.5) * 8; },
+          x: function() { return (Math.random() - 0.5) * 30; },
+          y: function() { return (Math.random() - 0.5) * 15; },
+          duration: 0.5,
+          ease: 'power2.out'
+        });
+      });
+
+      // Speed up name glitch
+      clearGlitchSchedule = true;
+      function rapidGlitch(count) {
+        if (count <= 0) return;
+        triggerGlitch();
+        setTimeout(function() { rapidGlitch(count - 1); }, 150);
+      }
+      rapidGlitch(8);
+
+      // Flash overlay
+      triggerGlitchBurst();
+      setTimeout(triggerGlitchBurst, 300);
+      setTimeout(triggerGlitchBurst, 600);
+    },
+    once: true
+  });
+
+  var clearGlitchSchedule = false;
+
+  // Footer text animation
+  gsap.from('.footer-end-text', {
+    scrollTrigger: {
+      trigger: '#footer',
+      start: 'top 70%',
+    },
+    scale: 0.5,
+    opacity: 0,
+    duration: 0.6,
+    ease: 'power4.out'
+  });
+
+  // ===================== HOVER GLITCH ON LINKS =====================
+  document.querySelectorAll('.project-link, .social-link').forEach(function(el) {
+    el.addEventListener('mouseenter', function() {
+      gsap.to(el, {
+        skewX: -3,
+        duration: 0.1,
+        ease: 'power2.out'
+      });
+    });
+    el.addEventListener('mouseleave', function() {
+      gsap.to(el, {
+        skewX: 0,
+        duration: 0.2,
+        ease: 'power2.out'
+      });
+    });
+  });
+
+  // ===================== CURSOR INVERSION ON BLACK SECTIONS =====================
+  var darkBlocks = document.querySelectorAll('.project-block:nth-child(even), .footer-end');
+  darkBlocks.forEach(function(block) {
+    block.style.cursor = 'crosshair';
+  });
+
+})();
+</script>
+</body>
+</html>
