@@ -11,6 +11,7 @@ export default defineConfig({
         references: resolve(__dirname, 'references/index.html'),
         reference2: resolve(__dirname, 'references/2/index.html'),
         reference3: resolve(__dirname, 'references/3/index.html'),
+        reference4: resolve(__dirname, 'references/4/index.html'),
         referenceRoot: resolve(__dirname, 'references/root/index.html'),
       },
     },

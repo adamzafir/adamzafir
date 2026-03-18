@@ -1,347 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adam Zafir</title>
-<meta name="description" content="Software developer and founder of PyCollab. I build web and Swift products with clear structure and thoughtful interfaces.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Adam Zafir | Software Developer</title>
+  <meta
+    name="description"
+    content="Adam Zafir builds practical software with a focus on clear interfaces, fast execution, and products that feel cared for."
+  />
+  <meta name="theme-color" content="#efe9dc" />
+  <script>
+    (() => {
+      const storageKey = 'adamzafir-theme';
+      const storedTheme = localStorage.getItem(storageKey);
+      const theme = storedTheme === 'light' || storedTheme === 'dark'
+        ? storedTheme
+        : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 
-:root {
-  --amber: #ffaa00;
-  --orange: #ff5500;
-  --blue: #0088ff;
-  --purple: #7722ff;
-  --teal: #00ccaa;
-  --magenta: #ff0088;
-  --green: #00ff88;
-  --cyan: #00aaff;
-  --bg: #020108;
-}
-
-html {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,170,0,0.3) var(--bg);
-}
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: rgba(255,170,0,0.3); border-radius: 2px; }
-
-body {
-  background: var(--bg);
-  color: #fff;
-  font-family: 'Geologica', sans-serif;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  height: 600vh;
-}
-
-canvas#cosmos {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: 1;
-  pointer-events: none;
-}
-
-#overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: 2;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.section {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  z-index: 3;
-  transition: none;
-  padding: 2rem;
-}
-
-.section.is-active {
-  visibility: visible;
-  pointer-events: auto;
-}
-
-/* Hero */
-#hero-section { gap: 0; }
-
-.hero-name {
-  font-size: clamp(3.2rem, 9vw, 7.5rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  background: linear-gradient(135deg, #fff 20%, var(--amber) 80%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-align: center;
-  filter: drop-shadow(0 0 40px rgba(255,170,0,0.3));
-}
-
-.hero-title {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(0.7rem, 1.3vw, 0.95rem);
-  color: var(--amber);
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  margin-top: 18px;
-  text-align: center;
-  opacity: 0.8;
-}
-
-.hero-bio {
-  max-width: 500px;
-  font-size: clamp(0.88rem, 1.15vw, 1.02rem);
-  line-height: 1.75;
-  color: rgba(255,255,255,0.6);
-  margin-top: 22px;
-  text-align: center;
-  font-weight: 300;
-}
-
-/* Philosophy */
-#philosophy-section { gap: 14px; }
-
-.section-label {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  opacity: 0.7;
-}
-
-.quote-panel {
-  background: rgba(0, 40, 90, 0.3);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(0,136,255,0.15);
-  border-radius: 14px;
-  padding: 22px 30px;
-  max-width: 480px;
-  box-shadow: 0 0 50px rgba(0,136,255,0.04);
-}
-
-.quote-panel p {
-  font-size: clamp(0.85rem, 1.05vw, 0.95rem);
-  font-style: italic;
-  color: rgba(190,220,255,0.8);
-  line-height: 1.6;
-  font-weight: 300;
-}
-
-/* Projects */
-#projects-section { gap: 12px; }
-
-.project-card {
-  background: rgba(35, 5, 55, 0.4);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(119,34,255,0.2);
-  border-radius: 14px;
-  padding: 24px 30px;
-  max-width: 500px;
-  width: 90vw;
-  box-shadow: 0 0 50px rgba(119,34,255,0.04);
-  pointer-events: auto;
-}
-
-.project-card h3 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 5px;
-  background: linear-gradient(135deg, #cca0ff, var(--magenta));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.project-card p {
-  font-size: 0.84rem;
-  color: rgba(210,190,245,0.65);
-  line-height: 1.55;
-  font-weight: 300;
-}
-
-.project-card a {
-  display: inline-block;
-  margin-top: 8px;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.68rem;
-  color: var(--magenta);
-  text-decoration: none;
-  letter-spacing: 0.1em;
-  pointer-events: auto;
-  transition: color 0.2s;
-}
-.project-card a:hover { color: #ff55bb; }
-
-/* Contact */
-#contact-section { gap: 10px; }
-
-.contact-email {
-  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 14px;
-  pointer-events: auto;
-}
-
-.contact-email a {
-  color: #fff;
-  text-decoration: none;
-  background: linear-gradient(135deg, var(--green), var(--cyan));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.contact-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 9px;
-  justify-content: center;
-}
-
-.contact-link {
-  background: rgba(0, 50, 40, 0.3);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(0,255,136,0.15);
-  border-radius: 10px;
-  padding: 12px 20px;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.72rem;
-  color: rgba(170,250,210,0.8);
-  text-decoration: none;
-  letter-spacing: 0.08em;
-  pointer-events: auto;
-  transition: all 0.25s;
-}
-.contact-link:hover {
-  border-color: rgba(0,255,136,0.45);
-  box-shadow: 0 0 30px rgba(0,255,136,0.12);
-  color: #fff;
-}
-
-/* Footer */
-#footer-section { gap: 0; }
-
-.footer-copy {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.25);
-  letter-spacing: 0.2em;
-}
-
-/* White flash overlay */
-#flash {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: #fff;
-  z-index: 10;
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Scroll hint */
-.scroll-hint {
-  position: fixed;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.15);
-  animation: pulse-hint 3s ease-in-out infinite;
-  pointer-events: none;
-}
-@keyframes pulse-hint {
-  0%, 100% { opacity: 0.15; transform: translateX(-50%) translateY(0); }
-  50% { opacity: 0.35; transform: translateX(-50%) translateY(-4px); }
-}
-</style>
-  <script type="module" crossorigin src="/assets/main-vaJ3Oy_6.js"></script>
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme;
+    })();
+  </script>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script type="module" crossorigin src="/assets/main-CFppRvFd.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="modulepreload" crossorigin href="/assets/lenis-BKafW-SX.js">
+  <link rel="stylesheet" crossorigin href="/assets/main-DUN8ZGkT.css">
 </head>
 <body>
+  <div class="page-shell">
+    <header class="site-header" data-site-header>
+      <div class="container site-header__inner">
+        <a class="site-header__brand" href="#top">Adam Zafir</a>
+        <div class="site-header__controls">
+          <nav class="site-nav" id="site-navigation" aria-label="Primary" data-site-nav>
+            <a href="#work">Work</a>
+            <a href="#contact">Contact</a>
+          </nav>
+          <button
+            class="theme-toggle"
+            type="button"
+            aria-label="Switch to dark mode"
+            aria-pressed="false"
+            data-theme-toggle
+          >
+            <span class="theme-toggle__icon" aria-hidden="true">
+              <svg class="theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                <circle cx="12" cy="12" r="4.2"></circle>
+                <path d="M12 2.8v2.2"></path>
+                <path d="M12 19v2.2"></path>
+                <path d="M21.2 12h-2.2"></path>
+                <path d="M5 12H2.8"></path>
+                <path d="m18.5 5.5-1.6 1.6"></path>
+                <path d="m7.1 16.9-1.6 1.6"></path>
+                <path d="m18.5 18.5-1.6-1.6"></path>
+                <path d="m7.1 7.1-1.6-1.6"></path>
+              </svg>
+              <svg class="theme-toggle__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.2 14.4A8.5 8.5 0 1 1 9.6 3.8a7 7 0 0 0 10.6 10.6Z"></path>
+              </svg>
+            </span>
+          </button>
+          <button
+            class="site-header__toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="site-navigation"
+            aria-label="Open navigation"
+            data-nav-toggle
+          >
+            Menu
+          </button>
+        </div>
+      </div>
+    </header>
 
-<canvas id="cosmos"></canvas>
+    <main id="top">
+      <section class="intro section">
+        <div class="container intro__grid">
+          <div class="intro__copy" data-animate>
+            <p class="eyebrow">Software developer</p>
+            <h1>I'm Adam Zafir.</h1>
+            <p class="intro__lede">
+              Software developer and founder of PyCollab. I build web and Swift products
+              with clear structure and thoughtful interfaces.
+            </p>
+            <div class="intro__actions">
+              <a class="button button--primary" href="mailto:me@adamzafir.com">Email me</a>
+              <a class="button" href="https://github.com/adamzafir" target="_blank" rel="noreferrer">GitHub</a>
+            </div>
+          </div>
+        </div>
+      </section>
 
-<div id="hero-section" class="section">
-  <div class="hero-name">Adam Zafir</div>
-  <div class="hero-title">Software Developer</div>
-  <div class="hero-bio">Software developer and founder of PyCollab. I build web and Swift products with clear structure and thoughtful interfaces.</div>
-</div>
+      <section class="section strip">
+        <div class="container strip__grid" data-animate>
+          <p>Build fast, but leave the rough edges behind.</p>
+          <p>Design decisions should support the product, not distract from it.</p>
+          <p>Good software earns trust through clarity and restraint.</p>
+        </div>
+      </section>
 
-<div id="philosophy-section" class="section">
-  <div class="section-label" style="color: var(--blue);">Philosophy</div>
-  <div class="quote-panel"><p>"Build fast, but leave the rough edges behind."</p></div>
-  <div class="quote-panel"><p>"Design decisions should support the product, not distract from it."</p></div>
-  <div class="quote-panel"><p>"Good software earns trust through clarity and restraint."</p></div>
-</div>
+      <section class="section projects" id="work">
+        <div class="container">
+          <div class="section-heading" data-animate>
+            <p class="eyebrow">Selected work</p>
+            <h2>Projects with a clear job to do.</h2>
+          </div>
 
-<div id="projects-section" class="section">
-  <div class="section-label" style="color: var(--purple);">Projects</div>
-  <div class="project-card">
-    <h3>PyCollab</h3>
-    <p>Realtime collaborative Python in the browser. A zero-setup coding environment built for shared momentum.</p>
-    <a href="https://pycollab.com" target="_blank" rel="noopener">pycollab.com &rarr;</a>
+          <div class="project-list">
+            <article class="project" data-animate>
+              <div class="project__meta">
+                <span>PyCollab</span>
+                <span>Collaboration tool</span>
+              </div>
+              <div class="project__body">
+                <h3>Realtime collaborative Python in the browser.</h3>
+                <p>
+                  A zero-setup coding environment built for shared momentum. Open a tab,
+                  start writing, and collaborate without setup overhead.
+                </p>
+              </div>
+              <a class="project__link" href="https://pycollab.com" target="_blank" rel="noreferrer">
+                Open project
+              </a>
+            </article>
+
+            <article class="project" data-animate>
+              <div class="project__meta">
+                <span>Scripties</span>
+                <span>Product + UI</span>
+              </div>
+              <div class="project__body">
+                <h3>Speech writing and rehearsal with pacing feedback.</h3>
+                <p>
+                  <span class="mobile-hidden">
+                    A speaking tool focused on structure, delivery, and keeping rehearsal sessions
+                    measurable instead of vague.
+                  </span>
+                  Built as part of the Swift Accelerator Programme 2025 alongside Chan Yap Long,
+                  Divya Dharshini Krishnamoorthy, and Ethan Soh Yi Teng.
+                </p>
+              </div>
+              <a
+                class="project__link"
+                href="https://scripties-4ug0.onrender.com/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open project
+              </a>
+            </article>
+
+            <article class="project" data-animate>
+              <div class="project__meta">
+                <span>Cats By Adam</span>
+                <span>Side project</span>
+              </div>
+              <div class="project__body">
+                <h3>A lighter project that keeps the personal work human.</h3>
+                <p>
+                  Not everything needs to be serious to be useful. This project is a reminder
+                  that personality still matters in a portfolio.
+                </p>
+              </div>
+              <a class="project__link" href="https://cats.adamzafir.com" target="_blank" rel="noreferrer">
+                Open project
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact" id="contact">
+        <div class="container contact__inner" data-animate>
+          <div>
+            <p class="eyebrow">Contact</p>
+            <h2>If the product matters, the details usually matter too.</h2>
+          </div>
+
+          <div class="contact__actions">
+            <a class="contact__email" href="mailto:me@adamzafir.com">me@adamzafir.com</a>
+            <div class="contact__links">
+              <a href="https://github.com/adamzafir" target="_blank" rel="noreferrer">github</a>
+              <a href="https://www.linkedin.com/in/adamzafir" target="_blank" rel="noreferrer">linkedin</a>
+              <a href="https://zafir.dev" target="_blank" rel="noreferrer">zafir.dev</a>
+              <a href="https://buymeacoffee.com/adamzafir" target="_blank" rel="noreferrer">buy me a coffee</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <span>Adam Zafir</span>
+        <span data-current-year></span>
+      </div>
+    </footer>
   </div>
-  <div class="project-card">
-    <h3>Scripties</h3>
-    <p>Speech writing and rehearsal with pacing feedback. Built as part of Swift Accelerator Programme 2025.</p>
-    <a href="https://scripties-4ug0.onrender.com/" target="_blank" rel="noopener">scripties &rarr;</a>
-  </div>
-  <div class="project-card">
-    <h3>Cats By Adam</h3>
-    <p>A lighter project that keeps the personal work human.</p>
-    <a href="https://cats.adamzafir.com" target="_blank" rel="noopener">cats.adamzafir.com &rarr;</a>
-  </div>
-</div>
-
-<div id="contact-section" class="section">
-  <div class="section-label" style="color: var(--green);">Contact</div>
-  <div class="contact-email"><a href="mailto:me@adamzafir.com">me@adamzafir.com</a></div>
-  <div class="contact-links">
-    <a class="contact-link" href="https://github.com/adamzafir" target="_blank" rel="noopener">GitHub</a>
-    <a class="contact-link" href="https://www.linkedin.com/in/adamzafir" target="_blank" rel="noopener">LinkedIn</a>
-    <a class="contact-link" href="https://zafir.dev" target="_blank" rel="noopener">Blog</a>
-    <a class="contact-link" href="https://buymeacoffee.com/adamzafir" target="_blank" rel="noopener">Buy Me a Coffee</a>
-  </div>
-</div>
-
-<div id="footer-section" class="section">
-  <div class="footer-copy">&copy; 2026 Adam Zafir</div>
-</div>
-
-<div id="flash"></div>
-<div class="scroll-hint">Scroll to explore</div>
-
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
 
 </body>
 </html>
