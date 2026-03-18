@@ -1,203 +1,1028 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Adam Zafir | Software Developer</title>
-  <meta
-    name="description"
-    content="Adam Zafir builds practical software with a focus on clear interfaces, fast execution, and products that feel cared for."
-  />
-  <meta name="theme-color" content="#efe9dc" />
-  <script>
-    (() => {
-      const storageKey = 'adamzafir-theme';
-      const storedTheme = localStorage.getItem(storageKey);
-      const theme = storedTheme === 'light' || storedTheme === 'dark'
-        ? storedTheme
-        : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam Zafir</title>
+<meta name="description" content="Software developer and founder of PyCollab. I build web and Swift products with clear structure and thoughtful interfaces.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-      document.documentElement.dataset.theme = theme;
-      document.documentElement.style.colorScheme = theme;
-    })();
-  </script>
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+:root {
+  --amber: #ffaa00;
+  --orange: #ff5500;
+  --blue: #0088ff;
+  --purple: #7722ff;
+  --teal: #00ccaa;
+  --magenta: #ff0088;
+  --green: #00ff88;
+  --cyan: #00aaff;
+  --bg: #020108;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,170,0,0.3) var(--bg);
+}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(255,170,0,0.3); border-radius: 2px; }
+
+body {
+  background: var(--bg);
+  color: #fff;
+  font-family: 'Geologica', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  height: 600vh;
+}
+
+canvas#cosmos {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 1;
+}
+
+#overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+  transition: none;
+  padding: 2rem;
+}
+
+/* Hero */
+#hero-section { gap: 0; }
+
+.hero-name {
+  font-size: clamp(3.2rem, 9vw, 7.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  background: linear-gradient(135deg, #fff 20%, var(--amber) 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  filter: drop-shadow(0 0 40px rgba(255,170,0,0.3));
+}
+
+.hero-title {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(0.7rem, 1.3vw, 0.95rem);
+  color: var(--amber);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  margin-top: 18px;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.hero-bio {
+  max-width: 500px;
+  font-size: clamp(0.88rem, 1.15vw, 1.02rem);
+  line-height: 1.75;
+  color: rgba(255,255,255,0.6);
+  margin-top: 22px;
+  text-align: center;
+  font-weight: 300;
+}
+
+/* Philosophy */
+#philosophy-section { gap: 14px; }
+
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.quote-panel {
+  background: rgba(0, 40, 90, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0,136,255,0.15);
+  border-radius: 14px;
+  padding: 22px 30px;
+  max-width: 480px;
+  box-shadow: 0 0 50px rgba(0,136,255,0.04);
+}
+
+.quote-panel p {
+  font-size: clamp(0.85rem, 1.05vw, 0.95rem);
+  font-style: italic;
+  color: rgba(190,220,255,0.8);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* Projects */
+#projects-section { gap: 12px; }
+
+.project-card {
+  background: rgba(35, 5, 55, 0.4);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(119,34,255,0.2);
+  border-radius: 14px;
+  padding: 24px 30px;
+  max-width: 500px;
+  width: 90vw;
+  box-shadow: 0 0 50px rgba(119,34,255,0.04);
+  pointer-events: auto;
+}
+
+.project-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  background: linear-gradient(135deg, #cca0ff, var(--magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.project-card p {
+  font-size: 0.84rem;
+  color: rgba(210,190,245,0.65);
+  line-height: 1.55;
+  font-weight: 300;
+}
+
+.project-card a {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--magenta);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  pointer-events: auto;
+  transition: color 0.2s;
+}
+.project-card a:hover { color: #ff55bb; }
+
+/* Contact */
+#contact-section { gap: 10px; }
+
+.contact-email {
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 14px;
+  pointer-events: auto;
+}
+
+.contact-email a {
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--green), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  justify-content: center;
+}
+
+.contact-link {
+  background: rgba(0, 50, 40, 0.3);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(0,255,136,0.15);
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  color: rgba(170,250,210,0.8);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  pointer-events: auto;
+  transition: all 0.25s;
+}
+.contact-link:hover {
+  border-color: rgba(0,255,136,0.45);
+  box-shadow: 0 0 30px rgba(0,255,136,0.12);
+  color: #fff;
+}
+
+/* Footer */
+#footer-section { gap: 0; }
+
+.footer-copy {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.2em;
+}
+
+/* White flash overlay */
+#flash {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #fff;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Scroll hint */
+.scroll-hint {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.15);
+  animation: pulse-hint 3s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes pulse-hint {
+  0%, 100% { opacity: 0.15; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.35; transform: translateX(-50%) translateY(-4px); }
+}
+</style>
 </head>
 <body>
-  <div class="page-shell">
-    <header class="site-header" data-site-header>
-      <div class="container site-header__inner">
-        <a class="site-header__brand" href="#top">Adam Zafir</a>
-        <div class="site-header__controls">
-          <nav class="site-nav" id="site-navigation" aria-label="Primary" data-site-nav>
-            <a href="#work">Work</a>
-            <a href="#contact">Contact</a>
-          </nav>
-          <button
-            class="theme-toggle"
-            type="button"
-            aria-label="Switch to dark mode"
-            aria-pressed="false"
-            data-theme-toggle
-          >
-            <span class="theme-toggle__icon" aria-hidden="true">
-              <svg class="theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-                <circle cx="12" cy="12" r="4.2"></circle>
-                <path d="M12 2.8v2.2"></path>
-                <path d="M12 19v2.2"></path>
-                <path d="M21.2 12h-2.2"></path>
-                <path d="M5 12H2.8"></path>
-                <path d="m18.5 5.5-1.6 1.6"></path>
-                <path d="m7.1 16.9-1.6 1.6"></path>
-                <path d="m18.5 18.5-1.6-1.6"></path>
-                <path d="m7.1 7.1-1.6-1.6"></path>
-              </svg>
-              <svg class="theme-toggle__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20.2 14.4A8.5 8.5 0 1 1 9.6 3.8a7 7 0 0 0 10.6 10.6Z"></path>
-              </svg>
-            </span>
-          </button>
-          <button
-            class="site-header__toggle"
-            type="button"
-            aria-expanded="false"
-            aria-controls="site-navigation"
-            aria-label="Open navigation"
-            data-nav-toggle
-          >
-            Menu
-          </button>
-        </div>
-      </div>
-    </header>
 
-    <main id="top">
-      <section class="intro section">
-        <div class="container intro__grid">
-          <div class="intro__copy" data-animate>
-            <p class="eyebrow">Software developer</p>
-            <h1>I'm Adam Zafir.</h1>
-            <p class="intro__lede">
-              Software developer and founder of PyCollab. I build web and Swift products
-              with clear structure and thoughtful interfaces.
-            </p>
-            <div class="intro__actions">
-              <a class="button button--primary" href="mailto:me@adamzafir.com">Email me</a>
-              <a class="button" href="https://github.com/adamzafir" target="_blank" rel="noreferrer">GitHub</a>
-            </div>
-          </div>
-        </div>
-      </section>
+<canvas id="cosmos"></canvas>
 
-      <section class="section strip">
-        <div class="container strip__grid" data-animate>
-          <p>Build fast, but leave the rough edges behind.</p>
-          <p>Design decisions should support the product, not distract from it.</p>
-          <p>Good software earns trust through clarity and restraint.</p>
-        </div>
-      </section>
+<div id="hero-section" class="section">
+  <div class="hero-name">Adam Zafir</div>
+  <div class="hero-title">Software Developer</div>
+  <div class="hero-bio">Software developer and founder of PyCollab. I build web and Swift products with clear structure and thoughtful interfaces.</div>
+</div>
 
-      <section class="section projects" id="work">
-        <div class="container">
-          <div class="section-heading" data-animate>
-            <p class="eyebrow">Selected work</p>
-            <h2>Projects with a clear job to do.</h2>
-          </div>
+<div id="philosophy-section" class="section">
+  <div class="section-label" style="color: var(--blue);">Philosophy</div>
+  <div class="quote-panel"><p>"Build fast, but leave the rough edges behind."</p></div>
+  <div class="quote-panel"><p>"Design decisions should support the product, not distract from it."</p></div>
+  <div class="quote-panel"><p>"Good software earns trust through clarity and restraint."</p></div>
+</div>
 
-          <div class="project-list">
-            <article class="project" data-animate>
-              <div class="project__meta">
-                <span>PyCollab</span>
-                <span>Collaboration tool</span>
-              </div>
-              <div class="project__body">
-                <h3>Realtime collaborative Python in the browser.</h3>
-                <p>
-                  A zero-setup coding environment built for shared momentum. Open a tab,
-                  start writing, and collaborate without setup overhead.
-                </p>
-              </div>
-              <a class="project__link" href="https://pycollab.com" target="_blank" rel="noreferrer">
-                Open project
-              </a>
-            </article>
-
-            <article class="project" data-animate>
-              <div class="project__meta">
-                <span>Scripties</span>
-                <span>Product + UI</span>
-              </div>
-              <div class="project__body">
-                <h3>Speech writing and rehearsal with pacing feedback.</h3>
-                <p>
-                  <span class="mobile-hidden">
-                    A speaking tool focused on structure, delivery, and keeping rehearsal sessions
-                    measurable instead of vague.
-                  </span>
-                  Built as part of the Swift Accelerator Programme 2025 alongside Chan Yap Long,
-                  Divya Dharshini Krishnamoorthy, and Ethan Soh Yi Teng.
-                </p>
-              </div>
-              <a
-                class="project__link"
-                href="https://scripties-4ug0.onrender.com/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Open project
-              </a>
-            </article>
-
-            <article class="project" data-animate>
-              <div class="project__meta">
-                <span>Cats By Adam</span>
-                <span>Side project</span>
-              </div>
-              <div class="project__body">
-                <h3>A lighter project that keeps the personal work human.</h3>
-                <p>
-                  Not everything needs to be serious to be useful. This project is a reminder
-                  that personality still matters in a portfolio.
-                </p>
-              </div>
-              <a class="project__link" href="https://cats.adamzafir.com" target="_blank" rel="noreferrer">
-                Open project
-              </a>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section contact" id="contact">
-        <div class="container contact__inner" data-animate>
-          <div>
-            <p class="eyebrow">Contact</p>
-            <h2>If the product matters, the details usually matter too.</h2>
-          </div>
-
-          <div class="contact__actions">
-            <a class="contact__email" href="mailto:me@adamzafir.com">me@adamzafir.com</a>
-            <div class="contact__links">
-              <a href="https://github.com/adamzafir" target="_blank" rel="noreferrer">github</a>
-              <a href="https://www.linkedin.com/in/adamzafir" target="_blank" rel="noreferrer">linkedin</a>
-              <a href="https://zafir.dev" target="_blank" rel="noreferrer">zafir.dev</a>
-              <a href="https://buymeacoffee.com/adamzafir" target="_blank" rel="noreferrer">buy me a coffee</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="container site-footer__inner">
-        <span>Adam Zafir</span>
-        <span data-current-year></span>
-      </div>
-    </footer>
+<div id="projects-section" class="section">
+  <div class="section-label" style="color: var(--purple);">Projects</div>
+  <div class="project-card">
+    <h3>PyCollab</h3>
+    <p>Realtime collaborative Python in the browser. A zero-setup coding environment built for shared momentum.</p>
+    <a href="https://pycollab.com" target="_blank" rel="noopener">pycollab.com &rarr;</a>
   </div>
+  <div class="project-card">
+    <h3>Scripties</h3>
+    <p>Speech writing and rehearsal with pacing feedback. Built as part of Swift Accelerator Programme 2025.</p>
+    <a href="https://scripties-4ug0.onrender.com/" target="_blank" rel="noopener">scripties &rarr;</a>
+  </div>
+  <div class="project-card">
+    <h3>Cats By Adam</h3>
+    <p>A lighter project that keeps the personal work human.</p>
+    <a href="https://cats.adamzafir.com" target="_blank" rel="noopener">cats.adamzafir.com &rarr;</a>
+  </div>
+</div>
 
-  <script type="module" src="/src/main.js"></script>
+<div id="contact-section" class="section">
+  <div class="section-label" style="color: var(--green);">Contact</div>
+  <div class="contact-email"><a href="mailto:me@adamzafir.com">me@adamzafir.com</a></div>
+  <div class="contact-links">
+    <a class="contact-link" href="https://github.com/adamzafir" target="_blank" rel="noopener">GitHub</a>
+    <a class="contact-link" href="https://www.linkedin.com/in/adamzafir" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="contact-link" href="https://zafir.dev" target="_blank" rel="noopener">Blog</a>
+    <a class="contact-link" href="https://buymeacoffee.com/adamzafir" target="_blank" rel="noopener">Buy Me a Coffee</a>
+  </div>
+</div>
+
+<div id="footer-section" class="section">
+  <div class="footer-copy">&copy; 2026 Adam Zafir</div>
+</div>
+
+<div id="flash"></div>
+<div class="scroll-hint">Scroll to explore</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js';
+
+gsap.registerPlugin(ScrollTrigger);
+
+// ─────────────────────────────────────────────
+// RENDERER
+// ─────────────────────────────────────────────
+const canvas = document.getElementById('cosmos');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.2;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x020108);
+scene.fog = new THREE.FogExp2(0x020108, 0.0025);
+
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+camera.position.set(0, 2, 28);
+
+// ─────────────────────────────────────────────
+// CELESTIAL POSITIONS
+// ─────────────────────────────────────────────
+const sunPos = new THREE.Vector3(0, 0, 0);
+const planet1Pos = new THREE.Vector3(-45, 10, -70);
+const planet2Pos = new THREE.Vector3(55, -6, -155);
+const planet3Pos = new THREE.Vector3(-35, 5, -240);
+const blackHolePos = new THREE.Vector3(0, 0, -350);
+
+// ─────────────────────────────────────────────
+// STARS (InstancedMesh)
+// ─────────────────────────────────────────────
+const starCount = 3500;
+const starGeo = new THREE.IcosahedronGeometry(0.12, 0);
+const starMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+const stars = new THREE.InstancedMesh(starGeo, starMat, starCount);
+const starDummy = new THREE.Object3D();
+const starOriginals = [];
+
+for (let i = 0; i < starCount; i++) {
+  const x = (Math.random() - 0.5) * 700;
+  const y = (Math.random() - 0.5) * 450;
+  const z = -Math.random() * 550 - 30;
+  starDummy.position.set(x, y, z);
+  const s = 0.15 + Math.random() * 1.3;
+  starDummy.scale.set(s, s, s);
+  starDummy.updateMatrix();
+  stars.setMatrixAt(i, starDummy.matrix);
+  starOriginals.push({ x, y, z, s });
+}
+stars.instanceMatrix.needsUpdate = true;
+scene.add(stars);
+
+// ─────────────────────────────────────────────
+// DUST PARTICLES
+// ─────────────────────────────────────────────
+const dustCount = 500;
+const dustGeo = new THREE.BufferGeometry();
+const dustPos = new Float32Array(dustCount * 3);
+const dustOrigPos = [];
+for (let i = 0; i < dustCount; i++) {
+  const x = (Math.random() - 0.5) * 450;
+  const y = (Math.random() - 0.5) * 300;
+  const z = -Math.random() * 500;
+  dustPos[i*3] = x; dustPos[i*3+1] = y; dustPos[i*3+2] = z;
+  dustOrigPos.push({ x, y, z });
+}
+dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
+const dustMat = new THREE.PointsMaterial({ color: 0x887766, size: 0.5, transparent: true, opacity: 0.3, depthWrite: false });
+const dust = new THREE.Points(dustGeo, dustMat);
+scene.add(dust);
+
+// ─────────────────────────────────────────────
+// NEBULA CLOUDS (canvas-generated textures)
+// ─────────────────────────────────────────────
+function createNebulaTexture(colors) {
+  const c = document.createElement('canvas');
+  c.width = 512; c.height = 512;
+  const ctx = c.getContext('2d');
+  const grad = ctx.createRadialGradient(256, 256, 0, 256, 256, 256);
+  grad.addColorStop(0, colors[0]);
+  grad.addColorStop(0.35, colors[1]);
+  grad.addColorStop(0.7, colors[2] || 'rgba(0,0,0,0)');
+  grad.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 512, 512);
+  return new THREE.CanvasTexture(c);
+}
+
+function addNebula(x, y, z, size, colors, opacity) {
+  const tex = createNebulaTexture(colors);
+  const mat = new THREE.MeshBasicMaterial({
+    map: tex, transparent: true, opacity, blending: THREE.AdditiveBlending,
+    depthWrite: false, side: THREE.DoubleSide
+  });
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(size, size), mat);
+  mesh.position.set(x, y, z);
+  scene.add(mesh);
+  return mesh;
+}
+
+const nebulae = [
+  addNebula(40, 25, -55, 140, ['rgba(110,30,160,0.5)', 'rgba(50,10,90,0.2)', 'rgba(20,5,40,0.05)'], 0.22),
+  addNebula(-55, -20, -110, 120, ['rgba(20,60,160,0.4)', 'rgba(10,25,90,0.15)'], 0.18),
+  addNebula(25, 15, -185, 150, ['rgba(160,60,30,0.4)', 'rgba(90,25,10,0.15)'], 0.2),
+  addNebula(-45, 30, -270, 130, ['rgba(70,20,130,0.5)', 'rgba(25,5,65,0.2)'], 0.2),
+  addNebula(70, -25, -320, 100, ['rgba(0,90,130,0.35)', 'rgba(0,35,70,0.12)'], 0.16),
+  addNebula(-20, -10, -40, 80, ['rgba(200,100,20,0.25)', 'rgba(100,40,5,0.1)'], 0.12),
+];
+
+// ─────────────────────────────────────────────
+// SHARED VERTEX SHADER
+// ─────────────────────────────────────────────
+const vertShader = `
+  varying vec2 vUv;
+  varying vec3 vNormal;
+  varying vec3 vWorldPos;
+  void main() {
+    vUv = uv;
+    vNormal = normalize(normalMatrix * normal);
+    vWorldPos = (modelMatrix * vec4(position, 1.0)).xyz;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+// ─────────────────────────────────────────────
+// SUN
+// ─────────────────────────────────────────────
+const sunFragShader = `
+  varying vec2 vUv;
+  varying vec3 vNormal;
+  uniform float u_time;
+
+  void main() {
+    vec2 uv = vUv;
+    float n1 = sin(uv.x * 10.0 + u_time * 0.8) * cos(uv.y * 8.0 - u_time * 0.7);
+    float n2 = sin(uv.x * 20.0 - u_time * 1.3) * cos(uv.y * 15.0 + u_time * 0.5) * 0.5;
+    float n3 = sin(uv.x * 5.0 + uv.y * 7.0 + u_time * 0.35) * 0.35;
+    float n4 = sin(uv.x * 30.0 + u_time * 2.0) * cos(uv.y * 25.0 - u_time * 1.5) * 0.2;
+    float noise = n1 + n2 + n3 + n4;
+    float intensity = 0.55 + noise * 0.45;
+    intensity = clamp(intensity, 0.0, 1.5);
+
+    vec3 hot = vec3(1.0, 0.88, 0.35);
+    vec3 warm = vec3(1.0, 0.5, 0.05);
+    vec3 cool = vec3(0.9, 0.2, 0.0);
+    vec3 color;
+    if (intensity > 0.7) {
+      color = mix(warm, hot, (intensity - 0.7) / 0.8);
+    } else {
+      color = mix(cool, warm, intensity / 0.7);
+    }
+
+    float fresnel = pow(1.0 - max(dot(vNormal, vec3(0.0, 0.0, 1.0)), 0.0), 2.2);
+    color += vec3(1.0, 0.55, 0.15) * fresnel * 0.65;
+
+    float pulse = 1.0 + sin(u_time * 1.5) * 0.06;
+    gl_FragColor = vec4(color * (intensity * 0.7 + 0.45) * pulse, 1.0);
+  }
+`;
+
+const sunMeshMat = new THREE.ShaderMaterial({
+  vertexShader: vertShader, fragmentShader: sunFragShader,
+  uniforms: { u_time: { value: 0 } },
+});
+const sunMesh = new THREE.Mesh(new THREE.SphereGeometry(8, 32, 32), sunMeshMat);
+sunMesh.position.copy(sunPos);
+scene.add(sunMesh);
+
+// Corona layers
+const coronaLayers = [];
+[
+  { r: 11, color: 0xff7700, opacity: 0.09 },
+  { r: 14, color: 0xff5500, opacity: 0.05 },
+  { r: 18, color: 0xff3300, opacity: 0.025 },
+].forEach(c => {
+  const m = new THREE.Mesh(
+    new THREE.SphereGeometry(c.r, 24, 24),
+    new THREE.MeshBasicMaterial({ color: c.color, transparent: true, opacity: c.opacity, blending: THREE.AdditiveBlending, side: THREE.BackSide })
+  );
+  m.position.copy(sunPos);
+  scene.add(m);
+  coronaLayers.push(m);
+});
+
+const sunLight = new THREE.PointLight(0xff8800, 4, 120);
+sunLight.position.copy(sunPos);
+scene.add(sunLight);
+
+// ─────────────────────────────────────────────
+// PLANET 1 — Blue/Teal (Philosophy)
+// ─────────────────────────────────────────────
+const p1Frag = `
+  varying vec2 vUv;
+  varying vec3 vNormal;
+  uniform float u_time;
+  void main() {
+    vec2 uv = vUv;
+    float n = sin(uv.x * 8.0 + u_time * 0.5) * cos(uv.y * 6.0 - u_time * 0.35);
+    n += sin(uv.x * 16.0 - u_time * 0.9) * cos(uv.y * 13.0 + u_time * 0.45) * 0.4;
+    n += sin(uv.y * 20.0 + u_time * 0.7) * 0.2;
+    float i = 0.5 + n * 0.5;
+    vec3 c1 = vec3(0.0, 0.53, 1.0);
+    vec3 c2 = vec3(0.0, 0.8, 0.67);
+    vec3 color = mix(c1, c2, i);
+    float fresnel = pow(1.0 - max(dot(vNormal, vec3(0.0,0.0,1.0)), 0.0), 2.8);
+    color += vec3(0.3, 0.7, 1.0) * fresnel * 0.7;
+    gl_FragColor = vec4(color * (i * 0.45 + 0.55), 1.0);
+  }
+`;
+
+const planet1Mat = new THREE.ShaderMaterial({
+  vertexShader: vertShader, fragmentShader: p1Frag,
+  uniforms: { u_time: { value: 0 } },
+});
+const planet1 = new THREE.Mesh(new THREE.SphereGeometry(4, 32, 32), planet1Mat);
+planet1.position.copy(planet1Pos);
+scene.add(planet1);
+
+const p1Glow = new THREE.Mesh(
+  new THREE.SphereGeometry(5.8, 20, 20),
+  new THREE.MeshBasicMaterial({ color: 0x0066cc, transparent: true, opacity: 0.06, blending: THREE.AdditiveBlending, side: THREE.BackSide })
+);
+p1Glow.position.copy(planet1Pos);
+scene.add(p1Glow);
+
+const p1Light = new THREE.PointLight(0x0088ff, 2, 70);
+p1Light.position.copy(planet1Pos);
+scene.add(p1Light);
+
+// ─────────────────────────────────────────────
+// PLANET 2 — Purple/Magenta (Projects) + Rings
+// ─────────────────────────────────────────────
+const p2Frag = `
+  varying vec2 vUv;
+  varying vec3 vNormal;
+  uniform float u_time;
+  void main() {
+    vec2 uv = vUv;
+    float n = sin(uv.x * 7.0 + u_time * 0.45) * cos(uv.y * 9.0 - u_time * 0.6);
+    n += sin(uv.x * 14.0 - u_time * 1.0) * cos(uv.y * 11.0 + u_time * 0.4) * 0.45;
+    n += cos(uv.x * 22.0 + uv.y * 18.0 - u_time * 0.8) * 0.2;
+    float i = 0.5 + n * 0.5;
+    vec3 c1 = vec3(0.53, 0.0, 1.0);
+    vec3 c2 = vec3(1.0, 0.0, 0.53);
+    vec3 color = mix(c1, c2, i);
+    float fresnel = pow(1.0 - max(dot(vNormal, vec3(0.0,0.0,1.0)), 0.0), 2.5);
+    color += vec3(0.75, 0.25, 1.0) * fresnel * 0.6;
+    gl_FragColor = vec4(color * (i * 0.45 + 0.55), 1.0);
+  }
+`;
+
+const planet2Mat = new THREE.ShaderMaterial({
+  vertexShader: vertShader, fragmentShader: p2Frag,
+  uniforms: { u_time: { value: 0 } },
+});
+const planet2 = new THREE.Mesh(new THREE.SphereGeometry(5, 32, 32), planet2Mat);
+planet2.position.copy(planet2Pos);
+scene.add(planet2);
+
+// Ring system
+const ringConfigs = [
+  { r: 9.5, tube: 0.6, color: 0x8833ff, opacity: 0.28 },
+  { r: 12, tube: 0.35, color: 0xff0088, opacity: 0.14 },
+  { r: 14.5, tube: 0.2, color: 0x6622cc, opacity: 0.08 },
+];
+const rings = [];
+ringConfigs.forEach(rc => {
+  const rMesh = new THREE.Mesh(
+    new THREE.TorusGeometry(rc.r, rc.tube, 2, 90),
+    new THREE.MeshBasicMaterial({ color: rc.color, wireframe: true, transparent: true, opacity: rc.opacity })
+  );
+  rMesh.position.copy(planet2Pos);
+  rMesh.rotation.x = Math.PI * 0.42;
+  scene.add(rMesh);
+  rings.push(rMesh);
+});
+
+const p2Glow = new THREE.Mesh(
+  new THREE.SphereGeometry(7.5, 20, 20),
+  new THREE.MeshBasicMaterial({ color: 0x6600cc, transparent: true, opacity: 0.05, blending: THREE.AdditiveBlending, side: THREE.BackSide })
+);
+p2Glow.position.copy(planet2Pos);
+scene.add(p2Glow);
+
+const p2Light = new THREE.PointLight(0x8800ff, 2, 70);
+p2Light.position.copy(planet2Pos);
+scene.add(p2Light);
+
+// ─────────────────────────────────────────────
+// PLANET 3 — Green/Cyan (Contact)
+// ─────────────────────────────────────────────
+const p3Frag = `
+  varying vec2 vUv;
+  varying vec3 vNormal;
+  uniform float u_time;
+  void main() {
+    vec2 uv = vUv;
+    float n = sin(uv.x * 9.0 + u_time * 0.6) * cos(uv.y * 7.0 - u_time * 0.45);
+    n += sin(uv.x * 17.0 - u_time * 0.75) * cos(uv.y * 14.0 + u_time * 0.55) * 0.38;
+    n += sin(uv.y * 22.0 + u_time * 0.5) * 0.18;
+    float i = 0.5 + n * 0.5;
+    vec3 c1 = vec3(0.0, 1.0, 0.53);
+    vec3 c2 = vec3(0.0, 0.67, 1.0);
+    vec3 color = mix(c1, c2, i);
+    float fresnel = pow(1.0 - max(dot(vNormal, vec3(0.0,0.0,1.0)), 0.0), 2.5);
+    color += vec3(0.25, 1.0, 0.75) * fresnel * 0.55;
+    gl_FragColor = vec4(color * (i * 0.4 + 0.58), 1.0);
+  }
+`;
+
+const planet3Mat = new THREE.ShaderMaterial({
+  vertexShader: vertShader, fragmentShader: p3Frag,
+  uniforms: { u_time: { value: 0 } },
+});
+const planet3 = new THREE.Mesh(new THREE.SphereGeometry(3, 32, 32), planet3Mat);
+planet3.position.copy(planet3Pos);
+scene.add(planet3);
+
+const p3Glow = new THREE.Mesh(
+  new THREE.SphereGeometry(4.5, 20, 20),
+  new THREE.MeshBasicMaterial({ color: 0x00aa66, transparent: true, opacity: 0.06, blending: THREE.AdditiveBlending, side: THREE.BackSide })
+);
+p3Glow.position.copy(planet3Pos);
+scene.add(p3Glow);
+
+const p3Light = new THREE.PointLight(0x00ff88, 1.5, 55);
+p3Light.position.copy(planet3Pos);
+scene.add(p3Light);
+
+// ─────────────────────────────────────────────
+// BLACK HOLE
+// ─────────────────────────────────────────────
+const bhSphere = new THREE.Mesh(
+  new THREE.SphereGeometry(12, 32, 32),
+  new THREE.MeshBasicMaterial({ color: 0x000000 })
+);
+bhSphere.position.copy(blackHolePos);
+scene.add(bhSphere);
+
+// Dark edge glow
+const bhEdge = new THREE.Mesh(
+  new THREE.SphereGeometry(13.2, 32, 32),
+  new THREE.MeshBasicMaterial({ color: 0x110022, transparent: true, opacity: 0.5, side: THREE.BackSide })
+);
+bhEdge.position.copy(blackHolePos);
+scene.add(bhEdge);
+
+// Gravitational lensing ring
+const lensRing = new THREE.Mesh(
+  new THREE.TorusGeometry(13.5, 0.15, 8, 120),
+  new THREE.MeshBasicMaterial({ color: 0xffeedd, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending })
+);
+lensRing.position.copy(blackHolePos);
+lensRing.rotation.x = Math.PI * 0.5;
+scene.add(lensRing);
+
+const lensRing2 = new THREE.Mesh(
+  new THREE.TorusGeometry(13.8, 0.08, 8, 120),
+  new THREE.MeshBasicMaterial({ color: 0xffaa44, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending })
+);
+lensRing2.position.copy(blackHolePos);
+lensRing2.rotation.x = Math.PI * 0.48;
+lensRing2.rotation.y = 0.15;
+scene.add(lensRing2);
+
+// Accretion disk particles
+const accCount = 2500;
+const accGeo = new THREE.BufferGeometry();
+const accPositions = new Float32Array(accCount * 3);
+const accColors = new Float32Array(accCount * 3);
+const accData = [];
+
+for (let i = 0; i < accCount; i++) {
+  const angle = Math.random() * Math.PI * 2;
+  const radius = 15 + Math.random() * 14;
+  const y = (Math.random() - 0.5) * (0.4 + (radius - 15) * 0.06);
+  accPositions[i*3] = blackHolePos.x + Math.cos(angle) * radius;
+  accPositions[i*3+1] = blackHolePos.y + y;
+  accPositions[i*3+2] = blackHolePos.z + Math.sin(angle) * radius;
+
+  const t = (radius - 15) / 14;
+  accColors[i*3] = 1.0;
+  accColors[i*3+1] = 0.4 + (1.0 - t) * 0.6;
+  accColors[i*3+2] = (1.0 - t) * 0.7;
+
+  accData.push({ angle, radius, baseY: y, speed: 0.25 + (1.0 / Math.max(radius - 13, 1)) * 3.5 });
+}
+accGeo.setAttribute('position', new THREE.BufferAttribute(accPositions, 3));
+accGeo.setAttribute('color', new THREE.BufferAttribute(accColors, 3));
+const accMat = new THREE.PointsMaterial({
+  size: 0.45, vertexColors: true, transparent: true, opacity: 0.8,
+  blending: THREE.AdditiveBlending, depthWrite: false
+});
+const accretion = new THREE.Points(accGeo, accMat);
+scene.add(accretion);
+
+// Ambient
+scene.add(new THREE.AmbientLight(0x111122, 0.25));
+
+// ─────────────────────────────────────────────
+// CAMERA PATH
+// ─────────────────────────────────────────────
+const cameraKeyframes = [
+  { t: 0.00, pos: [0, 2, 28],       look: [0, 0, 0] },
+  { t: 0.08, pos: [0, 1, 22],       look: [0, 0, 0] },
+  { t: 0.18, pos: [6, 4, 12],       look: [0, 0, 0] },
+  { t: 0.25, pos: [-20, 12, -35],   look: [-45, 10, -70] },
+  { t: 0.32, pos: [-42, 12, -58],   look: [-45, 10, -70] },
+  { t: 0.38, pos: [-38, 14, -68],   look: [-45, 10, -70] },
+  { t: 0.44, pos: [-10, 18, -95],   look: [-5, 0, -115] },
+  { t: 0.50, pos: [30, 0, -130],    look: [55, -6, -155] },
+  { t: 0.57, pos: [42, -2, -140],   look: [55, -6, -155] },
+  { t: 0.64, pos: [48, 0, -148],    look: [55, -6, -155] },
+  { t: 0.70, pos: [10, 8, -195],    look: [-35, 5, -240] },
+  { t: 0.76, pos: [-30, 8, -228],   look: [-35, 5, -240] },
+  { t: 0.82, pos: [-15, 5, -275],   look: [0, 0, -350] },
+  { t: 0.88, pos: [-5, 3, -305],    look: [0, 0, -350] },
+  { t: 0.94, pos: [0, 1, -325],     look: [0, 0, -350] },
+  { t: 1.00, pos: [0, 0, -338],     look: [0, 0, -350] },
+];
+
+function getCameraState(p) {
+  let a = cameraKeyframes[0], b = cameraKeyframes[0];
+  for (let i = 0; i < cameraKeyframes.length - 1; i++) {
+    if (p >= cameraKeyframes[i].t && p <= cameraKeyframes[i+1].t) {
+      a = cameraKeyframes[i];
+      b = cameraKeyframes[i+1];
+      break;
+    }
+  }
+  if (p >= cameraKeyframes[cameraKeyframes.length - 1].t) {
+    a = b = cameraKeyframes[cameraKeyframes.length - 1];
+  }
+
+  const segLen = b.t - a.t;
+  const local = segLen > 0 ? Math.max(0, Math.min(1, (p - a.t) / segLen)) : 0;
+  const s = local * local * (3 - 2 * local); // smoothstep
+
+  return {
+    pos: new THREE.Vector3(
+      a.pos[0] + (b.pos[0] - a.pos[0]) * s,
+      a.pos[1] + (b.pos[1] - a.pos[1]) * s,
+      a.pos[2] + (b.pos[2] - a.pos[2]) * s
+    ),
+    look: new THREE.Vector3(
+      a.look[0] + (b.look[0] - a.look[0]) * s,
+      a.look[1] + (b.look[1] - a.look[1]) * s,
+      a.look[2] + (b.look[2] - a.look[2]) * s
+    ),
+  };
+}
+
+// ─────────────────────────────────────────────
+// SCROLL STATE
+// ─────────────────────────────────────────────
+const scrollState = { progress: 0 };
+
+ScrollTrigger.create({
+  trigger: 'body',
+  start: 'top top',
+  end: 'bottom bottom',
+  scrub: 0.6,
+  onUpdate: (self) => { scrollState.progress = self.progress; }
+});
+
+// ─────────────────────────────────────────────
+// HTML SECTION VISIBILITY
+// ─────────────────────────────────────────────
+const heroEl = document.getElementById('hero-section');
+const philoEl = document.getElementById('philosophy-section');
+const projEl = document.getElementById('projects-section');
+const contactEl = document.getElementById('contact-section');
+const footerEl = document.getElementById('footer-section');
+const flashEl = document.getElementById('flash');
+const scrollHint = document.querySelector('.scroll-hint');
+
+function easeSection(p, start, peakStart, peakEnd, end) {
+  if (p < start || p > end) return 0;
+  if (p >= peakStart && p <= peakEnd) return 1;
+  if (p < peakStart) {
+    const t = (p - start) / (peakStart - start);
+    return t * t * (3 - 2 * t);
+  }
+  const t = (p - peakEnd) / (end - peakEnd);
+  const out = 1 - t * t * (3 - 2 * t);
+  return out;
+}
+
+function updateSections(p) {
+  heroEl.style.opacity = easeSection(p, 0, 0, 0.14, 0.22);
+  philoEl.style.opacity = easeSection(p, 0.26, 0.30, 0.36, 0.42);
+  projEl.style.opacity = easeSection(p, 0.50, 0.54, 0.62, 0.67);
+  contactEl.style.opacity = easeSection(p, 0.72, 0.74, 0.78, 0.83);
+
+  // Footer fades in and stays
+  if (p > 0.96) {
+    footerEl.style.opacity = Math.min(1, (p - 0.96) / 0.03);
+  } else {
+    footerEl.style.opacity = 0;
+  }
+
+  // Flash
+  if (p > 0.92 && p < 0.97) {
+    const t = (p - 0.92) / 0.05;
+    flashEl.style.opacity = Math.pow(t, 4) * 0.9;
+  } else if (p >= 0.97) {
+    flashEl.style.opacity = Math.max(0, 0.9 - (p - 0.97) / 0.03 * 0.9);
+  } else {
+    flashEl.style.opacity = 0;
+  }
+
+  // Hide scroll hint fast
+  if (scrollHint) {
+    scrollHint.style.display = p > 0.03 ? 'none' : 'block';
+  }
+}
+
+// ─────────────────────────────────────────────
+// BLACK HOLE GRAVITY PULL
+// ─────────────────────────────────────────────
+const allBodies = [
+  { mesh: sunMesh, orig: sunPos.clone(), extras: [...coronaLayers] },
+  { mesh: planet1, orig: planet1Pos.clone(), extras: [p1Glow] },
+  { mesh: planet2, orig: planet2Pos.clone(), extras: [p2Glow, ...rings] },
+  { mesh: planet3, orig: planet3Pos.clone(), extras: [p3Glow] },
+];
+
+function updateGravityPull(p, time) {
+  if (p < 0.78) {
+    // Reset
+    allBodies.forEach(b => {
+      b.mesh.position.copy(b.orig);
+      b.extras.forEach(e => e.position.copy(b.orig));
+      b.mesh.scale.setScalar(1);
+      b.extras.forEach(e => e.scale.setScalar(1));
+    });
+    return;
+  }
+
+  const pullT = Math.min(1, (p - 0.78) / 0.22);
+  const pullStrength = pullT * pullT * pullT; // cubic easing for drama
+
+  allBodies.forEach(body => {
+    const dir = new THREE.Vector3().subVectors(blackHolePos, body.orig);
+    const pulled = body.orig.clone().add(dir.multiplyScalar(pullStrength * 0.92));
+    body.mesh.position.copy(pulled);
+    body.extras.forEach(e => e.position.copy(pulled));
+
+    // Compression / shredding
+    const shrink = Math.max(0, 1 - pullStrength * 1.3);
+    // Stretch toward black hole for spaghettification
+    const stretchZ = 1 + pullStrength * 2;
+    const squish = Math.max(0.05, shrink);
+    body.mesh.scale.set(squish, squish, Math.min(squish * stretchZ, 1.5));
+    body.extras.forEach(e => e.scale.set(squish, squish, squish));
+  });
+
+  // Stars pull in
+  for (let i = 0; i < starCount; i++) {
+    const orig = starOriginals[i];
+    const dx = blackHolePos.x - orig.x;
+    const dy = blackHolePos.y - orig.y;
+    const dz = blackHolePos.z - orig.z;
+    const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+    const pull = pullStrength * Math.max(0, 1 - dist / 600) * 0.85;
+    starDummy.position.set(orig.x + dx * pull, orig.y + dy * pull, orig.z + dz * pull);
+    const s = orig.s * Math.max(0.05, 1 - pullStrength * 0.9);
+    starDummy.scale.set(s, s, s);
+    starDummy.updateMatrix();
+    stars.setMatrixAt(i, starDummy.matrix);
+  }
+  stars.instanceMatrix.needsUpdate = true;
+
+  // Dust pull in
+  const dArr = dust.geometry.attributes.position.array;
+  for (let i = 0; i < dustCount; i++) {
+    const o = dustOrigPos[i];
+    const dx = blackHolePos.x - o.x;
+    const dy = blackHolePos.y - o.y;
+    const dz = blackHolePos.z - o.z;
+    const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+    const pull = pullStrength * Math.max(0, 1 - dist / 500) * 0.8;
+    dArr[i*3] = o.x + dx * pull;
+    dArr[i*3+1] = o.y + dy * pull;
+    dArr[i*3+2] = o.z + dz * pull;
+  }
+  dust.geometry.attributes.position.needsUpdate = true;
+
+  // Accretion intensifies
+  accMat.opacity = 0.8 + pullStrength * 0.2;
+  accMat.size = 0.45 + pullStrength * 2.0;
+
+  // Lens ring brightens
+  lensRing.material.opacity = 0.6 + pullStrength * 0.4;
+  lensRing2.material.opacity = 0.3 + pullStrength * 0.5;
+}
+
+// ─────────────────────────────────────────────
+// ANIMATION LOOP
+// ─────────────────────────────────────────────
+const clock = new THREE.Clock();
+
+function animate() {
+  requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+  const p = scrollState.progress;
+
+  // Shader time
+  sunMeshMat.uniforms.u_time.value = t;
+  planet1Mat.uniforms.u_time.value = t;
+  planet2Mat.uniforms.u_time.value = t;
+  planet3Mat.uniforms.u_time.value = t;
+
+  // Rotations
+  sunMesh.rotation.y = t * 0.04;
+  planet1.rotation.y = t * 0.07;
+  planet2.rotation.y = t * 0.055;
+  planet3.rotation.y = t * 0.09;
+
+  // Ring rotations
+  rings.forEach((r, i) => {
+    r.rotation.z = t * (0.08 - i * 0.025) * (i % 2 === 0 ? 1 : -1);
+  });
+
+  // Corona pulse
+  coronaLayers.forEach((c, i) => {
+    const s = 1 + Math.sin(t * (1.8 - i * 0.3) + i) * 0.05;
+    c.scale.setScalar(s);
+  });
+
+  // Accretion disk spin
+  const accArr = accGeo.attributes.position.array;
+  const speedMult = 1 + (p > 0.78 ? Math.pow((p - 0.78) / 0.22, 3) * 8 : 0);
+  for (let i = 0; i < accCount; i++) {
+    const d = accData[i];
+    d.angle += d.speed * 0.006 * speedMult;
+    accArr[i*3] = blackHolePos.x + Math.cos(d.angle) * d.radius;
+    accArr[i*3+1] = blackHolePos.y + d.baseY + Math.sin(t * 1.8 + d.angle * 2) * 0.12;
+    accArr[i*3+2] = blackHolePos.z + Math.sin(d.angle) * d.radius;
+  }
+  accGeo.attributes.position.needsUpdate = true;
+
+  // Lens ring rotation
+  lensRing.rotation.z = t * 0.15;
+  lensRing2.rotation.z = -t * 0.1;
+
+  // Nebulae face camera
+  nebulae.forEach(n => n.lookAt(camera.position));
+
+  // Gentle dust drift (only when not being pulled)
+  if (p < 0.78) {
+    const dArr = dust.geometry.attributes.position.array;
+    for (let i = 0; i < dustCount; i++) {
+      dArr[i*3+1] += Math.sin(t * 0.25 + i * 0.5) * 0.0015;
+      dArr[i*3] += Math.cos(t * 0.15 + i * 0.3) * 0.001;
+    }
+    dust.geometry.attributes.position.needsUpdate = true;
+  }
+
+  // Camera
+  const cam = getCameraState(p);
+  camera.position.copy(cam.pos);
+  camera.lookAt(cam.look);
+
+  // Section visibility
+  updateSections(p);
+
+  // Black hole pull
+  updateGravityPull(p, t);
+
+  // Fog increases near black hole
+  scene.fog.density = 0.0025 + (p > 0.88 ? (p - 0.88) / 0.12 * 0.018 : 0);
+
+  renderer.render(scene, camera);
+}
+
+animate();
+
+// ─────────────────────────────────────────────
+// RESIZE
+// ─────────────────────────────────────────────
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
 </body>
 </html>
