@@ -238,14 +238,32 @@ canvas#cosmos {
 .project-card a:hover { color: #ff55bb; }
 
 /* Contact */
-#contact-section { gap: 10px; }
+#contact-section {
+  gap: 14px;
+  isolation: isolate;
+}
+
+#contact-section::before {
+  content: "";
+  position: absolute;
+  width: min(74vw, 540px);
+  height: min(74vw, 540px);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(0,255,136,0.2) 0%, rgba(0,255,136,0.08) 28%, rgba(0,170,255,0.1) 52%, rgba(0,0,0,0) 74%);
+  filter: blur(12px);
+  opacity: 0.92;
+  pointer-events: none;
+  z-index: -1;
+}
 
 .contact-email {
   font-size: clamp(1.2rem, 2.5vw, 1.8rem);
   font-weight: 600;
   text-align: center;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   pointer-events: auto;
+  text-shadow: 0 0 22px rgba(0, 255, 136, 0.12);
 }
 
 .contact-email a {
@@ -258,31 +276,102 @@ canvas#cosmos {
 }
 
 .contact-links {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
-  gap: 9px;
+  gap: 14px;
   justify-content: center;
+  padding: 18px 24px;
+}
+
+.contact-links::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(0,255,136,0.12), rgba(0,255,136,0.02) 46%, rgba(0,0,0,0) 72%),
+    linear-gradient(135deg, rgba(0,255,136,0.12), rgba(0,170,255,0.12));
+  border: 1px solid rgba(110, 255, 206, 0.08);
+  filter: blur(0.4px);
+  pointer-events: none;
 }
 
 .contact-link {
-  background: rgba(0, 50, 40, 0.3);
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  background:
+    linear-gradient(180deg, rgba(3, 23, 22, 0.94), rgba(0, 18, 20, 0.8)),
+    linear-gradient(135deg, rgba(0,255,136,0.22), rgba(0,170,255,0.18));
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(0,255,136,0.15);
-  border-radius: 10px;
-  padding: 12px 20px;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.72rem;
-  color: rgba(170,250,210,0.8);
+  border: 1px solid rgba(121, 255, 212, 0.26);
+  border-radius: 22px;
+  color: rgba(204,255,243,0.92);
   text-decoration: none;
-  letter-spacing: 0.08em;
   pointer-events: auto;
-  transition: all 0.25s;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.12),
+    0 18px 34px rgba(0,0,0,0.28),
+    0 0 0 1px rgba(0,0,0,0.18);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease, background 0.25s ease;
 }
+
+.contact-link::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 20px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.01) 32%, rgba(0,255,136,0.08) 82%, rgba(0,170,255,0.06));
+  opacity: 0.94;
+}
+
+.contact-link svg {
+  position: relative;
+  z-index: 1;
+  width: 28px;
+  height: 28px;
+  stroke-width: 1.9;
+}
+
 .contact-link:hover {
-  border-color: rgba(0,255,136,0.45);
-  box-shadow: 0 0 30px rgba(0,255,136,0.12);
+  transform: translateY(-4px) rotate(4deg);
+  border-color: rgba(102,255,208,0.72);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.16),
+    0 22px 44px rgba(0,0,0,0.36),
+    0 0 28px rgba(0,255,136,0.18),
+    0 0 40px rgba(0,170,255,0.14);
   color: #fff;
+}
+
+.contact-link:nth-child(even):hover {
+  transform: translateY(-4px) rotate(-4deg);
+}
+
+.contact-link:focus-visible {
+  outline: 2px solid rgba(130, 255, 223, 0.9);
+  outline-offset: 4px;
+  border-color: rgba(130, 255, 223, 0.85);
+  color: #fff;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Footer */
@@ -385,10 +474,26 @@ canvas#cosmos {
   <div class="section-label" style="color: var(--green);">Let's collaborate</div>
   <div class="contact-email"><a href="mailto:me@adamzafir.com">me@adamzafir.com</a></div>
   <div class="contact-links">
-    <a class="contact-link" href="https://github.com/adamzafir" target="_blank" rel="noopener">GitHub</a>
-    <a class="contact-link" href="https://www.linkedin.com/in/adamzafir" target="_blank" rel="noopener">LinkedIn</a>
-    <a class="contact-link" href="https://zafir.dev" target="_blank" rel="noopener">Blog</a>
-    <a class="contact-link" href="https://buymeacoffee.com/adamzafir" target="_blank" rel="noopener">Buy Me a Coffee</a>
+    <a class="contact-link" href="https://github.com/adamzafir" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg>
+      <span class="sr-only">GitHub</span>
+    </a>
+    <a class="contact-link" href="https://www.linkedin.com/in/adamzafir/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 11v5" /><path d="M8 8v.01" /><path d="M12 16v-5" /><path d="M16 16v-3a2 2 0 1 0 -4 0" /><path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4z" /></svg>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+    <a class="contact-link" href="https://instagram.com/admzfir" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4m0 4a4 4 0 0 1 4 -4h8a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4z" /><path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M16.5 7.5l0 .01" /></svg>
+      <span class="sr-only">Instagram</span>
+    </a>
+    <a class="contact-link" href="https://x.com/admzfir" target="_blank" rel="noopener" aria-label="X" title="X">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg>
+      <span class="sr-only">X</span>
+    </a>
+    <a class="contact-link" href="https://buymeacoffee.com/adamzafir" target="_blank" rel="noopener" aria-label="Buy Me a Coffee" title="Buy Me a Coffee">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 8h11v4a4 4 0 0 1 -4 4h-3a4 4 0 0 1 -4 -4z" /><path d="M15 10h2a2 2 0 0 1 0 4h-2" /><path d="M6 19h8" /><path d="M8 5v-1" /><path d="M11 5v-2" /><path d="M14 5v-1" /></svg>
+      <span class="sr-only">Buy Me a Coffee</span>
+    </a>
   </div>
 </div>
 
