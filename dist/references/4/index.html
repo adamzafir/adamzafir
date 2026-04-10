@@ -8,8 +8,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="icon" href="data:,">
-
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -39,41 +37,7 @@ body {
   font-family: 'Geologica', sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  height: 860vh;
-  position: relative;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 4;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.16) 62%, rgba(0,0,0,0.45) 100%),
-    radial-gradient(circle at 50% 100%, rgba(255,170,0,0.08), rgba(0,0,0,0) 40%);
-  mix-blend-mode: normal;
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 4;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 3px 3px, 3px 3px;
-  mix-blend-mode: soft-light;
-  animation: film-drift 16s linear infinite;
-}
-
-@keyframes film-drift {
-  0% { transform: translate3d(0,0,0); }
-  50% { transform: translate3d(-0.6%, 0.4%, 0); }
-  100% { transform: translate3d(0,0,0); }
+  height: 600vh;
 }
 
 canvas#cosmos {
@@ -279,30 +243,13 @@ canvas#cosmos {
 }
 
 /* Footer */
-#footer-section {
-  gap: 0;
-  isolation: isolate;
-}
-
-#footer-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, rgba(4,6,12,0.74) 0%, rgba(4,6,12,0.42) 22%, rgba(4,6,12,0) 62%);
-  pointer-events: none;
-}
+#footer-section { gap: 0; }
 
 .footer-copy {
-  position: relative;
-  z-index: 1;
   font-family: 'Space Mono', monospace;
-  font-size: 0.76rem;
-  color: rgba(255,255,255,0.46);
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.25);
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-align: center;
-  max-width: 80vw;
-  text-shadow: 0 1px 12px rgba(0,0,0,0.35);
 }
 
 /* White flash overlay */
@@ -310,7 +257,7 @@ canvas#cosmos {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.96), rgba(255,255,255,0.72) 35%, rgba(255,255,255,0) 72%);
+  background: #fff;
   z-index: 10;
   opacity: 0;
   pointer-events: none;
@@ -327,42 +274,33 @@ canvas#cosmos {
   font-size: 0.6rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: rgba(255,245,220,0.4);
-  text-shadow: 0 0 18px rgba(255,170,0,0.18);
+  color: rgba(255,255,255,0.15);
   animation: pulse-hint 3s ease-in-out infinite;
   pointer-events: none;
 }
 @keyframes pulse-hint {
-  0%, 100% { opacity: 0.42; transform: translateX(-50%) translateY(0); }
-  50% { opacity: 0.78; transform: translateX(-50%) translateY(-4px); }
+  0%, 100% { opacity: 0.15; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.35; transform: translateX(-50%) translateY(-4px); }
 }
 </style>
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/"
-  }
-}
-</script>
-  <script type="module" crossorigin src="/assets/reference4-B69syl7F.js"></script>
+  <script type="module" crossorigin src="/assets/reference4-vaJ3Oy_6.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
 </head>
 <body>
 
 <canvas id="cosmos"></canvas>
 
-<div id="hero-section" class="section is-active" style="opacity: 1;" aria-hidden="false">
+<div id="hero-section" class="section">
   <div class="hero-name">Adam Zafir</div>
-  <div class="hero-title">Founder of PyCollab</div>
+  <div class="hero-title">Software Developer</div>
+  <div class="hero-bio">Software developer and founder of PyCollab. I build web and Swift products with clear structure and thoughtful interfaces.</div>
 </div>
 
 <div id="philosophy-section" class="section">
-  <div class="section-label" style="color: var(--blue);">Quotes by Adam</div>
-  <div class="quote-panel"><p>"If the product matters, the details usually matter too."</p></div>
-  <div class="quote-panel"><p>"I probably have a linkedin post on that... probably"</p></div>
-  <div class="quote-panel"><p>"The best UX isn't the fanciest—it's the one you don't even notice"</p></div>
-  <div class="quote-panel"><p>"What if the real quote was the friends we made along the way"</p></div>
+  <div class="section-label" style="color: var(--blue);">Philosophy</div>
+  <div class="quote-panel"><p>"Build fast, but leave the rough edges behind."</p></div>
+  <div class="quote-panel"><p>"Design decisions should support the product, not distract from it."</p></div>
+  <div class="quote-panel"><p>"Good software earns trust through clarity and restraint."</p></div>
 </div>
 
 <div id="projects-section" class="section">
@@ -374,18 +312,18 @@ canvas#cosmos {
   </div>
   <div class="project-card">
     <h3>Scripties</h3>
-    <p>A speaking tool focused on structure, delivery, and keeping rehearsal sessions measurable instead of vague. Built as part of the Swift Accelerator Programme 2025 alongside Chan Yap Long, Divya Dharshini Krishnamoorthy, and Ethan Soh Yi Teng.</p>
-    <a href="https://scripties-4ug0.onrender.com/" target="_blank" rel="noopener">Scripties &rarr;</a>
+    <p>Speech writing and rehearsal with pacing feedback. Built as part of Swift Accelerator Programme 2025.</p>
+    <a href="https://scripties-4ug0.onrender.com/" target="_blank" rel="noopener">scripties &rarr;</a>
   </div>
   <div class="project-card">
     <h3>Cats By Adam</h3>
-    <p>Not everything needs to be serious to be useful. This project is a reminder that personality still matters in a portfolio.</p>
+    <p>A lighter project that keeps the personal work human.</p>
     <a href="https://cats.adamzafir.com" target="_blank" rel="noopener">cats.adamzafir.com &rarr;</a>
   </div>
 </div>
 
 <div id="contact-section" class="section">
-  <div class="section-label" style="color: var(--green);">Let's collaborate</div>
+  <div class="section-label" style="color: var(--green);">Contact</div>
   <div class="contact-email"><a href="mailto:me@adamzafir.com">me@adamzafir.com</a></div>
   <div class="contact-links">
     <a class="contact-link" href="https://github.com/adamzafir" target="_blank" rel="noopener">GitHub</a>
@@ -396,7 +334,7 @@ canvas#cosmos {
 </div>
 
 <div id="footer-section" class="section">
-  <div class="footer-copy">&copy; 2026 Adam Zafir • Built with Opus 4.6, gravity, and questionable restraint</div>
+  <div class="footer-copy">&copy; 2026 Adam Zafir — Built with Opus 4.6</div>
 </div>
 
 <div id="flash"></div>

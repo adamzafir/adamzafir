@@ -1,206 +1,595 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Adam Zafir | Software Developer</title>
-  <meta
-    name="description"
-    content="Adam Zafir builds practical software with a focus on clear interfaces, fast execution, and products that feel cared for."
-  />
-  <meta name="theme-color" content="#efe9dc" />
-  <script>
-    (() => {
-      const storageKey = 'adamzafir-theme';
-      const storedTheme = localStorage.getItem(storageKey);
-      const theme = storedTheme === 'light' || storedTheme === 'dark'
-        ? storedTheme
-        : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam Zafir</title>
+<meta name="description" content="Software developer and founder of PyCollab. I build web and Swift products with clear structure and thoughtful interfaces.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:,">
 
-      document.documentElement.dataset.theme = theme;
-      document.documentElement.style.colorScheme = theme;
-    })();
-  </script>
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <script type="module" crossorigin src="/assets/main-CFppRvFd.js"></script>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --spark: #cc44ff;
+  --spark-glow: rgba(204,68,255,0.22);
+  --white: rgba(255,255,255,0.94);
+  --white-mid: rgba(255,255,255,0.64);
+  --white-dim: rgba(255,255,255,0.36);
+  --white-ghost: rgba(255,255,255,0.10);
+  --bg: #020108;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(204,68,255,0.2) var(--bg);
+}
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(204,68,255,0.22); border-radius: 2px; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Sora', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  height: 860vh;
+  position: relative;
+}
+
+/* vignette */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.16) 62%, rgba(0,0,0,0.45) 100%),
+    radial-gradient(circle at 50% 100%, rgba(0,0,0,0.08), rgba(0,0,0,0) 40%);
+}
+
+/* grain */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 3px 3px;
+  mix-blend-mode: soft-light;
+  animation: film-drift 16s linear infinite;
+}
+
+@keyframes film-drift {
+  0% { transform: translate3d(0,0,0); }
+  50% { transform: translate3d(-0.6%, 0.4%, 0); }
+  100% { transform: translate3d(0,0,0); }
+}
+
+canvas#cosmos {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.section {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 max(6vw, 24px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 3;
+  transition: none;
+}
+
+.section.is-active {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* ─────────────────────────────
+   HERO
+───────────────────────────── */
+#hero-section {
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-top: 13vh;
+  padding-left: max(7vw, 28px);
+  gap: 0;
+}
+
+.hero-eyebrow {
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.44em;
+  text-transform: uppercase;
+  color: var(--white-dim);
+  margin-bottom: 18px;
+}
+
+.hero-name {
+  font-size: clamp(2.8rem, 5.5vw, 5.2rem);
+  font-weight: 200;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: #fff;
+}
+
+.hero-name strong {
+  font-weight: 600;
+  display: block;
+  letter-spacing: -0.04em;
+}
+
+.hero-divider {
+  width: 36px;
+  height: 1px;
+  background: var(--spark);
+  opacity: 0.55;
+  margin: 20px 0;
+}
+
+.hero-spark {
+  display: none; /* replaced by divider */
+}
+
+.hero-role {
+  font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: var(--white-mid);
+  text-transform: uppercase;
+}
+
+/* ─────────────────────────────
+   PHILOSOPHY / QUOTES
+───────────────────────────── */
+#philosophy-section { gap: 0; }
+
+.philo-label {
+  font-size: 0.6rem;
+  font-weight: 200;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--spark);
+  opacity: 0.7;
+  margin-bottom: 36px;
+}
+
+.quotes-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: min(540px, 88vw);
+  width: 100%;
+}
+
+.quote-item {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--white-ghost);
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  opacity: 0.38;
+  transform: translateX(0);
+}
+
+.quote-item:first-child {
+  border-top: 1px solid var(--white-ghost);
+}
+
+.quote-item.active {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+.q-glyph {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.54rem;
+  color: var(--spark);
+  opacity: 0;
+  padding-top: 5px;
+  transition: opacity 0.35s ease;
+  min-width: 24px;
+  flex-shrink: 0;
+  letter-spacing: 0.1em;
+}
+
+.quote-item.active .q-glyph {
+  opacity: 1;
+}
+
+.quote-item p {
+  font-size: clamp(0.95rem, 1.2vw, 1.08rem);
+  font-weight: 300;
+  line-height: 1.82;
+  color: rgba(255,255,255,0.6);
+  text-align: left;
+  text-wrap: pretty;
+  transition: color 0.45s ease, text-shadow 0.45s ease;
+}
+
+.quote-item.active p {
+  color: #fff;
+  text-shadow: 0 0 40px rgba(204,68,255,0.12);
+}
+
+/* ─────────────────────────────
+   PROJECTS
+───────────────────────────── */
+#projects-section { gap: 0; }
+
+.proj-label {
+  font-size: 0.6rem;
+  font-weight: 200;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--white-dim);
+  margin-bottom: 36px;
+}
+
+.proj-minimal {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: min(520px, 88vw);
+  width: 100%;
+}
+
+.proj-min-item {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--white-ghost);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  column-gap: 20px;
+  pointer-events: auto;
+}
+
+.proj-min-item:first-child {
+  border-top: 1px solid var(--white-ghost);
+}
+
+.proj-min-item h3 {
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  grid-column: 1;
+  grid-row: 1;
+  margin-bottom: 7px;
+  text-align: left;
+}
+
+.proj-min-item p {
+  font-size: 0.82rem;
+  font-weight: 300;
+  line-height: 1.72;
+  color: var(--white-mid);
+  text-wrap: pretty;
+  grid-column: 1;
+  grid-row: 2;
+  text-align: left;
+  padding-right: 12px;
+}
+
+.proj-min-link {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--spark);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  opacity: 0.75;
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  padding-top: 3px;
+  white-space: nowrap;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.proj-min-link:hover {
+  opacity: 1;
+  color: #dd77ff;
+}
+
+/* ─────────────────────────────
+   CONTACT
+───────────────────────────── */
+#contact-section { gap: 0; }
+
+.contact-spark-label {
+  font-size: 0.6rem;
+  font-weight: 200;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--spark);
+  opacity: 0.75;
+  margin-bottom: 22px;
+}
+
+.contact-email-v5 {
+  font-size: clamp(1.55rem, 3.8vw, 2.8rem);
+  font-weight: 200;
+  letter-spacing: -0.03em;
+  margin-bottom: 32px;
+  pointer-events: auto;
+}
+
+.contact-email-v5 a {
+  color: #fff;
+  text-decoration: none;
+  transition: text-shadow 0.3s;
+}
+
+.contact-email-v5 a:hover {
+  text-shadow: 0 0 40px rgba(204,68,255,0.3);
+}
+
+/* Icon buttons — same shape as original, Dissolution palette */
+.contact-icon-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+.contact-icon-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  color: rgba(255,255,255,0.62);
+  text-decoration: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 8px 24px rgba(0,0,0,0.22);
+  transition: border-color 0.25s, color 0.25s, background 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+
+.contact-icon-btn::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.0) 40%);
+  pointer-events: none;
+}
+
+.contact-icon-btn svg {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  stroke-width: 1.8;
+}
+
+.contact-icon-btn:hover {
+  border-color: rgba(204,68,255,0.5);
+  color: #fff;
+  background: rgba(204,68,255,0.1);
+  transform: translateY(-4px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.12),
+    0 14px 32px rgba(0,0,0,0.3),
+    0 0 24px rgba(204,68,255,0.15);
+}
+
+.contact-icon-btn:focus-visible {
+  outline: 2px solid rgba(204,68,255,0.7);
+  outline-offset: 4px;
+}
+
+/* ─────────────────────────────
+   FOOTER  (from original /)
+───────────────────────────── */
+#footer-section {
+  gap: 0;
+  isolation: isolate;
+}
+
+#footer-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(4,6,12,0.74) 0%, rgba(4,6,12,0.42) 22%, rgba(4,6,12,0) 62%);
+  pointer-events: none;
+}
+
+.footer-copy {
+  position: relative;
+  z-index: 1;
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(0.82rem, 0.74rem + 0.18vw, 1rem);
+  color: rgba(255,255,255,0.46);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  max-width: min(88vw, 46rem);
+  padding: 0 1rem;
+  text-shadow: 0 1px 12px rgba(0,0,0,0.35);
+}
+
+/* ─────────────────────────────
+   FLASH + SCROLL HINT
+───────────────────────────── */
+#flash {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.96), rgba(255,255,255,0.72) 35%, rgba(255,255,255,0) 72%);
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scroll-hint {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255,245,220,0.4);
+  text-shadow: 0 0 18px rgba(255,170,0,0.18);
+  animation: pulse-hint 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse-hint {
+  0%, 100% { opacity: 0.42; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.78; transform: translateX(-50%) translateY(-4px); }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/"
+  }
+}
+</script>
+  <script type="module" crossorigin src="/assets/main-DvBDgltr.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
-  <link rel="modulepreload" crossorigin href="/assets/lenis-BKafW-SX.js">
-  <link rel="stylesheet" crossorigin href="/assets/main-DUN8ZGkT.css">
 </head>
 <body>
-  <div class="page-shell">
-    <header class="site-header" data-site-header>
-      <div class="container site-header__inner">
-        <a class="site-header__brand" href="#top">Adam Zafir</a>
-        <div class="site-header__controls">
-          <nav class="site-nav" id="site-navigation" aria-label="Primary" data-site-nav>
-            <a href="#work">Work</a>
-            <a href="#contact">Contact</a>
-          </nav>
-          <button
-            class="theme-toggle"
-            type="button"
-            aria-label="Switch to dark mode"
-            aria-pressed="false"
-            data-theme-toggle
-          >
-            <span class="theme-toggle__icon" aria-hidden="true">
-              <svg class="theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-                <circle cx="12" cy="12" r="4.2"></circle>
-                <path d="M12 2.8v2.2"></path>
-                <path d="M12 19v2.2"></path>
-                <path d="M21.2 12h-2.2"></path>
-                <path d="M5 12H2.8"></path>
-                <path d="m18.5 5.5-1.6 1.6"></path>
-                <path d="m7.1 16.9-1.6 1.6"></path>
-                <path d="m18.5 18.5-1.6-1.6"></path>
-                <path d="m7.1 7.1-1.6-1.6"></path>
-              </svg>
-              <svg class="theme-toggle__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20.2 14.4A8.5 8.5 0 1 1 9.6 3.8a7 7 0 0 0 10.6 10.6Z"></path>
-              </svg>
-            </span>
-          </button>
-          <button
-            class="site-header__toggle"
-            type="button"
-            aria-expanded="false"
-            aria-controls="site-navigation"
-            aria-label="Open navigation"
-            data-nav-toggle
-          >
-            Menu
-          </button>
-        </div>
-      </div>
-    </header>
 
-    <main id="top">
-      <section class="intro section">
-        <div class="container intro__grid">
-          <div class="intro__copy" data-animate>
-            <p class="eyebrow">Software developer</p>
-            <h1>I'm Adam Zafir.</h1>
-            <p class="intro__lede">
-              Software developer and founder of PyCollab. I build web and Swift products
-              with clear structure and thoughtful interfaces.
-            </p>
-            <div class="intro__actions">
-              <a class="button button--primary" href="mailto:me@adamzafir.com">Email me</a>
-              <a class="button" href="https://github.com/adamzafir" target="_blank" rel="noreferrer">GitHub</a>
-            </div>
-          </div>
-        </div>
-      </section>
+<canvas id="cosmos"></canvas>
 
-      <section class="section strip">
-        <div class="container strip__grid" data-animate>
-          <p>Build fast, but leave the rough edges behind.</p>
-          <p>Design decisions should support the product, not distract from it.</p>
-          <p>Good software earns trust through clarity and restraint.</p>
-        </div>
-      </section>
-
-      <section class="section projects" id="work">
-        <div class="container">
-          <div class="section-heading" data-animate>
-            <p class="eyebrow">Selected work</p>
-            <h2>Projects with a clear job to do.</h2>
-          </div>
-
-          <div class="project-list">
-            <article class="project" data-animate>
-              <div class="project__meta">
-                <span>PyCollab</span>
-                <span>Collaboration tool</span>
-              </div>
-              <div class="project__body">
-                <h3>Realtime collaborative Python in the browser.</h3>
-                <p>
-                  A zero-setup coding environment built for shared momentum. Open a tab,
-                  start writing, and collaborate without setup overhead.
-                </p>
-              </div>
-              <a class="project__link" href="https://pycollab.com" target="_blank" rel="noreferrer">
-                Open project
-              </a>
-            </article>
-
-            <article class="project" data-animate>
-              <div class="project__meta">
-                <span>Scripties</span>
-                <span>Product + UI</span>
-              </div>
-              <div class="project__body">
-                <h3>Speech writing and rehearsal with pacing feedback.</h3>
-                <p>
-                  <span class="mobile-hidden">
-                    A speaking tool focused on structure, delivery, and keeping rehearsal sessions
-                    measurable instead of vague.
-                  </span>
-                  Built as part of the Swift Accelerator Programme 2025 alongside Chan Yap Long,
-                  Divya Dharshini Krishnamoorthy, and Ethan Soh Yi Teng.
-                </p>
-              </div>
-              <a
-                class="project__link"
-                href="https://scripties-4ug0.onrender.com/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Open project
-              </a>
-            </article>
-
-            <article class="project" data-animate>
-              <div class="project__meta">
-                <span>Cats By Adam</span>
-                <span>Side project</span>
-              </div>
-              <div class="project__body">
-                <h3>A lighter project that keeps the personal work human.</h3>
-                <p>
-                  Not everything needs to be serious to be useful. This project is a reminder
-                  that personality still matters in a portfolio.
-                </p>
-              </div>
-              <a class="project__link" href="https://cats.adamzafir.com" target="_blank" rel="noreferrer">
-                Open project
-              </a>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section contact" id="contact">
-        <div class="container contact__inner" data-animate>
-          <div>
-            <p class="eyebrow">Contact</p>
-            <h2>If the product matters, the details usually matter too.</h2>
-          </div>
-
-          <div class="contact__actions">
-            <a class="contact__email" href="mailto:me@adamzafir.com">me@adamzafir.com</a>
-            <div class="contact__links">
-              <a href="https://github.com/adamzafir" target="_blank" rel="noreferrer">github</a>
-              <a href="https://www.linkedin.com/in/adamzafir" target="_blank" rel="noreferrer">linkedin</a>
-              <a href="https://zafir.dev" target="_blank" rel="noreferrer">zafir.dev</a>
-              <a href="https://buymeacoffee.com/adamzafir" target="_blank" rel="noreferrer">buy me a coffee</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="container site-footer__inner">
-        <span>Adam Zafir</span>
-        <span data-current-year></span>
-      </div>
-    </footer>
+<!-- HERO -->
+<div id="hero-section" class="section is-active" style="opacity: 1;" aria-hidden="false">
+  <div class="hero-name">
+    <strong>Adam</strong>
+    Zafir
   </div>
+  <div class="hero-divider" aria-hidden="true"></div>
+  <div class="hero-role">Founder of PyCollab</div>
+</div>
 
+<!-- PHILOSOPHY -->
+<div id="philosophy-section" class="section">
+  <div class="philo-label">Quotes by Adam</div>
+  <div class="quotes-scroll">
+    <div class="quote-item" data-q="0">
+      <span class="q-glyph">01</span>
+      <p>"If the product matters, the details usually matter too."</p>
+    </div>
+    <div class="quote-item" data-q="1">
+      <span class="q-glyph">02</span>
+      <p>"I probably have a linkedin post on that... probably"</p>
+    </div>
+    <div class="quote-item" data-q="2">
+      <span class="q-glyph">03</span>
+      <p>"The best UX isn't the fanciest — it's the one you don't even notice."</p>
+    </div>
+    <div class="quote-item" data-q="3">
+      <span class="q-glyph">04</span>
+      <p>"What if the real quote was the friends we made along the way."</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div id="projects-section" class="section">
+  <div class="proj-label">Projects</div>
+  <div class="proj-minimal">
+    <div class="proj-min-item">
+      <h3>PyCollab</h3>
+      <p>Realtime collaborative Python in the browser. A zero-setup coding environment built for shared momentum.</p>
+      <a class="proj-min-link" href="https://pycollab.com" target="_blank" rel="noopener">pycollab.com →</a>
+    </div>
+    <div class="proj-min-item">
+      <h3>Scripties</h3>
+      <p>A speaking tool focused on structure, delivery, and measurable rehearsal sessions. Built during Swift Accelerator Programme 2025.</p>
+      <a class="proj-min-link" href="https://scripties-4ug0.onrender.com/" target="_blank" rel="noopener">Scripties →</a>
+    </div>
+    <div class="proj-min-item">
+      <h3>Cats By Adam</h3>
+      <p>Not everything needs to be serious to be useful. Personality still matters in a portfolio.</p>
+      <a class="proj-min-link" href="https://cats.adamzafir.com" target="_blank" rel="noopener">cats.adamzafir.com →</a>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact-section" class="section">
+  <div class="contact-spark-label">Let's collaborate</div>
+  <div class="contact-email-v5"><a href="mailto:me@adamzafir.com">me@adamzafir.com</a></div>
+  <div class="contact-icon-row">
+    <a class="contact-icon-btn" href="https://github.com/adamzafir" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+      <span class="sr-only">GitHub</span>
+    </a>
+    <a class="contact-icon-btn" href="https://www.linkedin.com/in/adamzafir/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 11v5M8 8v.01M12 16v-5M16 16v-3a2 2 0 1 0-4 0M3 7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/></svg>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+    <a class="contact-icon-btn" href="https://instagram.com/admzfir" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4m0 4a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path d="M12 12m-3 0a3 3 0 1 0 6 0 3 3 0 1 0-6 0"/><path d="M16.5 7.5v.01"/></svg>
+      <span class="sr-only">Instagram</span>
+    </a>
+    <a class="contact-icon-btn" href="https://x.com/admzfir" target="_blank" rel="noopener" aria-label="X" title="X">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4"/></svg>
+      <span class="sr-only">X</span>
+    </a>
+    <a class="contact-icon-btn" href="https://buymeacoffee.com/adamzafir" target="_blank" rel="noopener" aria-label="Buy Me a Coffee" title="Buy Me a Coffee">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h11v4a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4zM15 10h2a2 2 0 0 1 0 4h-2M6 19h8M8 5V4M11 5V3M14 5V4"/></svg>
+      <span class="sr-only">Buy Me a Coffee</span>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div id="footer-section" class="section">
+  <div class="footer-copy">&copy; 2026 Adam Zafir — Built with GPT 5.4</div>
+</div>
+
+<div id="flash"></div>
+<div class="scroll-hint">Scroll to explore</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+
+<!-- 3D cosmos scene -->
+
+<!-- Quote scroll-jacking -->
 </body>
 </html>
