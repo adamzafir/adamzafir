@@ -16,7 +16,6 @@
 
 :root {
   --spark: #cc44ff;
-  --spark-glow: rgba(204,68,255,0.22);
   --white: rgba(255,255,255,0.94);
   --white-mid: rgba(255,255,255,0.64);
   --white-dim: rgba(255,255,255,0.36);
@@ -112,7 +111,6 @@ canvas#cosmos {
   letter-spacing: inherit;
   text-transform: inherit;
   color: inherit;
-  text-decoration: none;
   cursor: pointer;
 }
 
@@ -124,34 +122,11 @@ canvas#cosmos {
   padding: 18px 0 30px;
 }
 
-.proj-label {
-  font-size: 0.6rem;
-  font-weight: 200;
-  letter-spacing: 0.42em;
-  text-transform: uppercase;
-  color: var(--white-dim);
-  margin-bottom: 36px;
-}
-
 .archive-head h1 {
   font-size: clamp(2.8rem, 6vw, 5.2rem);
   font-weight: 200;
   letter-spacing: -0.03em;
   line-height: 1.05;
-  max-width: 9ch;
-}
-
-.archive-head h1 strong {
-  font-weight: 600;
-}
-
-.archive-head p {
-  margin-top: 26px;
-  font-size: 0.82rem;
-  font-weight: 300;
-  line-height: 1.72;
-  color: var(--white-mid);
-  max-width: 36rem;
 }
 
 .proj-minimal {
@@ -174,15 +149,9 @@ canvas#cosmos {
   border-top: 1px solid var(--white-ghost);
 }
 
-.proj-min-meta {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.58rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--white-dim);
+.proj-min-content {
   grid-column: 1;
-  grid-row: 1;
-  margin-bottom: 10px;
+  grid-row: 1 / span 2;
 }
 
 .proj-min-content h3 {
@@ -203,11 +172,6 @@ canvas#cosmos {
   text-align: left;
   max-width: 36rem;
   padding-right: 12px;
-}
-
-.proj-min-content {
-  grid-column: 1;
-  grid-row: 2;
 }
 
 .proj-min-link {
@@ -329,52 +293,123 @@ canvas#cosmos {
 
     <div class="proj-minimal">
       <div class="proj-min-item">
-        <div class="proj-min-meta">01 / Product</div>
         <div class="proj-min-content">
-          <h3>Orbit Desk</h3>
-          <p>A lightweight operating layer for founders tracking weekly momentum, blockers, and releases without adding admin overhead.</p>
+          <h3>PyCollab</h3>
+          <p>Realtime Collaboration-first Python Editor</p>
         </div>
-        <a class="proj-min-link" href="/">Placeholder →</a>
+        <a class="proj-min-link" href="https://pycollab.com">pycollab.com →</a>
       </div>
       <div class="proj-min-item">
-        <div class="proj-min-meta">02 / Tooling</div>
         <div class="proj-min-content">
-          <h3>Branchlight</h3>
-          <p>A release dashboard for visualizing branch ownership, deployment risk, and outstanding review pressure across a shipping cycle.</p>
+          <h3>Scripties</h3>
+          <p>Teleprompter for practicing presentations. Built as part of the Swift Accelerator Programme 2025 alongside Chan Yap Long, Divya Dharshini Krishnamoorthy, and Ethan Soh Yi Teng.</p>
         </div>
-        <a class="proj-min-link" href="/">Placeholder →</a>
+        <a class="proj-min-link" href="https://scripties-4ug0.onrender.com/">scripties →</a>
       </div>
       <div class="proj-min-item">
-        <div class="proj-min-meta">03 / Platform</div>
         <div class="proj-min-content">
-          <h3>Studio Campus</h3>
-          <p>An online coding cohort space focused on collaborative practice, shared exercises, and small-group accountability.</p>
+          <h3>Cats By Adam</h3>
+          <p>Cats as a Service (CaaS)</p>
         </div>
-        <a class="proj-min-link" href="/">Placeholder →</a>
+        <a class="proj-min-link" href="https://cats.adamzafir.com">cats.adamzafir.com →</a>
       </div>
       <div class="proj-min-item">
-        <div class="proj-min-meta">04 / Native</div>
         <div class="proj-min-content">
-          <h3>Signal Notes</h3>
-          <p>A rehearsal workspace for shaping speaking flow, pacing, and narrative confidence with less friction before delivery.</p>
+          <h3>Markdown Desk</h3>
+          <p>Simple online markdown editor.</p>
         </div>
-        <a class="proj-min-link" href="/">Placeholder →</a>
+        <a class="proj-min-link" href="https://md.zafir.dev">md.zafir.dev →</a>
       </div>
       <div class="proj-min-item">
-        <div class="proj-min-meta">05 / Commerce</div>
         <div class="proj-min-content">
-          <h3>Night Market</h3>
-          <p>A boutique storefront concept built around denser storytelling, fewer distractions, and stronger product framing.</p>
+          <h3>Thumbnail Builder</h3>
+          <p>Clickbait thumbnail maker.</p>
         </div>
-        <a class="proj-min-link" href="/">Placeholder →</a>
+        <a class="proj-min-link" href="https://thumbnail.zafir.dev">thumbnail.zafir.dev →</a>
       </div>
       <div class="proj-min-item">
-        <div class="proj-min-meta">06 / Ambient UX</div>
         <div class="proj-min-content">
-          <h3>Quiet Mode</h3>
-          <p>A calmer digital workspace exploring low-pressure interaction patterns and more deliberate visual pacing.</p>
+          <h3>WindowNotes</h3>
+          <p>Native macOS menu bar app for attaching draggable notes to existing windows.</p>
         </div>
-        <a class="proj-min-link" href="/">Placeholder →</a>
+        <a class="proj-min-link" href="https://github.com/adamzafir/windownotes">windownotes →</a>
+      </div>
+      <div class="proj-min-item">
+        <div class="proj-min-content">
+          <h3>Voxel Snake</h3>
+          <p>3d Snake Game.</p>
+        </div>
+        <a class="proj-min-link" href="https://snake.zafir.dev">snake.zafir.dev →</a>
+      </div>
+      <div class="proj-min-item">
+        <div class="proj-min-content">
+          <h3>Hypervoxel Snake</h3>
+          <p>4d??? Snake Game.</p>
+        </div>
+        <a class="proj-min-link" href="https://snake2.zafir.dev">snake2.zafir.dev →</a>
+      </div>
+      <div class="proj-min-item">
+        <div class="proj-min-content">
+          <h3>Termite</h3>
+          <p>CLI tool to control your terminal from Whatsapp.</p>
+        </div>
+        <a class="proj-min-link" href="https://github.com/adamzafir/termite">termite →</a>
+      </div>
+      <div class="proj-min-item">
+        <div class="proj-min-content">
+          <h3>QCD</h3>
+          <p>Quick change directory CLI tool.</p>
+        </div>
+        <a class="proj-min-link" href="https://admz.link/qcd">qcd →</a>
+      </div>
+      <div class="proj-min-item">
+        <div class="proj-min-content">
+          <h3>CDmation</h3>
+          <p>Automations for your cds.</p>
+        </div>
+        <a class="proj-min-link" href="https://admz.link/cdmation">cdmation →</a>
+      </div>
+      <div class="proj-min-item">
+        <div class="proj-min-content">
+          <h3>Clock CLI</h3>
+          <p>Live terminal clock, timer, and stopwatch for zsh.</p>
+        </div>
+        <a class="proj-min-link" href="https://admz.link/clock-cli">clock-cli →</a>
+      </div>
+      <div class="proj-min-item">
+        <div class="proj-min-content">
+          <h3>Random CLI</h3>
+          <p>CLI for all things random.</p>
+        </div>
+        <a class="proj-min-link" href="https://admz.link/random-cli">random-cli →</a>
+      </div>
+      <div class="proj-min-item">
+        <div class="proj-min-content">
+          <h3>Music Visualisation CLI</h3>
+          <p>Live terminal music visualizer for macOS system audio.</p>
+        </div>
+        <a class="proj-min-link" href="https://admz.link/musicvis-cli">musicvis-cli →</a>
+      </div>
+      <div class="proj-min-item">
+        <div class="proj-min-content">
+          <h3>Wordle CLI</h3>
+          <p>Play the real daily NYT Wordle in your terminal.</p>
+        </div>
+        <a class="proj-min-link" href="https://admz.link/wordle-cli">wordle-cli →</a>
+      </div>
+      <div class="proj-min-item">
+        <div class="proj-min-content">
+          <h3>LG TV CLI</h3>
+          <p>CLI and native macOS companion for controlling LG webOS TVs.</p>
+        </div>
+        <a class="proj-min-link" href="https://admz.link/lgtv-cli">lgtv-cli →</a>
+      </div>
+      <div class="proj-min-item">
+        <div class="proj-min-content">
+          <h3>Codex Path Checker</h3>
+          <p>Confirmation guard in Zsh before running codex.</p>
+        </div>
+        <a class="proj-min-link" href="https://admz.link/codexpathchecker">codexpathchecker →</a>
       </div>
     </div>
 
@@ -401,11 +436,6 @@ const backButton = document.querySelector('[data-back-link]');
 
 if (backButton) {
   backButton.addEventListener('click', () => {
-    if (sessionStorage.getItem('adamzafir-return-scroll')) {
-      history.back();
-      return;
-    }
-
     window.location.href = '/';
   });
 }
