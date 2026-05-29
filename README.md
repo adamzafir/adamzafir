@@ -1,34 +1,53 @@
-<h1 align="center">About Me</h1>
+# Adam Zafir
 
-<div align="center">
+a student at school. dev on internet. i write sometimes too.
 
-### **Adam Zafir**
+[site](https://adamzafir.com) • [blog](https://zafir.dev) • [links](https://admz.link)
 
-![Founder of PyCollab](https://img.shields.io/badge/Founder_of_PyCollab-238636?style=flat&logo=github&logoColor=white)
-<img src="https://komarev.com/ghpvc/?username=adamzafir&label=Profile%20Views&color=000000&style=flat-square" />
+## Projects
 
-</div>
+* [PyCollab](https://pycollab.com) — Realtime collaboration-first Python editor.
 
-<br/>
+* [Scripties](https://scripties-4ug0.onrender.com/) — Teleprompter for practicing presentations. Built as part of the Swift Accelerator Programme 2025.
 
-<h2 align="center">GitHub Stats</h2>
+* [Cats By Adam](https://cats.adamzafir.com) — Cats as a Service (CaaS)
 
-[![GitHub Commits Badge](https://ghcommits.com/api/badge/adamzafir.svg)](https://ghcommits.com)
-<br>
+* [Markdown Desk](https://md.zafir.dev) — Simple online markdown editor.
 
-![Stars](https://img.shields.io/github/stars/adamzafir?affiliations=OWNER&style=for-the-badge)
+* [Thumbnail Builder](https://thumbnail.zafir.dev) — Clickbait thumbnail maker.
 
-<p>
-  <img height="165" src="https://nirzak-streak-stats.vercel.app/?user=adamzafir&theme=dark&hide_border=false" />
-</p>
+* [WindowNotes](https://github.com/adamzafir/windownotes) — Native macOS menu bar app for attaching draggable notes to existing windows.
+
+* [Voxel Snake](https://snake.zafir.dev) — 3d snake game.
+
+* [Hypervoxel Snake](https://snake2.zafir.dev) — 4d??? snake game.
+
+* [Termite](https://github.com/adamzafir/termite) — CLI tool to control your terminal from WhatsApp.
+
+* [QCD](https://admz.link/qcd) — Quick change directory CLI tool.
+
+* [CDmation](https://admz.link/cdmation) — Automations for your CDs.
+
+* [Clock CLI](https://admz.link/clock-cli) — Live terminal clock, timer, and stopwatch for zsh.
+
+* [Random CLI](https://admz.link/random-cli) — CLI for all things random.
+
+* [Music Visualisation CLI](https://admz.link/musicvis-cli) — Live terminal music visualizer for macOS system audio.
+
+* [Wordle CLI](https://admz.link/wordle-cli) — Play the real daily NYT Wordle in your terminal.
+
+* [LG TV CLI](https://admz.link/lgtv-cli) — CLI and native macOS companion for controlling LG webOS TVs.
+
+* [Codex Path Checker](https://admz.link/codexpathchecker) — Confirmation guard in zsh before running codex.
 
 
+## Elsewhere
 
-<h2 align="center">Contact Me</h2>
+* Email: [me@adamzafir.com](mailto:me@adamzafir.com)
+* [LinkedIn](https://linkedin.com/in/adamzafir)
+* [Instagram](https://instagram.com/admzfir)
+* [X](https://x.com/admzfir)
+* [Buy Me a Coffee](https://buymeacoffee.com/adamzafir)
 
-[![email](https://img.shields.io/badge/Email-me%40adamzafir.com-D14836?logo=gmail&logoColor=white)](mailto:me@adamzafir.com)
 
-
-<h2 align="center">Misc</h2>
-
-[![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/adamzafir)
+there is a non-zero chance some of these projects exist because i was avoiding homework

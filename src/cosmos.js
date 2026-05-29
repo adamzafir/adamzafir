@@ -44,6 +44,24 @@ const contactEl = document.getElementById('contact-section');
 const footerEl = document.getElementById('footer-section');
 const flashEl = document.getElementById('flash');
 const scrollHint = document.querySelector('.scroll-hint');
+const isProjectArchivePage = document.body.dataset.page === 'projects-archive';
+const projectsTransitionKey = 'adamzafir-projects-transition';
+const shouldAnimateArchiveEntry = isProjectArchivePage && sessionStorage.getItem(projectsTransitionKey) === '1';
+
+if (shouldAnimateArchiveEntry) {
+  sessionStorage.removeItem(projectsTransitionKey);
+}
+
+const transitionState = {
+  active: false,
+  kind: shouldAnimateArchiveEntry ? 'archive-entry' : null,
+  from: shouldAnimateArchiveEntry ? 0.624 : 0,
+  to: shouldAnimateArchiveEntry ? 0.66 : 0,
+  startTime: shouldAnimateArchiveEntry ? performance.now() : 0,
+  duration: shouldAnimateArchiveEntry ? 520 : 0,
+  href: null,
+  navigated: false,
+};
 
 const sunPos = new THREE.Vector3(0, 0, 0);
 const planet1Pos = new THREE.Vector3(-45, 10, -70);
@@ -1313,6 +1331,41 @@ function easeSection(p, start, peakStart, peakEnd, end) {
 }
 
 function updateSections(p) {
+  if (transitionState.active && transitionState.kind === 'to-projects') {
+    [
+      [heroEl, 0],
+      [philoEl, 0],
+      [contactEl, 0],
+    ].forEach(([element, opacity]) => {
+      if (!element) return;
+      element.style.opacity = opacity;
+      element.style.transform = 'translate3d(0, 26px, 0) scale(0.985)';
+      element.style.filter = 'blur(10px)';
+      element.classList.remove('is-active');
+      element.setAttribute('aria-hidden', 'true');
+    });
+
+    if (projEl) {
+      projEl.style.opacity = 1;
+      projEl.style.transform = 'translate3d(0, 0, 0) scale(1)';
+      projEl.style.filter = 'blur(0)';
+      projEl.classList.add('is-active');
+      projEl.setAttribute('aria-hidden', 'false');
+    }
+
+    if (footerEl) {
+      footerEl.style.opacity = 0;
+      footerEl.style.transform = 'translate3d(0, 22px, 0) scale(0.99)';
+      footerEl.style.filter = 'blur(10px)';
+      footerEl.classList.remove('is-active');
+      footerEl.setAttribute('aria-hidden', 'true');
+    }
+
+    if (flashEl) flashEl.style.opacity = 0;
+    if (scrollHint) scrollHint.style.display = 'none';
+    return;
+  }
+
   const heroOpacity = easeSection(p, 0.0, 0.0, 0.18, 0.29);
   const philoOpacity = easeSection(p, 0.30, 0.34, 0.45, 0.56);
   const projectOpacity = easeSection(p, 0.56, 0.60, 0.71, 0.81);
@@ -1324,6 +1377,7 @@ function updateSections(p) {
     [projEl, projectOpacity],
     [contactEl, contactOpacity],
   ].forEach(([element, opacity]) => {
+    if (!element) return;
     element.style.opacity = opacity;
     element.style.transform = `translate3d(0, ${mix(26, 0, opacity)}px, 0) scale(${mix(0.985, 1, opacity)})`;
     element.style.filter = `blur(${mix(10, 0, opacity)}px)`;
@@ -1333,33 +1387,57 @@ function updateSections(p) {
   });
 
   const footerOpacity = p > 0.962 ? Math.min(1, (p - 0.962) / 0.024) : 0;
-  footerEl.style.opacity = footerOpacity;
-  footerEl.style.transform = `translate3d(0, ${mix(22, 0, footerOpacity)}px, 0) scale(${mix(0.99, 1, footerOpacity)})`;
-  footerEl.style.filter = `blur(${mix(10, 0, footerOpacity)}px)`;
-  const footerActive = footerOpacity > 0.01;
-  footerEl.classList.toggle('is-active', footerActive);
-  footerEl.setAttribute('aria-hidden', String(!footerActive));
+  if (footerEl) {
+    footerEl.style.opacity = footerOpacity;
+    footerEl.style.transform = `translate3d(0, ${mix(22, 0, footerOpacity)}px, 0) scale(${mix(0.99, 1, footerOpacity)})`;
+    footerEl.style.filter = `blur(${mix(10, 0, footerOpacity)}px)`;
+    const footerActive = footerOpacity > 0.01;
+    footerEl.classList.toggle('is-active', footerActive);
+    footerEl.setAttribute('aria-hidden', String(!footerActive));
+  }
 
-  if (p > 0.925 && p < 0.97) {
-    const t = (p - 0.925) / 0.045;
-    flashEl.style.opacity = Math.pow(t, 1.8) * 0.18;
-  } else if (p >= 0.97) {
-    flashEl.style.opacity = Math.max(0, 0.18 - (p - 0.97) / 0.03 * 0.18);
-  } else {
-    flashEl.style.opacity = 0;
+  if (flashEl) {
+    if (p > 0.925 && p < 0.97) {
+      const t = (p - 0.925) / 0.045;
+      flashEl.style.opacity = Math.pow(t, 1.8) * 0.18;
+    } else if (p >= 0.97) {
+      flashEl.style.opacity = Math.max(0, 0.18 - (p - 0.97) / 0.03 * 0.18);
+    } else {
+      flashEl.style.opacity = 0;
+    }
   }
 
   if (scrollHint) scrollHint.style.display = p > 0.02 ? 'none' : 'block';
 }
 
-const scrollState = { progress: 0 };
-ScrollTrigger.create({
-  trigger: 'body',
-  start: 'top top',
-  end: 'bottom bottom',
-  scrub: 1.45,
-  onUpdate: (self) => { scrollState.progress = self.progress; },
-});
+const scrollState = {
+  progress: isProjectArchivePage ? (shouldAnimateArchiveEntry ? 0.612 : 0.66) : 0,
+  target: isProjectArchivePage ? 0.66 : 0,
+};
+
+window.startProjectsTransition = (href) => {
+  if (isProjectArchivePage || transitionState.active) return;
+
+  transitionState.active = true;
+  transitionState.kind = 'to-projects';
+  transitionState.from = Math.max(scrollState.progress, 0.605);
+  transitionState.to = 0.735;
+  transitionState.startTime = performance.now();
+  transitionState.duration = 430;
+  transitionState.href = href;
+  transitionState.navigated = false;
+  document.body.classList.add('projects-transitioning');
+};
+
+if (!isProjectArchivePage) {
+  ScrollTrigger.create({
+    trigger: 'body',
+    start: 'top top',
+    end: 'bottom bottom',
+    scrub: 1.45,
+    onUpdate: (self) => { scrollState.progress = self.progress; },
+  });
+}
 
 function updateVoxelBody(body, t, strength = 1) {
   if (body.type === 'sphere' || body.type === 'sun') {
@@ -1504,6 +1582,26 @@ const clock = new THREE.Clock();
 function animate() {
   requestAnimationFrame(animate);
   const t = clock.getElapsedTime();
+  if (transitionState.active) {
+    const elapsed = performance.now() - transitionState.startTime;
+    const raw = Math.min(1, elapsed / transitionState.duration);
+    const eased = 1 - Math.pow(1 - raw, transitionState.kind === 'to-projects' ? 4 : 3);
+    scrollState.progress = mix(transitionState.from, transitionState.to, eased);
+
+    if (raw >= 1) {
+      if (transitionState.kind === 'to-projects' && !transitionState.navigated && transitionState.href) {
+        transitionState.navigated = true;
+        window.location.href = transitionState.href;
+      }
+
+      if (transitionState.kind === 'archive-entry') {
+        transitionState.active = false;
+        transitionState.kind = null;
+      }
+    }
+  } else if (isProjectArchivePage) {
+    scrollState.progress += (scrollState.target - scrollState.progress) * 0.2;
+  }
   const p = scrollState.progress;
   const bhT = clamp01((p - 0.78) / 0.22);
   const singularityT = clamp01((p - 0.94) / 0.06);

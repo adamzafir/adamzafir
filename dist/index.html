@@ -312,6 +312,86 @@ canvas#cosmos {
   color: #dd77ff;
 }
 
+.proj-more {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.proj-more-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 0 22px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.045);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 14px 36px rgba(0,0,0,0.22);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.82);
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+}
+
+.proj-more-link::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.0) 48%);
+  pointer-events: none;
+}
+
+.proj-more-link span {
+  position: relative;
+}
+
+.proj-more-link:hover,
+.proj-more-link:focus-visible {
+  transform: translateY(-4px);
+  border-color: rgba(204,68,255,0.46);
+  background: rgba(204,68,255,0.1);
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.12),
+    0 18px 40px rgba(0,0,0,0.28),
+    0 0 30px rgba(204,68,255,0.14);
+}
+
+@media (max-width: 640px) {
+  .proj-min-item {
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+  }
+
+  .proj-min-item p {
+    padding-right: 0;
+  }
+
+  .proj-min-link {
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: start;
+  }
+
+  .proj-more-link {
+    width: min(100%, 320px);
+    min-height: 48px;
+    padding: 0 18px;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+  }
+}
+
 /* ─────────────────────────────
    CONTACT
 ───────────────────────────── */
@@ -487,8 +567,9 @@ canvas#cosmos {
   }
 }
 </script>
-  <script type="module" crossorigin src="/assets/main-DvBDgltr.js"></script>
+  <script type="module" crossorigin src="/assets/main-DN8uqdGC.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="modulepreload" crossorigin href="/assets/cosmos-DFkOYkoz.js">
 </head>
 <body>
 
@@ -546,6 +627,12 @@ canvas#cosmos {
       <p>Not everything needs to be serious to be useful. Personality still matters in a portfolio.</p>
       <a class="proj-min-link" href="https://cats.adamzafir.com" target="_blank" rel="noopener">cats.adamzafir.com →</a>
     </div>
+  </div>
+  <div class="proj-more">
+    <a class="proj-more-link" href="/projects/" data-projects-entry>
+      <span>See More Projects</span>
+      <span aria-hidden="true">→</span>
+    </a>
   </div>
 </div>
 

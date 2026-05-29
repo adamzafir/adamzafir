@@ -319,6 +319,86 @@ canvas#cosmos {
   color: #dd77ff;
 }
 
+.proj-more {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.proj-more-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 0 22px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.045);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 14px 36px rgba(0,0,0,0.22);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.82);
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+}
+
+.proj-more-link::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.0) 48%);
+  pointer-events: none;
+}
+
+.proj-more-link span {
+  position: relative;
+}
+
+.proj-more-link:hover,
+.proj-more-link:focus-visible {
+  transform: translateY(-4px);
+  border-color: rgba(204,68,255,0.46);
+  background: rgba(204,68,255,0.1);
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.12),
+    0 18px 40px rgba(0,0,0,0.28),
+    0 0 30px rgba(204,68,255,0.14);
+}
+
+@media (max-width: 640px) {
+  .proj-min-item {
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+  }
+
+  .proj-min-item p {
+    padding-right: 0;
+  }
+
+  .proj-min-link {
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: start;
+  }
+
+  .proj-more-link {
+    width: min(100%, 320px);
+    min-height: 48px;
+    padding: 0 18px;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+  }
+}
+
 /* ─────────────────────────────
    CONTACT
 ───────────────────────────── */
@@ -530,19 +610,25 @@ canvas#cosmos {
   <div class="proj-minimal">
     <div class="proj-min-item">
       <h3>PyCollab</h3>
-      <p>Realtime collaborative Python in the browser. A zero-setup coding environment built for shared momentum.</p>
+      <p>Realtime Collaboration-first Python Editor</p>
       <a class="proj-min-link" href="https://pycollab.com" target="_blank" rel="noopener">pycollab.com →</a>
     </div>
     <div class="proj-min-item">
       <h3>Scripties</h3>
-      <p>A speaking tool focused on structure, delivery, and measurable rehearsal sessions. Built during Swift Accelerator Programme 2025.</p>
+      <p>Teleprompter for practicing presentations. Built as part of the Swift Accelerator Programme 2025 alongside Chan Yap Long, Divya Dharshini Krishnamoorthy, and Ethan Soh Yi Teng. </p>
       <a class="proj-min-link" href="https://scripties-4ug0.onrender.com/" target="_blank" rel="noopener">Scripties →</a>
     </div>
     <div class="proj-min-item">
       <h3>Cats By Adam</h3>
-      <p>Not everything needs to be serious to be useful. Personality still matters in a portfolio.</p>
+      <p>Cats as a Service (CaaS)</p>
       <a class="proj-min-link" href="https://cats.adamzafir.com" target="_blank" rel="noopener">cats.adamzafir.com →</a>
     </div>
+  </div>
+  <div class="proj-more">
+    <a class="proj-more-link" href="/projects/" data-projects-entry>
+      <span>See More Projects</span>
+      <span aria-hidden="true">→</span>
+    </a>
   </div>
 </div>
 
@@ -590,6 +676,47 @@ canvas#cosmos {
 
 <!-- Quote scroll-jacking -->
 <script type="module">
+const returnScrollKey = 'adamzafir-return-scroll';
+const projectsTransitionKey = 'adamzafir-projects-transition';
+const projectsEntryLink = document.querySelector('[data-projects-entry]');
+
+function restoreStoredScroll() {
+  const raw = sessionStorage.getItem(returnScrollKey);
+  if (!raw) return;
+
+  const y = Number(raw);
+  if (!Number.isFinite(y)) {
+    sessionStorage.removeItem(returnScrollKey);
+    return;
+  }
+
+  const restore = () => window.scrollTo({ top: y, behavior: 'instant' });
+  restore();
+  requestAnimationFrame(() => {
+    restore();
+    requestAnimationFrame(restore);
+  });
+  setTimeout(restore, 80);
+  sessionStorage.removeItem(returnScrollKey);
+}
+
+if (projectsEntryLink) {
+  projectsEntryLink.addEventListener('click', (event) => {
+    event.preventDefault();
+    sessionStorage.setItem(returnScrollKey, String(window.scrollY));
+    sessionStorage.setItem(projectsTransitionKey, '1');
+
+    if (typeof window.startProjectsTransition === 'function') {
+      window.startProjectsTransition(projectsEntryLink.href);
+      return;
+    }
+
+    window.location.href = projectsEntryLink.href;
+  });
+}
+
+window.addEventListener('pageshow', restoreStoredScroll, { once: true });
+
 const quotes = Array.from(document.querySelectorAll('.quote-item'));
 const N = quotes.length;
 

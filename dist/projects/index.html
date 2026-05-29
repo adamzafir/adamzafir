@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — Adam Zafir</title>
+<meta name="description" content="More projects by Adam Zafir.">
+<meta name="theme-color" content="#020108">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:,">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --spark: #cc44ff;
+  --spark-glow: rgba(204,68,255,0.22);
+  --white: rgba(255,255,255,0.94);
+  --white-mid: rgba(255,255,255,0.64);
+  --white-dim: rgba(255,255,255,0.36);
+  --white-ghost: rgba(255,255,255,0.10);
+  --bg: #020108;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(204,68,255,0.2) var(--bg);
+}
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(204,68,255,0.22); border-radius: 2px; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Sora', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.16) 62%, rgba(0,0,0,0.45) 100%),
+    radial-gradient(circle at 50% 100%, rgba(0,0,0,0.08), rgba(0,0,0,0) 40%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 3px 3px;
+  mix-blend-mode: soft-light;
+  animation: film-drift 16s linear infinite;
+}
+
+@keyframes film-drift {
+  0% { transform: translate3d(0,0,0); }
+  50% { transform: translate3d(-0.6%, 0.4%, 0); }
+  100% { transform: translate3d(0,0,0); }
+}
+
+canvas#cosmos {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.archive-shell {
+  position: relative;
+  z-index: 3;
+  width: min(520px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0 32px;
+}
+
+.archive-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px;
+  margin-bottom: 24px;
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--white-dim);
+}
+
+.archive-back {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.archive-back:hover {
+  color: #fff;
+}
+
+.archive-head {
+  padding: 18px 0 30px;
+}
+
+.proj-label {
+  font-size: 0.6rem;
+  font-weight: 200;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--white-dim);
+  margin-bottom: 36px;
+}
+
+.archive-head h1 {
+  font-size: clamp(2.8rem, 6vw, 5.2rem);
+  font-weight: 200;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  max-width: 9ch;
+}
+
+.archive-head h1 strong {
+  font-weight: 600;
+}
+
+.archive-head p {
+  margin-top: 26px;
+  font-size: 0.82rem;
+  font-weight: 300;
+  line-height: 1.72;
+  color: var(--white-mid);
+  max-width: 36rem;
+}
+
+.proj-minimal {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.proj-min-item {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--white-ghost);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  column-gap: 20px;
+  pointer-events: auto;
+}
+
+.proj-min-item:first-child {
+  border-top: 1px solid var(--white-ghost);
+}
+
+.proj-min-meta {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--white-dim);
+  grid-column: 1;
+  grid-row: 1;
+  margin-bottom: 10px;
+}
+
+.proj-min-content h3 {
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  margin-bottom: 7px;
+  text-align: left;
+}
+
+.proj-min-content p {
+  font-size: 0.82rem;
+  font-weight: 300;
+  line-height: 1.72;
+  color: var(--white-mid);
+  text-wrap: pretty;
+  text-align: left;
+  max-width: 36rem;
+  padding-right: 12px;
+}
+
+.proj-min-content {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.proj-min-link {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--spark);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  opacity: 0.75;
+  white-space: nowrap;
+  transition: opacity 0.2s, color 0.2s;
+  padding-top: 3px;
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+}
+
+.proj-min-link:hover {
+  opacity: 1;
+  color: #dd77ff;
+}
+
+.archive-footer {
+  padding: 18px 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--white-dim);
+}
+
+.archive-footer a {
+  color: var(--spark);
+  text-decoration: none;
+}
+
+.archive-footer a:hover {
+  color: #dd77ff;
+}
+
+.ghost-sections {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .archive-shell {
+    width: min(calc(100% - 20px), 520px);
+    padding-top: 18px;
+    padding-bottom: 20px;
+  }
+
+  .archive-head {
+    padding-top: 10px;
+    padding-bottom: 20px;
+  }
+
+  .archive-head h1 {
+    font-size: clamp(2.4rem, 15vw, 4rem);
+  }
+
+  .proj-min-item {
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+  }
+
+  .proj-min-content p {
+    padding-right: 0;
+  }
+
+  .proj-min-link {
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: start;
+  }
+
+  .archive-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/"
+  }
+}
+</script>
+  <script type="module" crossorigin src="/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
+  <script type="module" crossorigin src="https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js"></script>
+  <script type="module" crossorigin src="https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/postprocessing/EffectComposer.js"></script>
+  <script type="module" crossorigin src="https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/postprocessing/RenderPass.js"></script>
+  <script type="module" crossorigin src="https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/postprocessing/UnrealBloomPass.js"></script>
+  <script type="module" crossorigin src="https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/postprocessing/BokehPass.js"></script>
+  <script type="module" crossorigin src="/assets/cosmos-DFkOYkoz.js"></script>
+  <script type="module" crossorigin src="https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js"></script>
+  <script type="module" crossorigin src="https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/postprocessing/EffectComposer.js"></script>
+  <script type="module" crossorigin src="https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/postprocessing/RenderPass.js"></script>
+  <script type="module" crossorigin src="https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/postprocessing/UnrealBloomPass.js"></script>
+  <script type="module" crossorigin src="https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/postprocessing/BokehPass.js"></script>
+</head>
+<body data-page="projects-archive">
+<canvas id="cosmos"></canvas>
+
+<div class="archive-shell">
+  <div class="archive-topbar">
+    <button class="archive-back" type="button" data-back-link>Back Home</button>
+  </div>
+
+  <main id="projects-section" aria-hidden="false">
+    <div class="archive-head">
+      <h1>Projects</h1>
+    </div>
+
+    <div class="proj-minimal">
+      <div class="proj-min-item">
+        <div class="proj-min-meta">01 / Product</div>
+        <div class="proj-min-content">
+          <h3>Orbit Desk</h3>
+          <p>A lightweight operating layer for founders tracking weekly momentum, blockers, and releases without adding admin overhead.</p>
+        </div>
+        <a class="proj-min-link" href="/">Placeholder →</a>
+      </div>
+      <div class="proj-min-item">
+        <div class="proj-min-meta">02 / Tooling</div>
+        <div class="proj-min-content">
+          <h3>Branchlight</h3>
+          <p>A release dashboard for visualizing branch ownership, deployment risk, and outstanding review pressure across a shipping cycle.</p>
+        </div>
+        <a class="proj-min-link" href="/">Placeholder →</a>
+      </div>
+      <div class="proj-min-item">
+        <div class="proj-min-meta">03 / Platform</div>
+        <div class="proj-min-content">
+          <h3>Studio Campus</h3>
+          <p>An online coding cohort space focused on collaborative practice, shared exercises, and small-group accountability.</p>
+        </div>
+        <a class="proj-min-link" href="/">Placeholder →</a>
+      </div>
+      <div class="proj-min-item">
+        <div class="proj-min-meta">04 / Native</div>
+        <div class="proj-min-content">
+          <h3>Signal Notes</h3>
+          <p>A rehearsal workspace for shaping speaking flow, pacing, and narrative confidence with less friction before delivery.</p>
+        </div>
+        <a class="proj-min-link" href="/">Placeholder →</a>
+      </div>
+      <div class="proj-min-item">
+        <div class="proj-min-meta">05 / Commerce</div>
+        <div class="proj-min-content">
+          <h3>Night Market</h3>
+          <p>A boutique storefront concept built around denser storytelling, fewer distractions, and stronger product framing.</p>
+        </div>
+        <a class="proj-min-link" href="/">Placeholder →</a>
+      </div>
+      <div class="proj-min-item">
+        <div class="proj-min-meta">06 / Ambient UX</div>
+        <div class="proj-min-content">
+          <h3>Quiet Mode</h3>
+          <p>A calmer digital workspace exploring low-pressure interaction patterns and more deliberate visual pacing.</p>
+        </div>
+        <a class="proj-min-link" href="/">Placeholder →</a>
+      </div>
+    </div>
+
+    <div class="archive-footer">
+      <span>&copy; 2026 Adam Zafir</span>
+      <a href="/">Return to homepage →</a>
+    </div>
+  </main>
+</div>
+
+<div class="ghost-sections">
+  <div id="hero-section" class="section" aria-hidden="true"></div>
+  <div id="philosophy-section" class="section" aria-hidden="true"></div>
+  <div id="contact-section" class="section" aria-hidden="true"></div>
+  <div id="footer-section" class="section" aria-hidden="true"></div>
+  <div id="flash"></div>
+  <div class="scroll-hint"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+<script>
+const backButton = document.querySelector('[data-back-link]');
+
+if (backButton) {
+  backButton.addEventListener('click', () => {
+    if (sessionStorage.getItem('adamzafir-return-scroll')) {
+      history.back();
+      return;
+    }
+
+    window.location.href = '/';
+  });
+}
+</script>
+</body>
+</html>

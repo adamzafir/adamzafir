@@ -1,0 +1,51 @@
+- generic [ref=e2]:
+  - button "Back Home" [ref=e4] [cursor=pointer]
+  - main [ref=e5]:
+    - heading "Projects" [level=1] [ref=e7]
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - generic [ref=e10]: 01 / Product
+        - generic [ref=e11]:
+          - heading "Orbit Desk" [level=3] [ref=e12]
+          - paragraph [ref=e13]: A lightweight operating layer for founders tracking weekly momentum, blockers, and releases without adding admin overhead.
+        - link "Placeholder →" [ref=e14] [cursor=pointer]:
+          - /url: /
+      - generic [ref=e15]:
+        - generic [ref=e16]: 02 / Tooling
+        - generic [ref=e17]:
+          - heading "Branchlight" [level=3] [ref=e18]
+          - paragraph [ref=e19]: A release dashboard for visualizing branch ownership, deployment risk, and outstanding review pressure across a shipping cycle.
+        - link "Placeholder →" [ref=e20] [cursor=pointer]:
+          - /url: /
+      - generic [ref=e21]:
+        - generic [ref=e22]: 03 / Platform
+        - generic [ref=e23]:
+          - heading "Studio Campus" [level=3] [ref=e24]
+          - paragraph [ref=e25]: An online coding cohort space focused on collaborative practice, shared exercises, and small-group accountability.
+        - link "Placeholder →" [ref=e26] [cursor=pointer]:
+          - /url: /
+      - generic [ref=e27]:
+        - generic [ref=e28]: 04 / Native
+        - generic [ref=e29]:
+          - heading "Signal Notes" [level=3] [ref=e30]
+          - paragraph [ref=e31]: A rehearsal workspace for shaping speaking flow, pacing, and narrative confidence with less friction before delivery.
+        - link "Placeholder →" [ref=e32] [cursor=pointer]:
+          - /url: /
+      - generic [ref=e33]:
+        - generic [ref=e34]: 05 / Commerce
+        - generic [ref=e35]:
+          - heading "Night Market" [level=3] [ref=e36]
+          - paragraph [ref=e37]: A boutique storefront concept built around denser storytelling, fewer distractions, and stronger product framing.
+        - link "Placeholder →" [ref=e38] [cursor=pointer]:
+          - /url: /
+      - generic [ref=e39]:
+        - generic [ref=e40]: 06 / Ambient UX
+        - generic [ref=e41]:
+          - heading "Quiet Mode" [level=3] [ref=e42]
+          - paragraph [ref=e43]: A calmer digital workspace exploring low-pressure interaction patterns and more deliberate visual pacing.
+        - link "Placeholder →" [ref=e44] [cursor=pointer]:
+          - /url: /
+    - generic [ref=e45]:
+      - generic [ref=e46]: © 2026 Adam Zafir
+      - link "Return to homepage →" [ref=e47] [cursor=pointer]:
+        - /url: /

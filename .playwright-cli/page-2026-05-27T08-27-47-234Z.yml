@@ -1,0 +1,132 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "Adam Zafir" [ref=e5] [cursor=pointer]:
+        - /url: /
+      - link "Back Home" [ref=e6] [cursor=pointer]:
+        - /url: /
+  - main [ref=e7]:
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - generic [ref=e11]: Project Archive
+        - heading "More things I've shipped, tested, or pushed into orbit." [level=1] [ref=e12]:
+          - text: More things I've
+          - strong [ref=e13]: shipped, tested, or pushed into orbit.
+        - paragraph [ref=e14]: A broader stack of work in the same universe as the homepage. The entries below are placeholders for now, but the structure is ready for real case studies, links, and launch states.
+      - complementary [ref=e15]:
+        - generic [ref=e16]:
+          - generic [ref=e17]: Current mode
+          - heading "Prototype field notes" [level=2] [ref=e18]
+          - paragraph [ref=e19]: Each card below pairs a short product direction with a sculptural 3D study. The visuals stay atmospheric and minimal, but the archive can scale cleanly as more real projects get added.
+        - generic [ref=e20]:
+          - generic [ref=e21]:
+            - strong [ref=e22]: "06"
+            - generic [ref=e23]: Placeholder builds
+          - generic [ref=e24]:
+            - strong [ref=e25]: 3D
+            - generic [ref=e26]: Immersive objects
+          - generic [ref=e27]:
+            - strong [ref=e28]: Same
+            - generic [ref=e29]: Visual language
+    - generic [ref=e31]:
+      - generic [ref=e32]:
+        - generic [ref=e33]:
+          - generic [ref=e34]: Selected explorations
+          - heading "Placeholder projects with real structure." [level=2] [ref=e35]
+        - paragraph [ref=e36]: When you replace these with actual work, you can swap the title, description, state, and destination without reworking the layout. The project cards are already tuned for both desktop and mobile.
+      - generic [ref=e37]:
+        - article [ref=e38]:
+          - generic [ref=e44]:
+            - generic [ref=e45]: 01 / Product System
+            - generic [ref=e46]: Web App
+          - generic [ref=e47]:
+            - heading "Orbit OS" [level=3] [ref=e48]
+            - paragraph [ref=e49]: A control surface for coordinating small product teams, decision logs, and weekly ship cycles with less meeting drag.
+          - generic [ref=e50]:
+            - generic [ref=e51]: Realtime
+            - generic [ref=e52]: Operations
+            - generic [ref=e53]: UI Systems
+          - generic [ref=e54]:
+            - generic [ref=e55]: Placeholder entry
+            - link "Case study soon →" [ref=e56] [cursor=pointer]:
+              - /url: /
+        - article [ref=e57]:
+          - generic [ref=e63]:
+            - generic [ref=e64]: 02 / Native Tool
+            - generic [ref=e65]: Swift
+          - generic [ref=e66]:
+            - heading "Signal Notes" [level=3] [ref=e67]
+            - paragraph [ref=e68]: A focused speaking and rehearsal workspace for shaping narrative flow, timing, and delivery under real constraints.
+          - generic [ref=e69]:
+            - generic [ref=e70]: Speech
+            - generic [ref=e71]: Performance
+            - generic [ref=e72]: Apple
+          - generic [ref=e73]:
+            - generic [ref=e74]: Placeholder entry
+            - link "Case study soon →" [ref=e75] [cursor=pointer]:
+              - /url: /
+        - article [ref=e76]:
+          - generic [ref=e82]:
+            - generic [ref=e83]: 03 / Education
+            - generic [ref=e84]: Platform
+          - generic [ref=e85]:
+            - heading "Studio Campus" [level=3] [ref=e86]
+            - paragraph [ref=e87]: An online lab for cohort-based coding sessions, peer feedback, and lightweight progress tracking across practical challenges.
+          - generic [ref=e88]:
+            - generic [ref=e89]: Learning
+            - generic [ref=e90]: Community
+            - generic [ref=e91]: Browser IDE
+          - generic [ref=e92]:
+            - generic [ref=e93]: Placeholder entry
+            - link "Case study soon →" [ref=e94] [cursor=pointer]:
+              - /url: /
+        - article [ref=e95]:
+          - generic [ref=e101]:
+            - generic [ref=e102]: 04 / Commerce
+            - generic [ref=e103]: Experimental
+          - generic [ref=e104]:
+            - heading "Night Market" [level=3] [ref=e105]
+            - paragraph [ref=e106]: A boutique storefront concept built around fewer products, stronger storytelling, and richer editorial product detail.
+          - generic [ref=e107]:
+            - generic [ref=e108]: Retail
+            - generic [ref=e109]: Storytelling
+            - generic [ref=e110]: Conversion
+          - generic [ref=e111]:
+            - generic [ref=e112]: Placeholder entry
+            - link "Case study soon →" [ref=e113] [cursor=pointer]:
+              - /url: /
+        - article [ref=e114]:
+          - generic [ref=e120]:
+            - generic [ref=e121]: 05 / Internal Tooling
+            - generic [ref=e122]: Workflow
+          - generic [ref=e123]:
+            - heading "Branchlight" [level=3] [ref=e124]
+            - paragraph [ref=e125]: A release coordination dashboard for mapping branches, owners, blockers, and deployment risk before things drift.
+          - generic [ref=e126]:
+            - generic [ref=e127]: Engineering
+            - generic [ref=e128]: CI
+            - generic [ref=e129]: Delivery
+          - generic [ref=e130]:
+            - generic [ref=e131]: Placeholder entry
+            - link "Case study soon →" [ref=e132] [cursor=pointer]:
+              - /url: /
+        - article [ref=e133]:
+          - generic [ref=e139]:
+            - generic [ref=e140]: 06 / Research
+            - generic [ref=e141]: Prototype
+          - generic [ref=e142]:
+            - heading "Quiet Mode" [level=3] [ref=e143]
+            - paragraph [ref=e144]: A digital focus environment that reduces interface pressure and helps people maintain a calmer, more deliberate working cadence.
+          - generic [ref=e145]:
+            - generic [ref=e146]: Productivity
+            - generic [ref=e147]: Ambient UX
+            - generic [ref=e148]: Systems
+          - generic [ref=e149]:
+            - generic [ref=e150]: Placeholder entry
+            - link "Case study soon →" [ref=e151] [cursor=pointer]:
+              - /url: /
+  - contentinfo [ref=e152]:
+    - generic [ref=e153]:
+      - generic [ref=e154]: © 2026 Adam Zafir — project archive
+      - link "Return to homepage →" [ref=e155] [cursor=pointer]:
+        - /url: /

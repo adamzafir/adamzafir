@@ -1,0 +1,22 @@
+- generic [ref=e2]:
+  - generic [ref=e3]: Projects
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - heading "PyCollab" [level=3] [ref=e6]
+      - paragraph [ref=e7]: Realtime collaborative Python in the browser. A zero-setup coding environment built for shared momentum.
+      - link "pycollab.com →" [ref=e8] [cursor=pointer]:
+        - /url: https://pycollab.com
+    - generic [ref=e9]:
+      - heading "Scripties" [level=3] [ref=e10]
+      - paragraph [ref=e11]: A speaking tool focused on structure, delivery, and measurable rehearsal sessions. Built during Swift Accelerator Programme 2025.
+      - link "Scripties →" [ref=e12] [cursor=pointer]:
+        - /url: https://scripties-4ug0.onrender.com/
+    - generic [ref=e13]:
+      - heading "Cats By Adam" [level=3] [ref=e14]
+      - paragraph [ref=e15]: Not everything needs to be serious to be useful. Personality still matters in a portfolio.
+      - link "cats.adamzafir.com →" [ref=e16] [cursor=pointer]:
+        - /url: https://cats.adamzafir.com
+  - link "See More Projects" [ref=e18] [cursor=pointer]:
+    - /url: /projects/
+    - generic [ref=e19]: See More Projects
+    - generic [ref=e20]: →
