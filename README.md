@@ -28,6 +28,8 @@ a student at school. dev on internet. i write sometimes too.
 
 * [CDmation](https://admz.link/cdmation) — Automations for your CDs.
 
+* [Aliasy](https://admz.link/aliasy) — Persistent alias manager for zsh.
+
 * [Clock CLI](https://admz.link/clock-cli) — Live terminal clock, timer, and stopwatch for zsh.
 
 * [Random CLI](https://admz.link/random-cli) — CLI for all things random.
