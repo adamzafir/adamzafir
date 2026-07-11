@@ -1,0 +1,125 @@
+- generic [active] [ref=f1e1]:
+  - generic [ref=f1e2]: ⚠ BEST VIEWED WITH SOUND ON • COOKIES ON • CREDIT CARD OUT ⚠
+  - banner [ref=f1e3]:
+    - link "Perfect Site home" [ref=f1e4] [cursor=pointer]:
+      - /url: "#"
+      - text: PERFECTSITE
+      - superscript [ref=f1e5]: ™
+    - navigation [ref=f1e6]:
+      - link "WHY US" [ref=f1e7] [cursor=pointer]:
+        - /url: "#why"
+      - link "PROOF" [ref=f1e8] [cursor=pointer]:
+        - /url: "#proof"
+      - link "PRICING" [ref=f1e9] [cursor=pointer]:
+        - /url: "#pricing"
+      - link "FAQ" [ref=f1e10] [cursor=pointer]:
+        - /url: "#faq"
+    - button "CLAIM 97% OFF" [ref=f1e11] [cursor=pointer]
+  - generic [ref=f1e12]: "🔥 BREAKING: THE INTERNET IS ENDING SOON ★ ONLY 2 SUBSCRIPTIONS LEFT ★ TOM JUST BOUGHT PREMIUM ★ 127 PEOPLE ARE VIEWING THIS PAGE ★ DOWNLOAD OUR APP ★"
+  - main [ref=f1e14]:
+    - generic [ref=f1e15]:
+      - generic [ref=f1e16]:
+        - paragraph [ref=f1e17]: "#1 WEBSITE ON THE WORLD WIDE WEB*"
+        - heading [level=1] [ref=f1e18]:
+          - text: Finally, a website that has
+          - emphasis [ref=f1e19]: everything.
+        - paragraph [ref=f1e20]: Stop choosing. Stop thinking. Stop reading this. Our patented engagement technology makes every second online feel much, much longer.
+        - generic [ref=f1e21]:
+          - button "SPIN TO MAYBE WIN" [ref=f1e22] [cursor=pointer]
+          - button "ALLOW EVERYTHING →" [ref=f1e23] [cursor=pointer]
+        - paragraph [ref=f1e24]: "*According to a survey we prevented visitors from closing."
+      - generic [ref=f1e25]:
+        - generic [ref=f1e26]:
+          - text: VOTED
+          - strong [ref=f1e28]: BEST
+          - text: ★★★★★
+        - generic [ref=f1e30]:
+          - generic [ref=f1e31]: 🔒 totally-secure.biz
+          - generic [ref=f1e36]:
+            - generic [ref=f1e37]: SUBSCRIBE!
+            - generic [ref=f1e38]: COOKIES?
+            - generic [ref=f1e39]: WAIT!
+            - generic [ref=f1e40]: 10% OFF
+            - generic [ref=f1e41]: ☝️
+    - generic [ref=f1e42]:
+      - paragraph [ref=f1e43]: TRUSTED BY COMPANIES THAT LOOK ALMOST REAL
+      - generic [ref=f1e44]:
+        - generic [ref=f1e45]: Macrosoft
+        - generic [ref=f1e46]: googel
+        - generic [ref=f1e47]: AMAZIN
+        - generic [ref=f1e48]: FaceLook
+        - generic [ref=f1e49]: NETFLUX
+    - generic [ref=f1e50]:
+      - article [ref=f1e51]:
+        - paragraph [ref=f1e52]: AI-GENERATED THOUGHT LEADERSHIP
+        - heading "The future of websites is already here, and it would like your email address." [level=2] [ref=f1e53]
+        - paragraph [ref=f1e54]: In today's fast-paced digital landscape, attention is the new currency. That is why we use all of it. Perfect Site combines conversion optimization, user engagement, artificial intelligence, artificial scarcity, actual annoyance, and several technologies whose names we forgot.
+        - heading "Our revolutionary process" [level=3] [ref=f1e55]
+        - paragraph [ref=f1e56]: First, we establish trust using a cookie banner that covers the entire page. Next, we deploy a newsletter popup behind it so you can enjoy a small surprise later. Finally, our AI chatbot asks whether you need help before you have had time to develop a problem.
+        - generic [ref=f1e57]:
+          - generic [ref=f1e58]: SPONSORED CONTENT
+          - strong [ref=f1e59]: Doctors HATE this one weird website.
+          - button "Discover why →" [ref=f1e60]
+        - paragraph [ref=f1e61]: Independent research from the Perfect Site Institute found that 104% of visitors prefer pages with autoplay video, bouncing widgets, fake viewers, infinite notifications, and at least three competing calls to action.
+      - complementary [ref=f1e62]:
+        - generic [ref=f1e63]:
+          - text: ✦ AI SUMMARY
+          - paragraph [ref=f1e64]: You don't need to read this page. It wants money and permissions.
+          - button "Regenerate summary" [ref=f1e65]
+        - generic [ref=f1e66]:
+          - text: THIS OFFER SELF-DESTRUCTS IN
+          - strong [ref=f1e67]: 09:59
+          - text: Timer resets honestly*
+  - generic [ref=f1e68]:
+    - button "×" [ref=f1e69]
+    - generic [ref=f1e70]: ▶
+    - generic [ref=f1e73]:
+      - generic [ref=f1e74]: "LIVE: Why your pores are costing you money"
+      - generic [ref=f1e75]: Ad ends in ∞
+  - generic [ref=f1e76]:
+    - generic [ref=f1e77]: 🧑🏻
+    - generic [ref=f1e78]:
+      - generic [ref=f1e79]: Tom from Somewhere
+      - generic [ref=f1e80]: just bought Premium!
+  - button "1 💬 Need help?" [ref=f1e81]:
+    - generic [ref=f1e82]: "1"
+    - text: 💬
+    - generic [ref=f1e83]: Need help?
+  - button "★ RATE US!" [ref=f1e84]
+  - generic [ref=f1e85]:
+    - generic [ref=f1e86]:
+      - generic [ref=f1e87]: AI
+      - generic [ref=f1e88]:
+        - generic [ref=f1e89]: PerfectBot
+        - generic [ref=f1e90]: Always watching
+      - button "×" [ref=f1e91]
+    - generic [ref=f1e92]:
+      - paragraph [ref=f1e93]: Hi Adam! 👋 I noticed you moved your mouse. Need help buying Premium?
+      - generic [ref=f1e94]: ● ● ●
+    - generic [ref=f1e95]:
+      - button "Yes!" [ref=f1e96]
+      - button "Also yes!" [ref=f1e97]
+    - generic [ref=f1e98]:
+      - textbox "Type personal information..." [ref=f1e99]
+      - button "➤" [ref=f1e100]
+  - generic [ref=f1e101]:
+    - generic [ref=f1e102]: ANNOYANCE
+    - generic [ref=f1e105]: 32%
+  - generic [ref=f1e107]:
+    - generic [ref=f1e108]: 🍪
+    - generic [ref=f1e109]:
+      - paragraph [ref=f1e110]: YOUR PRIVACY IS IMPORTANT TO OUR REVENUE
+      - heading "We value your cookies." [level=2] [ref=f1e111]
+      - paragraph [ref=f1e112]: We and our 1,847 partners use precise location, device fingerprinting, browsing history, and vibes to provide a more invasive experience. By blinking, you agree.
+    - generic [ref=f1e113]:
+      - button "ACCEPT EVERYTHING" [ref=f1e114] [cursor=pointer]
+      - button "Manage 1,847 choices" [ref=f1e115]
+      - link "Reject unnecessary" [ref=f1e116] [cursor=pointer]:
+        - /url: "#"
+  - contentinfo [ref=f1e117]:
+    - generic [ref=f1e118]:
+      - text: 🔥 97% OFF ends in
+      - strong [ref=f1e119]: 09:59
+    - button "CLAIM DEAL" [ref=f1e120]
+    - button "×" [ref=f1e121]
+  - generic [ref=f1e122]: Your preferences have been sold!

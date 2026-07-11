@@ -1,0 +1,9 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]: AMath PT
+    - generic [ref=e4]: Local admin
+  - main [ref=e5]:
+    - paragraph [ref=e6]: Booking control
+    - heading "Manage bookings." [level=1] [ref=e7]
+    - paragraph [ref=e8]: Connected to the live Railway backend. This console is only available on your Mac.
+    - generic [ref=e9]: Loading bookings…

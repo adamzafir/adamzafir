@@ -8,6 +8,8 @@ a student at school. dev on internet. i write sometimes too.
 
 * [PyCollab](https://pycollab.com) — Realtime collaboration-first Python editor.
 
+* [Cursors.win](https://cursors.win) — Browser-based multiplayer cursor PvP.
+
 * [Scripties](https://scripties-4ug0.onrender.com/) — Teleprompter for practicing presentations. Built as part of the Swift Accelerator Programme 2025.
 
 * [Cats By Adam](https://cats.adamzafir.com) — Cats as a Service (CaaS)
