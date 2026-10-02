@@ -18,6 +18,8 @@ a student at school. dev on internet. i write sometimes too.
 
 * [Thumbnail Builder](https://thumbnail.zafir.dev) — Clickbait thumbnail maker.
 
+* [Psst](https://github.com/adamzafir/psst) — Native macOS voice-to-AI app. Hold Option–Space to ask a question and get a streamed, on-device answer in a floating glass popup.
+
 * [WindowNotes](https://github.com/adamzafir/windownotes) — Native macOS menu bar app for attaching draggable notes to existing windows.
 
 * [Voxel Snake](https://snake.zafir.dev) — 3d snake game.
